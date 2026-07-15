@@ -44,7 +44,7 @@ CyberSecurity-From-Scratch
 |----------|:------:|------|
 | Linux | ✅ | Complete |
 | Networking | ✅ | Complete |
-| Cybersecurity Fundamentals | 🚧 | In Progress |
+| Cybersecurity Fundamentals | ✅ | Complete  |
 | Cryptography | ⏳ | Planned |
 | Web Security | ⏳ | Planned |
 | TryHackMe | ⏳ | Planned |
