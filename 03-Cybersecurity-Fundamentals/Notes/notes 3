@@ -1,0 +1,449 @@
+---
+notes: |
+  🛡️ Password Security & Authentication Attacks
+  1. Introduction
+
+  Passwords are the first line of defense for almost every digital system.
+
+  Whether logging into:
+
+  Gmail
+  GitHub
+  Linux
+  Banking Apps
+  College Portal
+
+  the first security mechanism is usually a password.
+
+  Unfortunately, passwords are also one of the weakest security points because humans often choose weak or predictable passwords.
+
+  Cyber attackers exploit this behavior using different password attacks.
+
+  Why Password Security Matters
+
+  Suppose an attacker steals your Gmail password.
+
+  They may also gain access to:
+
+  Google Drive
+  Photos
+  Contacts
+  Password Reset Emails
+  Banking OTP Emails
+  GitHub
+
+  One compromised password can lead to multiple compromised accounts.
+
+  Common Causes of Password Compromise
+
+  Passwords are usually stolen because of:
+
+  Weak passwords
+  Password reuse
+  Phishing
+  Data breaches
+  Social engineering
+  Malware
+  Poor password policies
+  2. Brute Force Attack
+  Definition
+
+  A Brute Force Attack attempts every possible password combination until the correct password is found.
+
+  Instead of guessing intelligently, the attacker systematically tries every possible combination.
+
+  Example
+
+  Suppose the password is:
+
+  cat
+
+  The attacker tries:
+
+  aaa
+  aab
+  aac
+  ...
+  cat
+
+  Eventually, the correct password is found.
+
+  Real-Life Analogy
+
+  Imagine trying every key on a giant keychain until one opens a locked door.
+
+  Advantages (for the attacker)
+  Guaranteed to work eventually
+  No knowledge of the password required
+  Disadvantages
+  Extremely slow
+  Long passwords make brute force practically impossible
+  Easily detected by security systems
+  Defenses
+  Long passwords
+  Multi-Factor Authentication (MFA)
+  Account Lockout
+  Rate Limiting
+  3. Dictionary Attack
+  Definition
+
+  Instead of trying every possible password, the attacker uses a dictionary containing common passwords.
+
+  Example Password List
+  password
+
+  123456
+
+  admin
+
+  welcome
+
+  india123
+
+  football
+
+  letmein
+
+  The attacker checks whether the user's password exists in this list.
+
+  Why Dictionary Attacks Work
+
+  Many users choose predictable passwords based on:
+
+  Names
+  Birthdays
+  Sports
+  Cities
+  Pets
+  Advantages
+  Faster than brute force
+  Effective against weak passwords
+  Disadvantages
+  Fails if users choose random passwords
+  Defense
+  Long passwords
+  Random passwords
+  Password Managers
+  Brute Force vs Dictionary Attack
+  Brute Force	Dictionary
+  Tries every combination	Tries common passwords
+  Slow	Faster
+  Guaranteed eventually	Works only if password is common
+  4. Password Spraying
+  Definition
+
+  Password Spraying attempts one common password against many different accounts.
+
+  Instead of attacking one user repeatedly, attackers spread their attempts across many users.
+
+  Example
+
+  Company:
+
+  500 Employees
+
+  Attacker tries:
+
+  Welcome123
+
+  against:
+
+  employee1
+
+  employee2
+
+  employee3
+
+  employee500
+
+  Eventually, someone may be using that password.
+
+  Why Attackers Use Password Spraying
+
+  Many systems lock an account after multiple failed login attempts.
+
+  Trying only one password per account avoids triggering account lockout.
+
+  Defense
+  Strong Password Policy
+  MFA
+  Account Monitoring
+  Brute Force vs Password Spraying
+  Brute Force
+
+  One Account
+
+  ↓
+
+  Many Passwords
+  Password Spraying
+
+  Many Accounts
+
+  ↓
+
+  One Password
+  5. Credential Stuffing
+  Definition
+
+  Credential Stuffing uses stolen usernames and passwords from one data breach to access accounts on other websites.
+
+  Example
+
+  Suppose a shopping website suffers a data breach.
+
+  Leaked password:
+
+  Soham@123
+
+  The attacker now tries the same credentials on:
+
+  Gmail
+  GitHub
+  Instagram
+  Amazon
+
+  If the user reused the password, multiple accounts are compromised.
+
+  Why Credential Stuffing Works
+
+  Many people reuse the same password across different services.
+
+  Defense
+  Unique password for every website
+  Password Manager
+  MFA
+  6. Phishing
+  Definition
+
+  Phishing is a social engineering attack where attackers trick users into revealing sensitive information such as passwords, OTPs, or banking details.
+
+  Example
+
+  Victim receives an email:
+
+  URGENT!
+
+  Your Bank Account Has Been Locked.
+
+  Click Here Immediately.
+
+  The link opens a fake banking website.
+
+  The victim enters:
+
+  Username
+  Password
+  OTP
+
+  The attacker steals everything.
+
+  Common Signs of Phishing
+  Urgent language
+  Unknown sender
+  Spelling mistakes
+  Suspicious URLs
+  Requests for passwords or OTPs
+  Defense
+  Verify the sender
+  Check URLs carefully
+  Never share OTPs
+  Enable MFA
+  7. Social Engineering
+  Definition
+
+  Social Engineering is the practice of manipulating people into performing actions that compromise security.
+
+  Unlike technical attacks, it targets human behavior rather than software vulnerabilities.
+
+  Why It Is Dangerous
+
+  Humans are often easier to deceive than computers.
+
+  Even highly secure systems can be compromised if users voluntarily reveal their credentials.
+
+  Common Types of Social Engineering
+  A. Phishing
+
+  Uses emails or fake websites.
+
+  B. Vishing
+
+  Voice phishing.
+
+  Example: "Hello. This is Microsoft Support. Please tell me your OTP."
+  C. Smishing
+
+  SMS phishing.
+
+  Example:
+
+  Your Bank Account Has Been Locked.
+
+  Click Here.
+  D. Baiting
+
+  The attacker leaves:
+
+  Salary_List_2026.pdf.exe
+
+  or
+
+  an infected USB drive.
+
+  The victim opens it.
+
+  Malware installs automatically.
+
+  E. Tailgating
+
+  An attacker follows an employee into a restricted building without authorization.
+
+  Phishing vs Social Engineering
+  Phishing	Social Engineering
+  Specific attack	Broader category
+  Usually email/websites	Targets human psychology
+  One type of social engineering	Includes phishing, vishing, smishing, baiting, tailgating
+  8. Password Policies
+
+  Organizations define password policies to improve security.
+
+  Typical rules include:
+
+  Minimum length of 12–16 characters
+  Uppercase letters
+  Lowercase letters
+  Numbers
+  Special characters
+  No common passwords
+  No password reuse
+  Example Policy
+  Minimum Length
+
+  16 Characters
+
+  ↓
+
+  Uppercase
+
+  ↓
+
+  Lowercase
+
+  ↓
+
+  Numbers
+
+  ↓
+
+  Special Characters
+  9. Account Lockout
+  Definition
+
+  Account Lockout temporarily disables an account after several failed login attempts.
+
+  Example:
+
+  Wrong Password
+
+  ↓
+
+  5 Attempts
+
+  ↓
+
+  Account Locked
+
+  ↓
+
+  30 Minutes
+  Advantages
+  Stops brute force attacks
+  Slows attackers
+  Disadvantages
+
+  Attackers may intentionally lock users out of their own accounts (a form of Denial-of-Service).
+
+  Best Practices
+  Use unique passwords.
+  Enable MFA.
+  Use a password manager.
+  Never reuse passwords.
+  Be cautious of suspicious emails.
+  Verify website URLs.
+  Never share OTPs.
+  Attack Comparison
+  Attack	Strategy	Primary Defense
+  Brute Force	Every password	Long passwords, MFA
+  Dictionary	Common passwords	Strong passwords
+  Password Spraying	One password, many accounts	Password policy, MFA
+  Credential Stuffing	Reused leaked credentials	Unique passwords, MFA
+  Phishing	Trick the user	Awareness, MFA
+  Vishing	Voice calls	Verify caller
+  Smishing	SMS	Verify links
+  Baiting	Fake files/USB	User awareness
+  Quick Revision
+  Weak Password
+
+  ↓
+
+  Password Attacks
+
+  ↓
+
+  Brute Force
+
+  Dictionary
+
+  Password Spraying
+
+  Credential Stuffing
+
+  ↓
+
+  Social Engineering
+
+  ↓
+
+  Phishing
+
+  Vishing
+
+  Smishing
+
+  Baiting
+
+  ↓
+
+  MFA
+
+  ↓
+
+  Secure Account
+
+
+  Common Interview Questions
+  What is a Brute Force Attack?
+  Explain the difference between Brute Force and Dictionary Attack.
+  What is Password Spraying?
+  What is Credential Stuffing?
+  Why does password reuse increase security risks?
+  Explain Phishing with an example.
+  What is Social Engineering?
+  Differentiate between Phishing, Vishing, and Smishing.
+  What is Baiting?
+  What is Tailgating?
+  What is an Account Lockout?
+  Why do organizations implement password policies?
+  Name three defenses against password attacks.
+  How does MFA reduce the effectiveness of password attacks?
+
+  💡 Key Takeaways
+
+  Brute Force tries every possible password, while Dictionary Attacks rely on common passwords.
+  Password Spraying targets many users with one common password, whereas Credential Stuffing reuses stolen credentials from data breaches.
+  Phishing is a form of Social Engineering, which focuses on exploiting human behavior rather than technical vulnerabilities.
+  Strong, unique passwords, MFA, password managers, and user awareness are the most effective defenses against authentication attacks.
+  Security is not only about technology—it also depends on educating users to recognize and resist social engineering attempts.
+
+

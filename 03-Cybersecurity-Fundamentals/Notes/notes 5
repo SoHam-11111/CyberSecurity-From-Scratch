@@ -1,0 +1,508 @@
+🔑 Symmetric vs Asymmetric Encryption
+1. Introduction
+
+Encryption is used to protect information from unauthorized access. However, there are two different ways encryption can be performed.
+
+These are:
+
+Symmetric Encryption
+Asymmetric Encryption
+
+Both provide confidentiality but differ in how they manage encryption keys.
+
+Modern secure communication (HTTPS, SSH, VPNs, Email Encryption) uses both techniques together.
+
+Why Do We Need Two Types?
+
+Suppose Alice wants to send a confidential message to Bob.
+
+The first question is:
+
+How will Alice and Bob share the encryption key securely?
+
+If an attacker steals the key during transmission, the encrypted message becomes useless.
+
+To solve this problem, modern cryptography introduced Asymmetric Encryption.
+
+2. Symmetric Encryption
+Definition
+
+Symmetric Encryption uses one secret key for both:
+
+Encryption
+Decryption
+
+The sender and receiver must already know the same secret key.
+
+Working
+             Secret Key
+                 │
+                 ▼
+Plaintext → Encryption → Ciphertext
+                                 │
+                                 ▼
+                     Decryption (Same Key)
+                                 │
+                                 ▼
+                           Plaintext
+Example
+
+Alice wants to send:
+
+Hello Bob
+
+Both Alice and Bob know:
+
+Secret Key = ABC123
+
+Alice encrypts the message using ABC123.
+
+Bob decrypts the message using the same key.
+
+Real-Life Analogy
+
+Imagine a locker.
+
+Both you and your friend possess identical copies of the same key.
+
+One person locks it.
+
+The other unlocks it.
+
+The same key performs both operations.
+
+Advantages
+Very fast
+Efficient for large amounts of data
+Requires less computational power
+Suitable for file encryption and network communication
+Disadvantages
+
+The biggest challenge is key distribution.
+
+How do both users obtain the secret key securely?
+
+If the key is intercepted:
+
+All encrypted data becomes readable.
+Popular Symmetric Algorithms
+Algorithm	Status
+AES	✅ Modern Standard
+ChaCha20	✅ Modern Standard
+DES	❌ Deprecated
+3DES	⚠ Legacy
+AES (Advanced Encryption Standard)
+
+AES is the world's most widely used symmetric encryption algorithm.
+
+It protects:
+
+HTTPS
+Wi-Fi (WPA2/WPA3)
+VPNs
+Banking Systems
+Government Networks
+Key Sizes
+
+AES supports:
+
+128-bit
+192-bit
+256-bit
+
+Larger keys provide stronger security.
+
+3. Asymmetric Encryption
+Definition
+
+Asymmetric Encryption uses two mathematically related keys:
+
+Public Key
+Private Key
+
+Unlike symmetric encryption, the encryption key and decryption key are different.
+
+Public Key
+
+The Public Key can be shared freely.
+
+Anyone can download it.
+
+It is used for:
+
+Encryption
+Signature Verification
+Private Key
+
+The Private Key must remain secret.
+
+Only the owner should possess it.
+
+It is used for:
+
+Decryption
+Creating Digital Signatures
+Working
+Public Key
+
+↓
+
+Encryption
+
+↓
+
+Ciphertext
+
+↓
+
+Private Key
+
+↓
+
+Decryption
+
+↓
+
+Plaintext
+Example
+
+Bob creates:
+
+Public Key
+
+Private Key
+
+Bob uploads the Public Key to his website.
+
+Alice downloads it.
+
+Alice encrypts:
+
+Hello Bob
+
+using Bob's Public Key.
+
+Only Bob can decrypt it because only Bob has the Private Key.
+
+Real-Life Analogy
+
+Imagine a mailbox.
+
+Anyone can place letters inside.
+
+Only the owner has the key to open it.
+
+Everyone
+
+↓
+
+Insert Letter
+
+↓
+
+Mailbox
+
+↓
+
+Owner Opens
+
+This is exactly how public key encryption works.
+
+Advantages
+No need to secretly exchange keys beforehand.
+Suitable for secure communication over the Internet.
+Solves the key distribution problem.
+Disadvantages
+Slower than symmetric encryption.
+Computationally expensive.
+Not suitable for encrypting very large files.
+Popular Asymmetric Algorithms
+Algorithm	Status
+RSA	Widely Used
+ECC	Modern Standard
+DSA	Mainly Digital Signatures
+RSA (Rivest-Shamir-Adleman)
+
+RSA is one of the oldest and most widely used public-key cryptographic algorithms.
+
+Applications:
+
+HTTPS
+SSH
+Email Encryption
+Digital Signatures
+
+RSA is mainly used for:
+
+Secure Key Exchange
+Authentication
+
+It is not used to encrypt large amounts of data because it is much slower than AES.
+
+ECC (Elliptic Curve Cryptography)
+
+ECC provides the same level of security as RSA while using much smaller keys.
+
+Advantages:
+
+Faster
+Smaller keys
+Lower CPU usage
+Common on mobile devices
+
+Many modern HTTPS websites now prefer ECC.
+
+Symmetric vs Asymmetric Encryption
+Feature	Symmetric	Asymmetric
+Number of Keys	One	Two
+Encryption Key	Same as Decryption Key	Public Key
+Decryption Key	Same Key	Private Key
+Speed	Very Fast	Slower
+Used For	Data Encryption	Key Exchange & Authentication
+Examples	AES, ChaCha20	RSA, ECC
+4. Why Doesn't HTTPS Use Only RSA?
+
+Suppose Google wants to encrypt:
+
+20 GB Video
+
+using RSA.
+
+RSA is computationally expensive.
+
+Encryption would become extremely slow.
+
+Instead, HTTPS combines both encryption methods.
+
+HTTPS Workflow
+
+Step 1
+
+Browser connects to Google.
+
+↓
+
+Step 2
+
+Google sends:
+
+Public Key
+Digital Certificate
+
+↓
+
+Step 3
+
+Browser verifies the certificate.
+
+↓
+
+Step 4
+
+Browser generates a random AES session key.
+
+↓
+
+Step 5
+
+Browser encrypts the AES key using Google's Public Key.
+
+↓
+
+Step 6
+
+Google decrypts it using its Private Key.
+
+↓
+
+Step 7
+
+Both now share the same AES key.
+
+↓
+
+Step 8
+
+Everything else is encrypted using AES.
+
+Complete HTTPS Flow
+Browser
+
+↓
+
+DNS Lookup
+
+↓
+
+TCP Handshake
+
+↓
+
+TLS Handshake
+
+↓
+
+Certificate Verification
+
+↓
+
+RSA / ECC
+
+↓
+
+AES Session Key Exchange
+
+↓
+
+AES Encryption
+
+↓
+
+Secure HTTPS Communication
+Why Use Both?
+
+RSA provides:
+
+✅ Secure key exchange.
+
+AES provides:
+
+✅ Fast encryption.
+
+Combining them provides:
+
+Speed
+Security
+Scalability
+Real-World Examples
+Technology	Uses
+HTTPS	RSA/ECC + AES
+SSH	RSA/ECC + AES
+VPN	RSA/ECC + AES
+Signal	ECC + AES
+WhatsApp	ECC + AES
+Common Misconceptions
+❌ Public Key must remain secret.
+
+Correct:
+
+Public Keys are intentionally shared.
+
+❌ RSA encrypts all HTTPS traffic.
+
+Correct:
+
+RSA securely exchanges the AES session key.
+
+AES encrypts the actual communication.
+
+❌ AES uses Public and Private Keys.
+
+Correct:
+
+AES uses only one shared secret key.
+
+❌ Public Key can decrypt encrypted messages.
+
+Correct:
+
+Only the matching Private Key can decrypt data encrypted with the Public Key.
+
+Best Practices
+Protect Private Keys.
+Never expose Private Keys publicly.
+Use modern algorithms such as AES-256 and ECC.
+Avoid deprecated algorithms like DES.
+Use HTTPS instead of HTTP.
+Quick Revision
+Symmetric Encryption
+
+↓
+
+One Key
+
+↓
+
+AES
+
+↓
+
+Fast
+
+↓
+
+Large Data
+
+
+
+Asymmetric Encryption
+
+↓
+
+Two Keys
+
+↓
+
+RSA / ECC
+
+↓
+
+Key Exchange
+
+↓
+
+Authentication
+
+
+
+HTTPS
+
+↓
+
+RSA / ECC
+
+↓
+
+Exchange AES Key
+
+↓
+
+AES
+
+↓
+
+Encrypted Communication
+
+Summary Table
+Concept	Purpose
+Symmetric Encryption	Fast data encryption
+Asymmetric Encryption	Secure key exchange
+Public Key	Encrypt data / Verify signatures
+Private Key	Decrypt data / Create signatures
+AES	Symmetric algorithm
+RSA	Asymmetric algorithm
+ECC	Modern asymmetric algorithm
+
+
+Common Interview Questions
+What is Symmetric Encryption?
+What is Asymmetric Encryption?
+Explain the difference between Symmetric and Asymmetric Encryption.
+Why is AES faster than RSA?
+Why doesn't HTTPS use only RSA?
+What is a Public Key?
+What is a Private Key?
+What are the advantages of Asymmetric Encryption?
+Why is AES widely used?
+Explain the HTTPS encryption workflow.
+What is ECC and why is it preferred over RSA in many modern systems?
+What is the difference between RSA and AES?
+
+
+💡 Key Takeaways
+Symmetric Encryption uses a single shared key and is ideal for encrypting large amounts of data quickly.
+Asymmetric Encryption uses a public/private key pair and solves the problem of securely exchanging keys over the Internet.
+AES is the most widely used symmetric algorithm because of its speed and strong security.
+RSA and ECC are primarily used for secure key exchange and authentication rather than encrypting large files.
+Modern protocols such as HTTPS, SSH, and VPNs combine RSA/ECC with AES, providing both secure key exchange and efficient encrypted communication.
+Understanding this combination is essential for understanding how secure web communication works in the real world.

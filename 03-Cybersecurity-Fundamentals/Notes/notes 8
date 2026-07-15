@@ -1,0 +1,525 @@
+🦠 Malware & Common Cyber Attacks
+1. Introduction
+
+Cyber attacks do not always begin with hackers typing commands into a terminal.
+
+Many attacks begin when a victim unknowingly:
+
+Opens a malicious email attachment
+Downloads pirated software
+Clicks a fake advertisement
+Connects an infected USB drive
+
+These attacks often involve Malware.
+
+What is Malware?
+Definition
+
+Malware (Malicious Software) is software intentionally designed to:
+
+Damage systems
+Steal information
+Spy on users
+Encrypt files
+Gain unauthorized access
+Disrupt computer operations
+
+Malware is one of the most common tools used by cybercriminals.
+
+Goals of Malware
+
+Attackers create malware to:
+
+Steal passwords
+Monitor victims
+Encrypt files for ransom
+Build botnets
+Mine cryptocurrency
+Destroy data
+Spy on organizations
+Types of Malware
+
+The most common malware includes:
+
+Virus
+Worm
+Trojan
+Ransomware
+Spyware
+Adware
+2. Virus
+Definition
+
+A Virus is malicious software that attaches itself to another legitimate program or file.
+
+A virus cannot spread by itself.
+
+It requires user action to execute.
+
+How a Virus Works
+Infected File
+
+↓
+
+User Opens File
+
+↓
+
+Virus Executes
+
+↓
+
+Infects Other Files
+Example
+
+User downloads:
+
+CrackedPhotoshop.exe
+
+The file appears normal.
+
+When executed:
+
+Virus activates.
+Infects other files.
+May damage the operating system.
+Characteristics
+
+✅ Needs a host file
+
+✅ Requires user interaction
+
+❌ Cannot self-replicate across networks
+
+Real-Life Analogy
+
+A biological virus needs a host body.
+
+Similarly,
+
+a computer virus needs a host file.
+
+3. Worm
+Definition
+
+A Worm is malware that spreads automatically across networks without requiring user interaction.
+
+Unlike viruses,
+
+worms do not need a host program.
+
+How a Worm Works
+Computer A
+
+↓
+
+Network Scan
+
+↓
+
+Computer B
+
+↓
+
+Computer C
+
+↓
+
+Entire Network
+Characteristics
+
+✅ Self-replicates
+
+✅ Spreads automatically
+
+✅ Very fast
+
+Real Example
+WannaCry (2017)
+
+WannaCry exploited a Windows vulnerability and infected more than 200,000 computers in over 150 countries within hours.
+
+It caused billions of dollars in damages.
+
+Virus vs Worm
+Virus	Worm
+Needs host file	No host file
+Requires user action	Automatic spread
+Slower	Very fast
+4. Trojan Horse
+Definition
+
+A Trojan is malware disguised as legitimate software.
+
+Unlike viruses and worms,
+
+Trojans rely on deception rather than self-replication.
+
+Example
+
+User downloads:
+
+Free PUBG Hack.exe
+
+The application appears legitimate.
+
+Behind the scenes it may:
+
+Install spyware
+Open a backdoor
+Steal passwords
+Download additional malware
+Characteristics
+Appears trustworthy
+Tricks the victim
+Does not spread automatically
+Real-Life Analogy
+
+The Trojan Horse from Greek mythology looked like a gift but secretly contained soldiers.
+
+Similarly,
+
+a Trojan appears harmless while hiding malicious code.
+
+5. Ransomware
+Definition
+
+Ransomware encrypts a victim's files and demands payment to restore access.
+
+How It Works
+
+Victim files:
+
+Photos
+
+Documents
+
+Projects
+
+↓
+
+Encrypted
+
+↓
+
+.photos.locked
+
+.doc.locked
+
+↓
+
+Ransom Note
+
+Pay $500 in Bitcoin
+Famous Examples
+WannaCry
+Ryuk
+LockBit
+REvil
+Protection Against Ransomware
+Regular backups
+Antivirus
+Software updates
+Email filtering
+User awareness training
+6. Spyware
+Definition
+
+Spyware secretly monitors user activity without permission.
+
+Its goal is to steal sensitive information.
+
+Information Collected
+Passwords
+Browser history
+Banking credentials
+Screenshots
+Keystrokes
+Keylogger
+
+A Keylogger is a type of spyware that records every key pressed on the keyboard.
+
+Example:
+
+Username
+
+↓
+
+Password
+
+↓
+
+OTP
+
+Everything typed is secretly recorded.
+
+7. Adware
+Definition
+
+Adware continuously displays unwanted advertisements.
+
+Although less dangerous than ransomware,
+
+it can:
+
+Slow down systems
+Track browsing activity
+Install additional unwanted software
+Example
+
+Every few minutes:
+
+Congratulations!
+
+You Won An iPhone!
+
+appears on the screen.
+
+Malware Comparison
+Malware	Primary Goal
+Virus	Infect files
+Worm	Spread automatically
+Trojan	Disguise itself
+Ransomware	Encrypt files
+Spyware	Steal information
+Adware	Display advertisements
+8. Denial of Service (DoS)
+Definition
+
+A Denial of Service (DoS) attack attempts to make a service unavailable by overwhelming it with excessive requests.
+
+Example
+
+Normal traffic:
+
+100 Requests / Second
+
+Attack traffic:
+
+100,000 Requests / Second
+
+The server becomes overloaded.
+
+Legitimate users cannot access the service.
+
+Characteristics
+Single attacking system
+Consumes server resources
+Makes services unavailable
+9. Distributed Denial of Service (DDoS)
+Definition
+
+A Distributed Denial of Service (DDoS) attack uses multiple compromised computers to flood a target simultaneously.
+
+Botnet
+
+A Botnet is a network of infected computers controlled by an attacker.
+
+PC1
+
+PC2
+
+PC3
+
+...
+
+100,000 Computers
+
+↓
+
+Target Website
+Why DDoS is Dangerous
+
+Unlike DoS,
+
+traffic comes from thousands of different devices,
+
+making it much harder to block.
+
+DoS vs DDoS
+DoS	DDoS
+One attacker	Many attackers
+Easier to block	Difficult to block
+Smaller scale	Large scale
+Common Defenses
+Rate Limiting
+Firewalls
+Web Application Firewalls (WAF)
+Load Balancers
+CDN (Cloudflare)
+DDoS Protection Services
+10. Insider Threat
+
+Not all attacks originate from external hackers.
+
+Sometimes,
+
+the threat comes from inside the organization.
+
+Definition
+
+An Insider Threat is a security risk caused by someone with legitimate access.
+
+Examples:
+
+Employee
+Contractor
+Former employee
+Business partner
+Examples
+Copying confidential data before resigning.
+Selling customer databases.
+Deleting important files.
+Installing malware.
+Protection
+
+Organizations reduce insider threats by implementing:
+
+Principle of Least Privilege (PoLP)
+Role-Based Access Control (RBAC)
+Logging
+Monitoring
+Employee awareness programs
+How Everything Connects
+Weak Password
+
+↓
+
+Phishing
+
+↓
+
+Malware
+
+↓
+
+Spyware
+
+↓
+
+Password Theft
+
+↓
+
+Credential Stuffing
+
+↓
+
+Unauthorized Access
+
+↓
+
+Ransomware
+
+↓
+
+Financial Loss
+
+Cyber attacks often occur in multiple stages rather than as a single event.
+
+Common Misconceptions
+❌ Every malware is a virus.
+
+Correct:
+
+Virus is only one type of malware.
+
+❌ Trojans spread automatically.
+
+Correct:
+
+Trojans rely on users executing them.
+
+❌ Antivirus stops every attack.
+
+Correct:
+
+No antivirus detects 100% of threats.
+
+Security requires multiple layers.
+
+❌ Paying ransomware guarantees file recovery.
+
+Correct:
+
+Attackers may never provide the decryption key.
+
+Best Practices
+Keep software updated.
+Enable automatic security updates.
+Use antivirus software.
+Avoid pirated software.
+Never open suspicious email attachments.
+Maintain offline backups.
+Enable MFA.
+Follow the Principle of Least Privilege.
+Quick Revision
+Malware
+
+↓
+
+Virus
+
+Worm
+
+Trojan
+
+Ransomware
+
+Spyware
+
+Adware
+
+↓
+
+DoS
+
+↓
+
+DDoS
+
+↓
+
+Insider Threat
+
+↓
+
+Security Controls
+
+
+Summary Table
+Attack	Purpose
+Virus	Infect files
+Worm	Spread automatically
+Trojan	Trick users
+Ransomware	Encrypt files for ransom
+Spyware	Monitor victims
+Adware	Display unwanted advertisements
+DoS	Overload a service
+DDoS	Distributed service overload
+Insider Threat	Attack from inside an organization
+
+Common Interview Questions
+What is Malware?
+Differentiate between Virus and Worm.
+What is a Trojan Horse?
+Explain Ransomware with an example.
+What is Spyware?
+What is a Keylogger?
+Explain the difference between DoS and DDoS.
+What is a Botnet?
+What is an Insider Threat?
+How can organizations defend against malware?
+Why are regular backups important in ransomware attacks?
+Why is antivirus alone not sufficient for security?
+
+
+💡 Key Takeaways
+Malware is malicious software designed to damage systems, steal information, or disrupt operations.
+Viruses require a host file and user interaction, while worms spread automatically across networks without user action.
+Trojans disguise themselves as legitimate software to trick users into installing malware.
+Ransomware encrypts files and demands payment, making regular backups one of the most effective defenses.
+Spyware, including keyloggers, silently collects sensitive information such as passwords and banking details.
+DoS attacks originate from a single system, whereas DDoS attacks use large botnets to overwhelm a target.
+Insider threats demonstrate that security risks can come from trusted users as well as external attackers.
+Effective cybersecurity relies on multiple layers of defense, including strong passwords, MFA, least privilege, software updates, antivirus, backups, user awareness, and continuous monitoring

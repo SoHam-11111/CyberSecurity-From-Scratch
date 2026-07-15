@@ -1,0 +1,509 @@
+🔐 Hashing & Password Storage
+1. Introduction
+
+When users create an account on a website, they provide a password.
+
+A common question is:
+
+Does the website store my actual password?
+
+The answer should be:
+
+No.
+
+Modern websites should never store passwords in plain text.
+
+Instead, they store a cryptographic hash of the password.
+
+Hashing protects user credentials even if the database is compromised.
+
+Why Do We Need Hashing?
+
+Imagine a website stores passwords like this:
+
+Username	Password
+Soham	Soham@123
+Rahul	Rahul@123
+
+If an attacker steals the database:
+
+Every password is immediately exposed.
+Users who reused passwords on other websites are also at risk.
+The attacker can perform Credential Stuffing attacks.
+
+This is why passwords should never be stored in plain text.
+
+2. What is Hashing?
+Definition
+
+Hashing is the process of converting data of any size into a fixed-length value, called a hash or message digest, using a mathematical algorithm.
+
+Unlike encryption:
+
+Hashing is a one-way process.
+
+The original data cannot be recovered from the hash.
+
+Hashing Process
+Input Data
+
+↓
+
+Hash Function
+
+↓
+
+Hash (Fixed Length)
+Example
+
+Password:
+
+Soham@123
+
+↓
+
+SHA-256
+
+↓
+
+9d2f1d8c0b7a3e5...
+
+The hash is not encrypted text.
+
+It is a unique mathematical representation of the original input.
+
+3. Properties of a Good Hash Function
+
+A secure hash function should satisfy the following properties.
+
+A. Deterministic
+
+The same input always produces the same output.
+
+Example:
+
+Hello
+
+↓
+
+SHA-256
+
+↓
+
+ABC123
+
+Every time.
+
+B. Fixed-Length Output
+
+Regardless of input size:
+
+Hi
+
+or
+
+Entire Wikipedia Database
+
+SHA-256 always produces:
+
+256-bit Hash
+C. Avalanche Effect
+
+A very small change in the input should completely change the hash.
+
+Example:
+
+Original:
+
+Hello
+
+↓
+
+Hash:
+
+ABC123
+
+Now change one character:
+
+hello
+
+↓
+
+Hash:
+
+XZ91PQ
+
+Even a one-letter change results in a completely different hash.
+
+D. One-Way Property
+
+Given:
+
+9D1A83BC...
+
+It should be computationally infeasible to recover:
+
+Soham@123
+
+This is why hashing is not encryption.
+
+4. Hash Functions
+
+A Hash Function is the mathematical algorithm used to generate a hash.
+
+Popular hash functions include:
+
+Algorithm	Status
+MD5	❌ Broken
+SHA-1	❌ Broken
+SHA-256	✅ Secure
+SHA-512	✅ Secure
+MD5
+
+Produces:
+
+128-bit Hash
+
+Historically popular.
+
+Today:
+
+❌ Not recommended.
+
+Reason:
+
+Attackers can generate collisions.
+
+SHA Family
+
+Modern systems use:
+
+SHA-256
+SHA-384
+SHA-512
+
+These provide significantly stronger security than MD5 and SHA-1.
+
+5. What is a Collision?
+Definition
+
+A Collision occurs when:
+
+Two different inputs produce the same hash output.
+
+Example:
+
+File A
+
+↓
+
+Hash
+
+↓
+
+ABC123
+File B
+
+↓
+
+Hash
+
+↓
+
+ABC123
+
+This should ideally never happen.
+
+Modern cryptographic hash functions make collisions extremely difficult to generate.
+
+6. Password Storage
+Incorrect Method
+Password
+
+↓
+
+Database
+
+Database:
+
+User	Password
+Soham	Soham@123
+
+If the database leaks:
+
+Everything is exposed.
+
+Correct Method
+Password
+
+↓
+
+SHA-256
+
+↓
+
+Hash
+
+↓
+
+Database
+
+Database:
+
+User	Hash
+Soham	8A71D92...
+
+Now even if the database is stolen, the attacker does not immediately know the original password.
+
+Login Process
+
+Suppose a user enters:
+
+Soham@123
+
+The website performs:
+
+User Password
+
+↓
+
+Hash Function
+
+↓
+
+Generated Hash
+
+↓
+
+Compare With Stored Hash
+
+↓
+
+Match?
+
+↓
+
+Login Successful
+
+Notice:
+
+The website never decrypts anything.
+
+It simply hashes the entered password again and compares the hashes.
+
+7. Salting
+Problem
+
+Suppose two users choose:
+
+password123
+
+Without salting:
+
+Both hashes will be identical.
+
+Attackers immediately know:
+
+Both users chose the same password.
+
+Solution
+
+Generate a random value called a Salt.
+
+Example:
+
+User 1
+
+Password:
+
+password123
+
+Salt:
+
+A7K91
+
+Stored:
+
+A7K91password123
+
+↓
+
+Hash
+
+User 2
+
+Password:
+
+password123
+
+Salt:
+
+P2XQ8
+
+Stored:
+
+P2XQ8password123
+
+↓
+
+Hash
+
+Even though both users chose the same password,
+
+their stored hashes are completely different.
+
+Why Salting is Important
+
+Salting protects against:
+
+Rainbow Table attacks
+Precomputed hash attacks
+Large-scale password cracking
+
+It also ensures:
+
+Same password ≠ Same stored hash
+
+8. Hashing vs Encryption
+Hashing	Encryption
+One-way	Reversible
+No decryption	Can be decrypted with the correct key
+Protects integrity	Protects confidentiality
+Used for password storage	Used for secure communication
+9. Real-World Applications
+
+Hashing is used in:
+
+Password storage
+File integrity verification
+Software downloads
+Blockchain
+Digital signatures
+Data integrity checks
+Example
+
+When downloading Ubuntu:
+
+The website provides:
+
+ubuntu.iso
+
+↓
+
+SHA-256 Hash
+
+After downloading,
+
+you calculate the hash.
+
+If both hashes match,
+
+the file was not modified.
+
+Common Misconceptions
+❌ Hashing is Encryption.
+
+Correct:
+
+Hashing is a one-way mathematical process.
+
+Encryption is reversible.
+
+❌ Websites decrypt stored passwords.
+
+Correct:
+
+Passwords are never decrypted.
+
+The entered password is hashed again and compared.
+
+❌ Salting encrypts passwords.
+
+Correct:
+
+Salting adds randomness before hashing.
+
+❌ Same password always produces different hashes.
+
+Correct:
+
+Only when different salts are used.
+
+Best Practices
+Never store passwords in plain text.
+Use strong hash functions (SHA-256 or better).
+Always use unique salts.
+Use Password Managers.
+Enable MFA.
+Avoid password reuse.
+Quick Revision
+Password
+
+↓
+
+Salt
+
+↓
+
+Hash Function
+
+↓
+
+Hash
+
+↓
+
+Database
+
+
+
+User Login
+
+↓
+
+Hash Password Again
+
+↓
+
+Compare Hashes
+
+↓
+
+Access Granted
+
+
+Summary Table
+Concept	Purpose
+Hashing	Protect data integrity
+Hash Function	Generates a fixed-length hash
+SHA-256	Modern secure hash algorithm
+MD5	Deprecated hash algorithm
+Collision	Two inputs produce same hash
+Salt	Adds randomness before hashing
+Password Hashing	Secure password storage
+
+
+Common Interview Questions
+What is Hashing?
+Explain the difference between Hashing and Encryption.
+Why is Hashing considered one-way?
+What are the properties of a good hash function?
+What is the Avalanche Effect?
+What is a Collision?
+Why is MD5 considered insecure?
+What is SHA-256?
+Why should websites never store passwords in plain text?
+Explain the password login verification process.
+What is Salting?
+Why is Salting important?
+Can two users with the same password have different stored hashes?
+Explain how websites verify passwords without decrypting them.
+
+
+💡 Key Takeaways
+Hashing converts data into a fixed-length hash and is designed to be one-way, making it suitable for password storage.
+Good hash functions are deterministic, produce fixed-length outputs, exhibit the avalanche effect, and are computationally difficult to reverse.
+SHA-256 is a modern, secure hashing algorithm, while MD5 and SHA-1 should no longer be used for security-sensitive applications.
+Salting adds randomness before hashing, ensuring that identical passwords produce different stored hashes and protecting against rainbow table attacks.
+Websites do not decrypt passwords during login—they hash the entered password again and compare it with the stored hash.
+Hashing is essential not only for password storage but also for file integrity verification, digital signatures, and blockchain technology

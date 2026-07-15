@@ -1,0 +1,491 @@
+🔐 Cryptography Basics
+1. What is Cryptography?
+Definition
+
+Cryptography is the science of protecting information by converting it into a form that unauthorized users cannot understand.
+
+It ensures that even if data is intercepted during transmission, attackers cannot read or modify it without the correct key.
+
+In simple words:
+
+Cryptography protects data from unauthorized access.
+
+Why is Cryptography Important?
+
+Without cryptography:
+
+Passwords would travel across the Internet as plain text.
+Banking transactions could be intercepted.
+Anyone connected to the same network could read your messages.
+Online shopping would not be secure.
+
+Cryptography is one of the foundations of modern cybersecurity.
+
+Real-World Applications
+
+Cryptography is used in:
+
+HTTPS websites
+Online Banking
+WhatsApp
+Signal
+SSH
+VPNs
+Wi-Fi (WPA2/WPA3)
+Cloud Storage
+Password Managers
+Cryptocurrency
+
+Almost every secure communication on the Internet depends on cryptography.
+
+2. Goals of Cryptography
+
+Cryptography helps achieve several important security objectives.
+
+Goal	Description
+Confidentiality	Prevent unauthorized users from reading data
+Integrity	Ensure data has not been modified
+Authentication	Verify the identity of users or systems
+Non-Repudiation	Prevent a sender from denying that they sent a message
+Confidentiality
+
+Only authorized users should be able to read information.
+
+Example:
+
+Your banking password should only be readable by:
+
+You
+The bank's server
+
+Not by:
+
+Hackers
+ISPs
+Other users on the network
+Integrity
+
+Integrity ensures that data remains unchanged.
+
+Example:
+
+Original message:
+
+Transfer ₹1000
+
+Modified message:
+
+Transfer ₹10000
+
+Integrity mechanisms detect such changes.
+
+Authentication
+
+Authentication confirms the identity of the communicating parties.
+
+Example:
+
+Before accessing Gmail:
+
+Username
+
+↓
+
+Password
+
+↓
+
+OTP
+
+↓
+
+Login
+
+Google verifies that you are the legitimate account owner.
+
+Non-Repudiation
+
+A sender cannot later claim:
+
+"I never sent that message."
+
+Digital signatures provide this property.
+
+3. Plaintext
+Definition
+
+Plaintext is the original readable data before encryption.
+
+Examples:
+
+Hello World
+
+Soham@123
+
+Meet me at 5 PM
+
+Anyone who reads plaintext can understand it.
+
+4. Ciphertext
+Definition
+
+Ciphertext is the encrypted version of plaintext.
+
+Example:
+
+Plaintext:
+
+Hello Soham
+
+Ciphertext:
+
+K8#Lx9Q@1Pv7
+
+Without the correct key, the ciphertext appears meaningless.
+
+Plaintext vs Ciphertext
+Plaintext	Ciphertext
+Readable	Unreadable
+Original Data	Encrypted Data
+Human Understandable	Requires a Key
+5. Encryption
+Definition
+
+Encryption is the process of converting plaintext into ciphertext.
+
+The purpose is to protect data from unauthorized access.
+
+Encryption Process
+Plaintext
+     │
+     ▼
+Encryption Algorithm
+     │
+     ▼
+Ciphertext
+Example
+
+Original message:
+
+Password = Soham@123
+
+After encryption:
+
+L7#P9v@X2q8
+
+Even if attackers intercept the message, they cannot understand it without the correct key.
+
+6. Decryption
+Definition
+
+Decryption is the process of converting ciphertext back into readable plaintext.
+
+Only users with the correct key can decrypt the message.
+
+Decryption Process
+Ciphertext
+     │
+     ▼
+Decryption Algorithm
+     │
+     ▼
+Plaintext
+Complete Communication Flow
+Sender
+
+↓
+
+Plaintext
+
+↓
+
+Encryption
+
+↓
+
+Ciphertext
+
+↓
+
+Internet
+
+↓
+
+Ciphertext
+
+↓
+
+Decryption
+
+↓
+
+Plaintext
+
+↓
+
+Receiver
+7. Encryption Key
+Definition
+
+An Encryption Key is a secret value used during encryption and decryption.
+
+The key determines how the plaintext is transformed into ciphertext.
+
+Without the correct key, the encrypted data cannot be correctly decrypted.
+
+Real-Life Analogy
+
+Imagine a locker.
+
+The locker represents encrypted data.
+
+The key represents the encryption key.
+
+Without the correct key:
+
+Locker
+
+↓
+
+Cannot Open
+
+With the correct key:
+
+Locker
+
+↓
+
+Opens Successfully
+Important Concept
+
+The algorithm can be public.
+
+The key must remain secret.
+
+Security depends on protecting the key, not hiding the algorithm.
+
+This principle is known as Kerckhoffs's Principle.
+
+8. Encryption Algorithms
+Definition
+
+An Encryption Algorithm is the mathematical procedure used to convert plaintext into ciphertext.
+
+Think of it as a recipe.
+
+The algorithm tells the computer how to encrypt data.
+
+The key determines which result is produced.
+
+Algorithm vs Key
+Encryption Algorithm	Encryption Key
+Mathematical method	Secret value
+Publicly known	Must remain secret
+Defines encryption process	Produces unique ciphertext
+Example
+
+Message:
+
+Hello
+
+Algorithm:
+
+AES
+
+Key:
+
+Secret123
+
+↓
+
+Ciphertext:
+
+P8#Kx91L@
+
+Using the same algorithm but a different key produces completely different ciphertext.
+
+9. Types of Encryption (Introduction)
+
+Encryption is divided into two categories.
+
+Symmetric Encryption
+
+Uses:
+
+One secret key
+
+The same key encrypts and decrypts data.
+
+Examples:
+
+AES
+DES
+ChaCha20
+Asymmetric Encryption
+
+Uses:
+
+Public Key
+Private Key
+
+Examples:
+
+RSA
+ECC
+
+These will be discussed in detail in the next chapter.
+
+Encryption vs Hashing
+
+Many beginners confuse these concepts.
+
+Encryption	Hashing
+Reversible	One-way
+Uses Keys	Usually No Key
+Protects Confidentiality	Protects Integrity
+Original Data Can Be Recovered	Original Data Cannot Be Recovered
+How HTTPS Uses Encryption
+
+When visiting:
+
+https://google.com
+
+The browser:
+
+User
+
+↓
+
+Browser
+
+↓
+
+TLS
+
+↓
+
+Encryption
+
+↓
+
+Internet
+
+↓
+
+Google Server
+
+↓
+
+Decryption
+
+↓
+
+Response
+
+This is why Wireshark can display:
+
+Source IP
+Destination IP
+Port 443
+
+But cannot display:
+
+Passwords
+Credit Card Numbers
+Banking Information
+
+The payload is encrypted before transmission.
+
+Common Misconceptions
+❌ Encryption is the same as Hashing.
+
+Correct:
+
+Encryption is reversible.
+
+Hashing is not.
+
+❌ Secret algorithms provide security.
+
+Correct:
+
+Modern cryptography assumes the algorithm is public.
+
+Only the key must remain secret.
+
+❌ HTTPS hides everything.
+
+Correct:
+
+HTTPS encrypts the data (payload), but metadata such as:
+
+Source IP
+Destination IP
+Port Numbers
+
+are still visible.
+
+Best Practices
+Use strong encryption algorithms.
+Protect encryption keys.
+Never hardcode keys into applications.
+Always use HTTPS instead of HTTP.
+Keep cryptographic software updated.
+Quick Revision
+Plaintext
+
+↓
+
+Encryption
+
+↓
+
+Ciphertext
+
+↓
+
+Internet
+
+↓
+
+Ciphertext
+
+↓
+
+Decryption
+
+↓
+
+Plaintext
+
+Summary Table
+Concept	Purpose
+Plaintext	Original readable data
+Ciphertext	Encrypted unreadable data
+Encryption	Protects confidentiality
+Decryption	Restores original data
+Encryption Key	Secret used during encryption/decryption
+Encryption Algorithm	Mathematical process for encryption
+
+Common Interview Questions
+What is Cryptography?
+Why is Cryptography important?
+Explain the difference between Plaintext and Ciphertext.
+What is Encryption?
+What is Decryption?
+What is an Encryption Key?
+Explain the difference between an Encryption Algorithm and an Encryption Key.
+What are the goals of Cryptography?
+Explain Kerckhoffs's Principle.
+How does HTTPS use Encryption?
+Why can't Wireshark read HTTPS passwords?
+What is the difference between Encryption and Hashing?
+
+
+💡 Key Takeaways
+Cryptography protects data from unauthorized access by converting readable information into an unreadable format.
+Encryption provides confidentiality, while decryption restores the original information.
+Plaintext is readable data, and ciphertext is its encrypted form.
+Encryption algorithms define the mathematical process, whereas encryption keys are the secret values that make encryption secure.
+Modern cryptographic systems rely on keeping keys secret, not algorithms.
+HTTPS, VPNs, SSH, and secure messaging applications all depend on these cryptographic principles to protect communication

@@ -1,0 +1,497 @@
+🛡️ Access Control & Security Principles
+1. Principle of Least Privilege (PoLP)
+Definition
+
+The Principle of Least Privilege (PoLP) states that every user, application, or process should be given only the minimum permissions required to perform its intended task.
+
+In simple words:
+
+Give only the permissions that are necessary—nothing more, nothing less.
+
+This principle is one of the most important concepts in cybersecurity because limiting permissions reduces the damage that can be caused by accidents, malware, or malicious users.
+
+Why is PoLP Important?
+
+Giving excessive permissions increases security risks.
+
+For example, if every employee has administrator privileges:
+
+Malware can install itself without restrictions.
+Users may accidentally delete important system files.
+Attackers who compromise one account gain complete control over the system.
+
+By following PoLP, organizations reduce the attack surface and limit the impact of security incidents.
+
+Real-Life Analogy
+
+Imagine a hospital.
+
+Doctor
+
+Needs access to:
+
+Patient records
+Medical history
+Prescriptions
+
+Does not need access to:
+
+Employee payroll
+CCTV settings
+Server configuration
+Receptionist
+
+Needs access to:
+
+Appointment scheduling
+Patient registration
+
+Does not need access to:
+
+Medical records
+Financial accounts
+IT Administrator
+
+Needs access to:
+
+Servers
+Network devices
+User account management
+
+Each employee receives only the permissions required for their job.
+
+This is the Principle of Least Privilege.
+
+Linux Example
+
+A normal Linux user tries:
+
+sudo apt update
+
+Output:
+
+Permission denied
+
+The user is authenticated but does not have administrative privileges.
+
+PoLP prevents unauthorized system changes.
+
+Benefits of PoLP
+Reduces insider threats.
+Limits malware damage.
+Prevents accidental deletion of important files.
+Improves compliance with security standards.
+Makes systems easier to audit.
+2. Zero Trust Security
+Definition
+
+Zero Trust is a security model based on the principle:
+
+Never Trust, Always Verify.
+
+Unlike traditional security models that automatically trusted users inside the company network, Zero Trust assumes that every request must be verified, regardless of where it originates.
+
+Traditional Security Model
+
+Older security models assumed:
+
+Inside Company Network
+
+↓
+
+Trusted
+
+Once a user entered the network, they often had broad access.
+
+Zero Trust Model
+
+Zero Trust assumes:
+
+User Requests Access
+
+↓
+
+Verify Identity
+
+↓
+
+Verify Device
+
+↓
+
+Verify Location
+
+↓
+
+Allow or Deny Access
+
+Every request is verified before access is granted.
+
+Real-Life Example
+
+Imagine entering your office building.
+
+You use your ID card to enter the main entrance.
+
+Later you try to access:
+
+Finance Department
+Server Room
+Research Lab
+
+Each area requires another authentication step.
+
+Even though you are already inside the building, you are not automatically trusted.
+
+Example in Daily Life
+
+When you log into Gmail from a new device or country, Google may ask for:
+
+OTP
+Fingerprint
+Security confirmation
+
+Even though your password is correct.
+
+This is Zero Trust in action.
+
+Benefits of Zero Trust
+Reduces unauthorized access.
+Protects against stolen passwords.
+Prevents lateral movement by attackers.
+Improves overall security.
+3. Access Control
+Definition
+
+Access Control determines who is allowed to access a resource and what actions they are permitted to perform.
+
+Resources include:
+
+Files
+Databases
+Applications
+Servers
+Network devices
+How Access Control Works
+User Requests Access
+
+↓
+
+Authentication
+
+↓
+
+Authorization
+
+↓
+
+Access Control Rules
+
+↓
+
+Allow
+
+OR
+
+Deny
+Examples
+
+Access Control decides:
+
+Can this user read the file?
+Can they modify it?
+Can they delete it?
+Can they install software?
+4. Access Control Models
+
+Organizations implement Access Control using different models.
+
+A. DAC (Discretionary Access Control)
+Definition
+
+In DAC, the owner of the resource decides who can access it and what permissions they receive.
+
+Example
+
+You create:
+
+notes.txt
+
+You decide:
+
+Friend A:
+
+Read
+
+Friend B:
+
+Read + Write
+
+You control the permissions.
+
+Linux Example
+chmod 644 notes.txt
+
+The file owner changes permissions.
+
+Advantages
+Flexible
+Easy to use
+Common in personal computers
+Disadvantages
+Users may accidentally grant excessive permissions.
+Less secure for highly sensitive environments.
+B. MAC (Mandatory Access Control)
+Definition
+
+In MAC, users cannot change permissions.
+
+The operating system or security administrator defines all access rules.
+
+Example
+
+Military documents:
+
+Top Secret
+
+↓
+
+Secret
+
+↓
+
+Confidential
+
+↓
+
+Public
+
+A soldier cannot simply grant themselves access to a "Top Secret" document.
+
+Advantages
+Very secure
+Centralized management
+Prevents unauthorized permission changes
+Disadvantages
+Less flexible
+More difficult to manage
+C. RBAC (Role-Based Access Control)
+Definition
+
+Permissions are assigned to roles, and users inherit permissions based on their assigned role.
+
+Example
+
+Hospital
+
+Doctor
+
+↓
+
+Patient Records
+
+Nurse
+
+↓
+
+Update Patient Status
+
+Receptionist
+
+↓
+
+Schedule Appointments
+
+When a new doctor joins, assigning the "Doctor" role automatically grants all necessary permissions.
+
+Real-World Examples
+Microsoft Active Directory
+AWS IAM Roles
+Azure Active Directory
+Google Workspace
+Advantages
+Easy to manage
+Scales well
+Widely used in enterprises
+D. ABAC (Attribute-Based Access Control)
+Definition
+
+ABAC grants access based on attributes rather than fixed roles.
+
+Attributes may include:
+
+Department
+Job Title
+Time
+Device
+Location
+Security Clearance
+Example
+
+Allow access only if:
+
+Department = Finance
+
+AND
+
+Location = Office
+
+AND
+
+Time = 9 AM–6 PM
+
+If any condition fails, access is denied.
+
+Advantages
+Very flexible
+Supports complex security policies
+Disadvantages
+More difficult to configure
+Requires careful planning
+Comparison of Access Control Models
+Model	Controlled By	Example
+DAC	Resource Owner	Linux file permissions
+MAC	Operating System / Administrator	Military systems
+RBAC	User Role	Hospitals, Companies
+ABAC	User & Environment Attributes	Cloud platforms
+5. Password Security
+
+Passwords are the first line of defense against unauthorized access.
+
+A weak password can compromise an entire system, regardless of how secure the software is.
+
+Characteristics of a Strong Password
+
+A secure password should:
+
+Be at least 12–16 characters long.
+Contain uppercase and lowercase letters.
+Include numbers.
+Include special characters.
+Avoid dictionary words.
+Avoid personal information.
+Be unique for every account.
+Weak Passwords
+123456
+
+password
+
+qwerty
+
+india123
+
+soham123
+Strong Password
+M0unt@in!River#27Sky
+Password Reuse
+
+Using the same password on multiple websites is dangerous.
+
+Example:
+
+Gmail
+
+↓
+
+GitHub
+
+↓
+
+Amazon
+
+↓
+
+Spotify
+
+↓
+
+Same Password
+
+If one website suffers a data breach, attackers can try the same password on all your other accounts.
+
+This attack is known as Credential Stuffing, which we study in the next chapter.
+
+Password Manager
+Definition
+
+A Password Manager securely stores passwords and generates strong, unique passwords for every website.
+
+Instead of remembering dozens of passwords, users only remember one strong master password.
+
+Advantages
+Generates strong passwords.
+Prevents password reuse.
+Encrypts stored passwords.
+Simplifies password management.
+Popular Password Managers
+Bitwarden
+KeePass
+1Password
+Dashlane
+Best Practices
+Use unique passwords.
+Enable Multi-Factor Authentication (MFA).
+Use a password manager.
+Never share passwords.
+Avoid writing passwords on paper.
+Change passwords immediately after a suspected compromise.
+Quick Revision
+Authentication
+
+↓
+
+Authorization
+
+↓
+
+Access Control
+
+↓
+
+DAC
+MAC
+RBAC
+ABAC
+
+↓
+
+PoLP
+
+↓
+
+Zero Trust
+
+↓
+
+Strong Passwords
+
+↓
+
+Password Manager
+
+↓
+
+Secure System
+
+Common Interview Questions
+What is the Principle of Least Privilege?
+Why is PoLP important in cybersecurity?
+Explain Zero Trust Security.
+What is the difference between Authentication and Authorization?
+What is Access Control?
+Explain DAC with an example.
+Explain MAC with an example.
+What is RBAC and where is it commonly used?
+What is ABAC?
+Compare DAC, MAC, RBAC, and ABAC.
+What makes a password strong?
+Why is password reuse dangerous?
+What is a Password Manager?
+Why should organizations encourage MFA along with strong passwords?
+
+💡 Key Takeaways
+PoLP limits permissions to only what is necessary, reducing the impact of mistakes and attacks.
+Zero Trust assumes no user or device is trusted automatically; every request must be verified.
+Access Control determines who can access resources and what they are allowed to do.
+DAC, MAC, RBAC, and ABAC are different models used to enforce access control, each suited to different environments.
+Strong, unique passwords, combined with MFA and a password manager, provide a much stronger defense against account compromise.

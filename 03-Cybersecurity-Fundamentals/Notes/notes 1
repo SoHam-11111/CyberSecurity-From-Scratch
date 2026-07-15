@@ -1,0 +1,494 @@
+🛡️ Cybersecurity Fundamentals - Part 1
+Introduction to Cybersecurity
+1. What is Cybersecurity?
+Definition
+
+Cybersecurity is the practice of protecting computers, networks, applications, devices, and data from unauthorized access, attacks, damage, or theft.
+
+Its primary goal is to ensure that digital systems remain secure, reliable, and available only to authorized users.
+
+Why is Cybersecurity Important?
+
+Today almost everything is connected to the Internet.
+
+Examples include:
+
+Online Banking
+UPI Payments
+WhatsApp
+Gmail
+Cloud Storage
+Government Services
+Hospital Systems
+College Portals
+
+If these systems are not protected:
+
+Sensitive information can be stolen.
+Money can be transferred illegally.
+Personal identities can be misused.
+Businesses can lose millions of dollars.
+Critical services may stop working.
+
+Cybersecurity helps reduce these risks.
+
+Real-Life Analogy
+
+Imagine your house.
+
+Your house contains:
+
+Money
+Important documents
+Jewelry
+Family members
+
+To protect them, you install:
+
+Locks
+CCTV cameras
+Security guards
+Alarm systems
+
+Similarly, computers protect digital assets using:
+
+House Security	Cybersecurity
+Lock	Password
+Security Guard	Firewall
+Locker	Encryption
+CCTV	Logs & Monitoring
+Visitor Register	Authentication
+2. Goals of Cybersecurity
+
+Cybersecurity aims to:
+
+Protect sensitive information.
+Prevent unauthorized access.
+Detect attacks.
+Recover quickly after incidents.
+Ensure systems continue operating normally.
+
+These goals are summarized by the CIA Triad.
+
+3. CIA Triad
+
+The CIA Triad is the foundation of information security.
+
+It consists of three core principles.
+
+          CIA
+
+     Confidentiality
+           ▲
+          / \
+         /   \
+Integrity-----Availability
+
+Every security measure exists to protect one or more of these principles.
+
+4. Confidentiality
+Definition
+
+Confidentiality means that information should only be accessible to authorized people.
+
+Unauthorized users must not be able to view sensitive information.
+
+Examples
+Bank account details
+Medical records
+Passwords
+WhatsApp chats
+Company source code
+Real-Life Example
+
+Suppose someone guesses your Gmail password and reads your emails.
+
+No files were changed.
+
+No files were deleted.
+
+However, your private information became visible to someone else.
+
+Confidentiality has been compromised.
+
+Technologies Used
+Passwords
+Encryption
+Multi-Factor Authentication (MFA)
+Access Control
+VPNs
+5. Integrity
+Definition
+
+Integrity ensures that information remains accurate, complete, and unchanged unless modified by an authorized user.
+
+Examples
+Bank balances
+Exam results
+Medical prescriptions
+Government records
+Real-Life Example
+
+Suppose your college marks are:
+
+85
+
+A hacker changes them to:
+
+45
+
+Nobody stole the marks.
+
+Nobody deleted the record.
+
+But the information is now incorrect.
+
+Integrity has been compromised.
+
+Technologies Used
+Hashing
+Digital Signatures
+Checksums
+Version Control
+Access Control
+6. Availability
+Definition
+
+Availability ensures that systems, applications, and data remain accessible whenever authorized users need them.
+
+Examples
+ATM services
+Hospital servers
+College portals
+Banking websites
+Cloud storage
+Real-Life Example
+
+Imagine visiting an ATM.
+
+Instead of showing your balance, it displays:
+
+Service Unavailable
+
+Your money still exists.
+
+No one stole it.
+
+However, you cannot access it.
+
+Availability has failed.
+
+Technologies Used
+Backups
+Load Balancers
+Redundant Servers
+UPS
+Disaster Recovery
+CIA Triad Example
+
+Imagine using Google Drive.
+
+Principle	Example
+Confidentiality	Only authorized users can access your files.
+Integrity	Files are not modified without permission.
+Availability	Files are accessible whenever needed.
+7. Types of Hackers
+
+Hackers are generally classified according to their intent and authorization.
+
+White Hat Hacker
+Definition
+
+A White Hat Hacker is an ethical hacker who has permission to test systems for vulnerabilities.
+
+Their objective is to improve security rather than exploit weaknesses.
+
+Examples
+Penetration Tester
+Security Consultant
+Bug Bounty Hunter
+Red Team Member
+Example
+
+A company hires you to test its website.
+
+You discover a vulnerability and report it.
+
+The company fixes the issue.
+
+Black Hat Hacker
+Definition
+
+A Black Hat Hacker accesses systems without permission for malicious purposes.
+
+Their objectives include:
+
+Financial gain
+Data theft
+Ransomware
+Identity theft
+Espionage
+Example
+
+Stealing customer passwords and selling them online.
+
+Gray Hat Hacker
+Definition
+
+A Gray Hat Hacker accesses systems without permission but usually does not intend to cause harm.
+
+Even if their intentions are good, their actions may still violate laws or organizational policies because they lack authorization.
+
+Example
+
+Someone scans a company's website without permission, discovers a vulnerability, and reports it.
+
+Hacker Comparison
+Type	Permission	Intention
+White Hat	✅ Yes	Improve security
+Gray Hat	❌ No	Usually helpful but unauthorized
+Black Hat	❌ No	Malicious or personal gain
+8. Authentication
+Definition
+
+Authentication is the process of verifying the identity of a user or system.
+
+It answers the question:
+
+Who are you?
+
+Examples
+Password
+Fingerprint
+Face Recognition
+OTP
+SSH Keys
+Linux Example
+ssh soham@server
+Password:
+
+The server verifies whether you are actually Soham.
+
+9. Authorization
+Definition
+
+Authorization determines what an authenticated user is allowed to do.
+
+It answers the question:
+
+What are you allowed to do?
+
+Linux Example
+
+A normal user logs into Linux successfully.
+
+However,
+
+sudo apt update
+
+returns:
+
+Permission denied
+
+The user has been authenticated but is not authorized to perform administrative actions.
+
+Authentication vs Authorization
+Authentication	Authorization
+Verifies identity	Determines permissions
+Who are you?	What can you do?
+Happens first	Happens after authentication
+10. AAA Model
+
+AAA is a widely used security framework.
+
+Authentication
+
+↓
+
+Authorization
+
+↓
+
+Accounting
+Authentication
+
+Verifies identity.
+
+Example:
+
+Password
+
+Fingerprint
+
+OTP
+
+Authorization
+
+Determines permissions.
+
+Example:
+
+File permissions
+User roles
+sudo access
+Accounting
+
+Records user activities.
+
+It answers:
+
+What did you do?
+
+Examples
+
+Accounting records:
+
+Login time
+Logout time
+Commands executed
+Files accessed
+Failed login attempts
+Real-Life Example
+
+Suppose an employee deletes company files.
+
+Accounting logs help answer:
+
+Who deleted them?
+When were they deleted?
+Which commands were executed?
+AAA Summary
+Component	Purpose
+Authentication	Verify identity
+Authorization	Grant permissions
+Accounting	Record activities
+11. Multi-Factor Authentication (MFA)
+Definition
+
+Multi-Factor Authentication (MFA) requires users to provide two or more different authentication factors to verify their identity.
+
+Authentication Factors
+Something You Know
+Password
+PIN
+Security Question
+Something You Have
+Mobile Phone
+OTP Device
+Security Key
+Smart Card
+Something You Are
+Fingerprint
+Face Recognition
+Iris Scan
+Example
+Password
+
+↓
+
+OTP
+
+↓
+
+Login Successful
+
+Password:
+
+Something you know
+
+OTP:
+
+Something you have
+
+Therefore,
+
+This is Multi-Factor Authentication.
+
+Why MFA is Important
+
+Without MFA
+
+Password Stolen
+
+↓
+
+Account Compromised
+
+With MFA
+
+Password Stolen
+
+↓
+
+OTP Required
+
+↓
+
+Attacker Doesn't Have Phone
+
+↓
+
+Login Blocked
+
+MFA significantly reduces the risk of account compromise due to stolen passwords.
+
+Important Note
+Password + Security Question
+
+is NOT Multi-Factor Authentication.
+
+Both belong to the same category:
+
+Something you know.
+
+True MFA requires at least two different authentication factors.
+
+Quick Revision
+Cybersecurity
+
+↓
+
+CIA Triad
+
+↓
+
+Confidentiality
+
+Integrity
+
+Availability
+
+↓
+
+Types of Hackers
+
+↓
+
+Authentication
+
+↓
+
+Authorization
+
+↓
+
+AAA
+
+↓
+
+MFA
+
+Common Interview Questions
+What is Cybersecurity?
+Why is Cybersecurity important?
+Explain the CIA Triad with examples.
+Can one attack violate multiple parts of the CIA Triad?
+Differentiate between White Hat, Black Hat, and Gray Hat Hackers.
+What is Authentication?
+What is Authorization?
+Explain the difference between Authentication and Authorization.
+What is the AAA model?
+What is Accounting in AAA?
+What is Multi-Factor Authentication?
+Why is Password + Security Question not considered MFA?
+Name the three authentication factors with examples.
