@@ -1,0 +1,699 @@
+**43. NAT (Network Address Translation)**
+
+## Definition
+
+NAT (Network Address Translation) is a process performed by a router that translates **private IP addresses into public IP addresses**, and vice versa. It allows multiple devices on a private network to access the Internet using a single public IP address.
+
+---
+
+## Why is NAT Needed?
+
+IPv4 addresses are limited. If every device had its own public IP address, we would run out of addresses very quickly.
+
+NAT solves this problem by allowing many devices to share a single public IP.
+
+Example:
+
+```
+Laptop      → 192.168.1.10
+Phone       → 192.168.1.11
+Smart TV    → 192.168.1.12
+        │
+        ▼
+Router (NAT)
+        │
+        ▼
+Public IP → 49.36.120.55
+```
+
+---
+
+## Private IP Address Ranges
+
+These IP addresses are reserved for private networks and cannot be used directly on the Internet.
+
+|Class|Range|
+|---|---|
+|A|10.0.0.0 – 10.255.255.255|
+|B|172.16.0.0 – 172.31.255.255|
+|C|192.168.0.0 – 192.168.255.255|
+
+---
+
+## How NAT Works
+
+When your laptop sends a request:
+
+```
+192.168.1.10
+
+↓
+
+Router
+
+↓
+
+49.36.120.55
+
+↓
+
+Google
+```
+
+The router replaces the private IP with the public IP before forwarding the packet.
+
+When the reply returns, the router checks its NAT table and forwards the packet back to the correct device.
+
+---
+
+# **44. Types of NAT**
+
+## Static NAT
+
+One private IP is permanently mapped to one public IP.
+
+Example:
+
+```
+192.168.1.10
+
+↓
+
+49.36.120.55
+```
+
+Used for:
+
+- Web Servers
+- Mail Servers
+- CCTV Systems
+
+---
+
+## Dynamic NAT
+
+The router chooses one available public IP from a pool.
+
+Example:
+
+```
+192.168.1.10
+
+↓
+
+49.36.120.55
+
+or
+
+49.36.120.56
+```
+
+---
+
+## PAT (Port Address Translation)
+
+PAT is the most common type of NAT used in homes.
+
+Many devices share a single public IP by using different port numbers.
+
+Example:
+
+|Private Address|Public Address|
+|---|---|
+|192.168.1.10:52134|49.36.120.55:60001|
+|192.168.1.11:52135|49.36.120.55:60002|
+|192.168.1.12:52136|49.36.120.55:60003|
+
+---
+
+## NAT Translation Table
+
+The router maintains a translation table.
+
+Example:
+
+|Inside Local|Inside Global|
+|---|---|
+|192.168.1.10:52134|49.36.120.55:60001|
+|192.168.1.11:52135|49.36.120.55:60002|
+
+When a reply arrives, the router checks this table to determine which device should receive the packet.
+
+---
+
+## Advantages of NAT
+
+- Conserves IPv4 addresses
+- Improves network security
+- Allows many devices to share one public IP
+- Easy to manage
+
+---
+
+## Disadvantages of NAT
+
+- Adds processing overhead
+- Makes some applications harder to configure
+- Port forwarding may be required for hosting services
+
+---
+
+# **45. HTTP (HyperText Transfer Protocol)**
+
+## Definition
+
+HTTP is an application layer protocol used by web browsers and web servers to exchange web pages and other resources.
+
+HTTP is **not encrypted**.
+
+Default Port:
+
+```
+80
+```
+
+---
+
+## HTTP Working
+
+```
+Browser
+
+↓
+
+HTTP Request
+
+↓
+
+Web Server
+
+↓
+
+HTTP Response
+
+↓
+
+Browser Displays Page
+```
+
+---
+
+## HTTP Request Methods
+
+### GET
+
+Retrieves data from the server.
+
+Example:
+
+```
+GET /index.html
+```
+
+---
+
+### POST
+
+Sends data to the server.
+
+Example:
+
+- Login Form
+- Registration Form
+
+---
+
+### PUT
+
+Updates existing data.
+
+---
+
+### DELETE
+
+Deletes data from the server.
+
+---
+
+## HTTP Response Status Codes
+
+|Code|Meaning|
+|---|---|
+|200|OK|
+|301|Moved Permanently|
+|302|Found / Redirect|
+|400|Bad Request|
+|401|Unauthorized|
+|403|Forbidden|
+|404|Not Found|
+|500|Internal Server Error|
+|503|Service Unavailable|
+
+---
+
+## Advantages
+
+- Simple
+- Fast
+- Lightweight
+
+---
+
+## Disadvantages
+
+- No encryption
+- Passwords can be intercepted
+- Vulnerable on public networks
+
+---
+
+# **46. HTTPS (HyperText Transfer Protocol Secure)**
+
+## Definition
+
+HTTPS is HTTP running over **TLS encryption**, providing secure communication between the browser and the web server.
+
+Default Port:
+
+```
+443
+```
+
+---
+
+## HTTPS Working
+
+```
+Browser
+
+↓
+
+TLS Handshake
+
+↓
+
+Encrypted HTTP Communication
+
+↓
+
+Server
+```
+
+---
+
+## Benefits
+
+- Encrypts data
+- Protects passwords
+- Protects banking information
+- Prevents eavesdropping
+
+---
+
+# **47. TLS (Transport Layer Security)**
+
+## Definition
+
+TLS is the protocol responsible for securing HTTPS connections.
+
+Older systems used SSL, but TLS has replaced SSL.
+
+---
+
+## Goals of TLS
+
+### 1. Confidentiality
+
+Data is encrypted so that only the intended recipient can read it.
+
+---
+
+### 2. Integrity
+
+Ensures that the data has not been modified during transmission.
+
+---
+
+### 3. Authentication
+
+Verifies the identity of the website using digital certificates.
+
+---
+
+## Digital Certificates
+
+A certificate proves that a website actually belongs to the organization it claims to represent.
+
+When you see the padlock (🔒) in your browser, it indicates that the website has presented a valid TLS certificate and the connection is encrypted.
+
+**Important:** The padlock means the connection is secure—it does **not** guarantee that the website itself is trustworthy or safe.
+
+---
+
+# **48. HTTP vs HTTPS**
+
+|HTTP|HTTPS|
+|---|---|
+|Port 80|Port 443|
+|Not Encrypted|Encrypted|
+|Uses HTTP only|Uses HTTP + TLS|
+|Less Secure|Highly Secure|
+|No Confidentiality|Provides Confidentiality|
+
+---
+
+# **49. Firewall**
+
+## Definition
+
+A Firewall is a hardware or software security system that monitors and controls incoming and outgoing network traffic based on predefined rules.
+
+---
+
+## Firewall Working
+
+```
+Internet
+
+↓
+
+Firewall
+
+↓
+
+Computer
+```
+
+The firewall decides whether traffic should be allowed or blocked.
+
+---
+
+## Information Checked
+
+- Source IP
+- Destination IP
+- Source Port
+- Destination Port
+- Protocol (TCP/UDP)
+
+---
+
+## Inbound Traffic
+
+Traffic coming **into** your computer.
+
+Example:
+
+```
+Internet
+
+↓
+
+Laptop
+```
+
+---
+
+## Outbound Traffic
+
+Traffic leaving **your computer**.
+
+Example:
+
+```
+Laptop
+
+↓
+
+Internet
+```
+
+---
+
+# **50. Types of Firewalls**
+
+## Packet Filtering Firewall
+
+Checks each packet independently using rules.
+
+Example:
+
+```
+Block Port 23
+```
+
+---
+
+## Stateful Firewall
+
+Maintains a **state table** of active connections.
+
+If your laptop initiates a connection to Google, the firewall remembers it and automatically allows the returning packets.
+
+---
+
+## Stateless Firewall
+
+Treats every packet independently and does not remember previous connections.
+
+---
+
+## Advantages
+
+- Protects against unauthorized access
+- Blocks unwanted traffic
+- Improves security
+- First line of defense
+
+---
+
+## Limitations
+
+- Cannot stop every attack
+- Poorly configured rules may block legitimate traffic
+- Does not replace antivirus or other security controls
+
+---
+
+# **51. Wireshark**
+
+## Definition
+
+Wireshark is a **network protocol analyzer** used to capture and inspect network packets in real time.
+
+---
+
+## Features
+
+- Live Packet Capture
+- Protocol Analysis
+- Network Troubleshooting
+- Packet Filtering
+- Performance Analysis
+
+---
+
+## Common Filters
+
+|Filter|Purpose|
+|---|---|
+|dns|Show DNS packets|
+|arp|Show ARP packets|
+|tcp|Show TCP packets|
+|udp|Show UDP packets|
+|icmp|Show Ping packets|
+|http|Show HTTP packets|
+|tls|Show HTTPS/TLS traffic|
+
+---
+
+## Packet Information Displayed
+
+- Source MAC
+- Destination MAC
+- Source IP
+- Destination IP
+- Port Numbers
+- Protocol
+- Packet Length
+- TCP Flags
+- Payload
+
+---
+
+## Advantages
+
+- Excellent troubleshooting tool
+- Learn network protocols
+- Analyze attacks
+- Debug applications
+
+---
+
+# **52. Nmap (Network Mapper)**
+
+## Definition
+
+Nmap is an open-source network scanning tool used to discover hosts, identify open ports, detect services, and gather information about systems on a network.
+
+It is widely used by:
+
+- Network Administrators
+- Security Analysts
+- Penetration Testers
+- Ethical Hackers
+
+---
+
+## Uses
+
+- Host Discovery
+- Port Scanning
+- Service Detection
+- OS Detection
+- Security Auditing
+
+---
+
+## Common Commands
+
+### Scan a Host
+
+```
+nmap 192.168.1.10
+```
+
+---
+
+### Scan Multiple Hosts
+
+```
+nmap 192.168.1.0/24
+```
+
+---
+
+### Scan Specific Ports
+
+```
+nmap -p 22,80,443 192.168.1.10
+```
+
+---
+
+### Detect Services
+
+```
+nmap -sV 192.168.1.10
+```
+
+---
+
+### Detect Operating System
+
+```
+nmap -O 192.168.1.10
+```
+
+---
+
+### Aggressive Scan
+
+```
+nmap -A 192.168.1.10
+```
+
+---
+
+## Important Scan Types
+
+|Scan|Purpose|
+|---|---|
+|TCP Connect Scan (-sT)|Complete TCP connection|
+|SYN Scan (-sS)|Half-open stealth scan|
+|UDP Scan (-sU)|Scans UDP ports|
+|Version Detection (-sV)|Detect running services|
+|OS Detection (-O)|Identify operating system|
+
+---
+
+## Ethical Use
+
+Nmap should **only** be used on:
+
+- Systems you own
+- Systems you have permission to test
+
+Unauthorized scanning may violate organizational policies or laws.
+
+---
+
+# **Complete Networking Flow (Revision)**
+
+```
+User types:
+
+https://google.com
+        │
+        ▼
+DNS
+Converts Domain → IP
+        │
+        ▼
+TCP
+Three-Way Handshake
+        │
+        ▼
+Port 443
+        │
+        ▼
+TLS
+Encrypts Data
+        │
+        ▼
+ARP
+Find Router's MAC
+        │
+        ▼
+Switch
+Uses MAC Address
+        │
+        ▼
+Router
+Uses IP Address
+        │
+        ▼
+NAT/PAT
+Private IP → Public IP
+        │
+        ▼
+Firewall
+Checks Rules
+        │
+        ▼
+Internet
+        │
+        ▼
+Google Server
+        │
+        ▼
+Encrypted Response
+        │
+        ▼
+Browser Displays Website
+```
+
+---
+
+# **Final Networking Interview Questions**
+
+1. Explain the journey of a packet from your browser to Google.
+2. What is NAT? Why is it needed?
+3. Difference between Static NAT, Dynamic NAT and PAT.
+4. Explain HTTP vs HTTPS.
+5. What are the three goals of TLS?
+6. What is a firewall? Explain Stateful vs Stateless Firewall.
+7. What is Wireshark and where is it used?
+8. What is Nmap? Name some common scan types.
+9. Why are ports important in networking?
+10. How does a router know which internal device should receive a reply when many devices share one public IP?

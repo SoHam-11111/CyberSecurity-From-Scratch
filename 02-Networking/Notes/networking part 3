@@ -1,0 +1,526 @@
+ **34. TCP (Transmission Control Protocol)**
+
+## Definition
+
+TCP (Transmission Control Protocol) is a **connection-oriented and reliable transport layer protocol** that ensures data is delivered accurately, completely, and in the correct order.
+
+TCP is used whenever data loss is unacceptable.
+
+---
+
+## Characteristics
+
+- Connection-Oriented
+- Reliable
+- Ordered Delivery
+- Error Detection
+- Retransmits Lost Packets
+- Slower than UDP
+
+---
+
+## How TCP Works
+
+Before sending data, TCP establishes a connection using the **Three-Way Handshake**.
+
+Once the connection is established:
+
+```
+Packet 1
+
+↓
+
+ACK
+
+↓
+
+Packet 2
+
+↓
+
+ACK
+
+↓
+
+Packet 3
+
+↓
+
+ACK
+```
+
+If a packet is lost:
+
+```
+Packet 5 ❌
+
+↓
+
+Retransmit Packet 5
+```
+
+---
+
+## Advantages
+
+- Reliable communication
+- Error checking
+- Ordered delivery
+- Automatic retransmission
+- Flow control
+
+---
+
+## Disadvantages
+
+- Slower
+- More overhead
+- Higher latency
+
+---
+
+## Applications of TCP
+
+- HTTP
+- HTTPS
+- FTP
+- SSH
+- Email (SMTP, IMAP, POP3)
+- Banking Applications
+- File Downloads
+
+---
+
+# **35. UDP (User Datagram Protocol)**
+
+## Definition
+
+UDP (User Datagram Protocol) is a **connectionless transport layer protocol** that focuses on speed rather than reliability.
+
+It sends data without checking whether it arrived successfully.
+
+---
+
+## Characteristics
+
+- Connectionless
+- Fast
+- Low Latency
+- No Retransmission
+- No Packet Ordering
+- No Error Recovery
+
+---
+
+## Advantages
+
+- Very Fast
+- Minimal Overhead
+- Ideal for Real-Time Communication
+
+---
+
+## Disadvantages
+
+- Packet Loss Possible
+- No Reliability
+- No Ordering
+- No Recovery
+
+---
+
+## Applications of UDP
+
+- Video Calls
+- Online Gaming
+- Live Streaming
+- DNS
+- VoIP
+- IPTV
+
+---
+
+# **36. TCP vs UDP**
+
+|Feature|TCP|UDP|
+|---|---|---|
+|Reliability|High|Low|
+|Speed|Slower|Faster|
+|Connection|Connection-Oriented|Connectionless|
+|Packet Ordering|Yes|No|
+|Retransmission|Yes|No|
+|Error Recovery|Yes|No|
+|Best Used For|Downloads, Banking|Gaming, Streaming|
+
+---
+
+# **37. TCP Three-Way Handshake**
+
+## Definition
+
+Before TCP sends data, both devices establish a reliable connection.
+
+This process is called the **Three-Way Handshake**.
+
+---
+
+## Step 1 – SYN
+
+The client sends:
+
+```
+SYN
+```
+
+Meaning:
+
+> "Can we communicate?"
+
+---
+
+## Step 2 – SYN + ACK
+
+The server replies:
+
+```
+SYN + ACK
+```
+
+Meaning:
+
+> "Yes, I received your request."
+
+---
+
+## Step 3 – ACK
+
+The client replies:
+
+```
+ACK
+```
+
+Meaning:
+
+> "Great, let's start communication."
+
+---
+
+## Diagram
+
+```
+Client                     Server
+
+SYN ----------------------->
+
+      <---------------- SYN + ACK
+
+ACK ----------------------->
+
+Connection Established
+```
+
+---
+
+## Purpose
+
+- Establish connection
+- Synchronize sequence numbers
+- Verify both devices are ready
+
+---
+
+# **38. Ports**
+
+## Definition
+
+A Port is a logical number that identifies a particular application or service running on a device.
+
+While an IP address identifies the device, a Port identifies the application.
+
+---
+
+## Real-Life Analogy
+
+|Real Life|Networking|
+|---|---|
+|Building Address|IP Address|
+|Apartment Number|Port Number|
+
+---
+
+## Example
+
+```
+Laptop
+
+192.168.1.20
+
+↓
+
+Chrome
+
+Port 52134
+
+↓
+
+Google
+
+Port 443
+```
+
+---
+
+# **39. Well-Known Ports**
+
+|Port|Service|
+|---|---|
+|20|FTP Data|
+|21|FTP|
+|22|SSH|
+|23|Telnet|
+|25|SMTP|
+|53|DNS|
+|67|DHCP Server|
+|68|DHCP Client|
+|80|HTTP|
+|110|POP3|
+|143|IMAP|
+|443|HTTPS|
+
+---
+
+# **40. Source Port & Destination Port**
+
+Every TCP/UDP packet contains two port numbers.
+
+### Source Port
+
+Identifies the application that initiated the communication.
+
+Example:
+
+```
+52134
+```
+
+Usually assigned dynamically.
+
+---
+
+### Destination Port
+
+Identifies the service being accessed.
+
+Example:
+
+```
+443
+```
+
+---
+
+## Example
+
+```
+192.168.1.20:52134
+
+↓
+
+142.250.xxx.xxx:443
+```
+
+---
+
+# **41. Socket**
+
+## Definition
+
+A Socket is the combination of:
+
+```
+IP Address + Port Number
+```
+
+Example:
+
+```
+192.168.1.20:52134
+```
+
+A socket uniquely identifies one endpoint of a communication.
+
+---
+
+## Socket Pair (Four-Tuple)
+
+A TCP connection is uniquely identified by:
+
+- Source IP
+- Source Port
+- Destination IP
+- Destination Port
+
+Example:
+
+```
+192.168.1.20:52134
+
+↓
+
+142.250.205.206:443
+```
+
+---
+
+# **42. DHCP (Dynamic Host Configuration Protocol)**
+
+## Definition
+
+DHCP automatically assigns network configuration to devices joining a network.
+
+It provides:
+
+- IP Address
+- Subnet Mask
+- Default Gateway
+- DNS Server
+
+---
+
+## Why DHCP is Needed
+
+Without DHCP:
+
+- Users would manually assign IP addresses.
+- Duplicate IP addresses could occur.
+- Network management becomes difficult.
+
+---
+
+## DHCP Process (DORA)
+
+### Discover
+
+The client broadcasts:
+
+```
+Is there a DHCP Server?
+```
+
+---
+
+### Offer
+
+The DHCP Server replies:
+
+```
+Use IP
+
+192.168.1.25
+```
+
+---
+
+### Request
+
+The client requests:
+
+```
+I would like to use this IP.
+```
+
+---
+
+### Acknowledge
+
+The server confirms:
+
+```
+Approved.
+```
+
+---
+
+## Diagram
+
+```
+Client                 DHCP Server
+
+Discover ---------------------->
+
+          <---------------- Offer
+
+Request ----------------------->
+
+          <------------- Acknowledge
+```
+
+---
+
+## Lease Time
+
+DHCP does not permanently assign an IP address.
+
+Instead, it leases it for a specified duration.
+
+Example:
+
+```
+24 Hours
+```
+
+After the lease expires, the client requests renewal.
+
+---
+
+# **Quick Revision**
+
+```
+Browser
+
+↓
+
+TCP
+
+↓
+
+Three-Way Handshake
+
+↓
+
+Ports
+
+↓
+
+Socket
+
+↓
+
+DHCP
+
+↓
+
+DORA
+
+↓
+
+Internet
+```
+
+---
+
+# **Common Interview Questions**
+
+1. What is TCP?
+2. Difference between TCP and UDP.
+3. Explain the TCP Three-Way Handshake.
+4. Why is TCP reliable?
+5. What is a Port?
+6. Difference between Source Port and Destination Port.
+7. What is a Socket?
+8. Explain the Four-Tuple.
+9. What is DHCP?
+10. Explain the DORA process.
+11. Why is DHCP preferred over static IP configuration?
+12. What is a DHCP lease?

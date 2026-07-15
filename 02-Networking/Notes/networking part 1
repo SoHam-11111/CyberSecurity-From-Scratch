@@ -1,0 +1,644 @@
+## **Part 1 – Foundations of Networking**
+
+---
+
+# **1. What is Networking?**
+
+## Definition
+
+Networking is the process of connecting two or more devices so they can communicate and exchange data.
+
+Examples:
+
+- Laptop ↔ Phone
+- Laptop ↔ Printer
+- Laptop ↔ Google Server
+- Phone ↔ WhatsApp Server
+
+---
+
+## Why is Networking Important?
+
+Without networking:
+
+- You cannot browse websites.
+- You cannot send emails.
+- You cannot use WhatsApp.
+- You cannot stream YouTube or Netflix.
+- You cannot play online games.
+
+Networking is the backbone of the Internet.
+
+---
+
+# **2. Journey of a Website**
+
+When you type:
+
+```
+https://google.com
+```
+
+your browser does **not** immediately open Google's website.
+
+Instead, the request follows this path:
+
+```
+Keyboard
+      │
+      ▼
+Browser
+      │
+      ▼
+Operating System
+      │
+      ▼
+DNS
+      │
+      ▼
+Google's IP Address
+      │
+      ▼
+Packet Creation
+      │
+      ▼
+Router
+      │
+      ▼
+ISP
+      │
+      ▼
+Internet
+      │
+      ▼
+Google Server
+      │
+      ▼
+Response
+      │
+      ▼
+Browser Displays Website
+```
+
+This journey takes only a few milliseconds.
+
+---
+
+# **3. Domain Name**
+
+## Definition
+
+A domain name is a human-readable name of a website.
+
+Examples:
+
+```
+google.com
+
+youtube.com
+
+github.com
+
+amazon.in
+```
+
+Humans remember domain names much more easily than IP addresses.
+
+---
+
+## Why Do We Need Domain Names?
+
+Imagine remembering:
+
+```
+142.250.205.206
+
+104.18.32.47
+
+140.82.121.3
+```
+
+instead of
+
+```
+google.com
+
+github.com
+
+stackoverflow.com
+```
+
+Domain names make the Internet easy for humans to use.
+
+---
+
+# **4. IP Address**
+
+## Definition
+
+An IP (Internet Protocol) Address is a unique address that identifies a device on a network.
+
+Think of it as:
+
+> **The address of a device.**
+
+Example:
+
+```
+192.168.1.15
+```
+
+or
+
+```
+142.250.205.206
+```
+
+---
+
+## Why Do We Need IP Addresses?
+
+Names are easy for humans.
+
+Computers communicate using numbers.
+
+An IP address tells the network exactly where data should be delivered.
+
+---
+
+## Real Life Analogy
+
+|Real Life|Networking|
+|---|---|
+|House Address|IP Address|
+|Person|Device|
+
+---
+
+# **5. DNS (Domain Name System)**
+
+## Definition
+
+DNS converts a domain name into an IP address.
+
+Example:
+
+```
+google.com
+       │
+       ▼
+DNS
+       │
+       ▼
+142.250.205.206
+```
+
+---
+
+## Why is DNS Needed?
+
+Computers cannot communicate using domain names.
+
+They require IP addresses.
+
+DNS acts like a translator between humans and computers.
+
+---
+
+## Real Life Analogy
+
+DNS is similar to **Google Maps**.
+
+You search:
+
+```
+Starbucks
+```
+
+Google Maps finds its address.
+
+Similarly,
+
+DNS finds the IP address of a website.
+
+---
+
+# **6. Router**
+
+## Definition
+
+A Router connects different networks together and forwards packets toward their destination.
+
+It acts as the gateway between your local network and the Internet.
+
+---
+
+## Real Life Analogy
+
+Think of the router as a courier hub.
+
+```
+Laptop
+      │
+      ▼
+Router
+      │
+      ▼
+Internet
+```
+
+The router decides where the packet should go next.
+
+---
+
+# **7. ISP (Internet Service Provider)**
+
+## Definition
+
+An ISP is the company that provides Internet access.
+
+Examples:
+
+- JioFiber
+- Airtel Xstream
+- BSNL
+- ACT
+- Tata Play Fiber
+
+---
+
+## Role of ISP
+
+Without an ISP:
+
+```
+Laptop ❌
+
+Router ❌
+
+Internet ❌
+```
+
+The router has no Internet connection to distribute.
+
+---
+
+# **8. Default Gateway**
+
+## Definition
+
+The Default Gateway is usually your router's IP address.
+
+Whenever your computer wants to send data outside the local network, it first sends it to the default gateway.
+
+Example:
+
+```
+default via 172.28.160.1
+```
+
+This means:
+
+```
+Unknown Destination
+
+↓
+
+Send to Router
+
+↓
+
+Router forwards it.
+```
+
+---
+
+# **9. Packet**
+
+## Definition
+
+A Packet is a small unit of data transmitted across a network.
+
+Large files are broken into many packets before transmission.
+
+---
+
+## Why Packets?
+
+Instead of sending
+
+```
+5 GB Movie
+```
+
+as one huge file,
+
+the Internet sends
+
+```
+Packet 1
+
+Packet 2
+
+Packet 3
+
+Packet 4
+
+...
+
+Packet 500000
+```
+
+---
+
+## Advantages
+
+- Faster transmission
+- Easier error recovery
+- Better network efficiency
+- Only lost packets need retransmission
+
+---
+
+# **10. Packet Structure**
+
+Every packet contains two main parts.
+
+```
+┌─────────────────────────┐
+│ Header                  │
+├─────────────────────────┤
+│ Data                    │
+└─────────────────────────┘
+```
+
+---
+
+## Header
+
+Contains important information such as:
+
+- Source IP
+- Destination IP
+- Protocol
+- Packet Number
+
+---
+
+## Data
+
+Contains the actual information:
+
+- Image
+- Video
+- Email
+- Webpage
+- Chat Message
+
+---
+
+# **11. Source IP**
+
+The Source IP identifies the sender.
+
+Example:
+
+```
+Laptop
+
+172.28.172.42
+```
+
+Without the Source IP, Google would not know where to send the reply.
+
+---
+
+# **12. Destination IP**
+
+The Destination IP identifies the receiver.
+
+Example:
+
+```
+Google
+
+142.250.205.206
+```
+
+Routers use the Destination IP to forward packets.
+
+---
+
+# **13. Packet Number**
+
+Each packet is numbered.
+
+Example:
+
+```
+Packet 1
+
+Packet 2
+
+Packet 3
+```
+
+This allows the receiver to reconstruct the original file even if packets arrive out of order.
+
+---
+
+# **14. MAC Address**
+
+## Definition
+
+A MAC (Media Access Control) Address is the permanent hardware address of a network interface.
+
+Example:
+
+```
+00:15:5d:3e:47:4d
+```
+
+---
+
+## IP vs MAC
+
+|IP Address|MAC Address|
+|---|---|
+|Logical Address|Physical Address|
+|Can Change|Usually Permanent|
+|Used Across Networks|Used Within Local Network|
+
+---
+
+## Real Life Analogy
+
+|Real Life|Networking|
+|---|---|
+|House Address|IP Address|
+|Aadhaar / Passport|MAC Address|
+
+---
+
+# **15. ARP (Address Resolution Protocol)**
+
+## Definition
+
+ARP converts an IP address into its corresponding MAC address on the local network.
+
+Example:
+
+```
+Known IP
+
+192.168.1.11
+
+↓
+
+ARP
+
+↓
+
+MAC
+
+AA:BB:CC:DD:EE:FF
+```
+
+---
+
+## Why is ARP Needed?
+
+Computers send Ethernet/Wi-Fi frames using MAC addresses.
+
+If a device only knows the IP address, it must first discover the corresponding MAC address before sending data.
+
+---
+
+## ARP Process
+
+```
+Laptop
+
+↓
+
+Who has
+
+192.168.1.11 ?
+
+↓
+
+Phone
+
+↓
+
+I do.
+
+My MAC is
+
+AA:BB:CC:DD:EE:FF
+
+↓
+
+Laptop stores it in ARP Cache.
+```
+
+---
+
+# **16. Commands Learned**
+
+### Display your IP Address
+
+```
+hostname -I
+```
+
+---
+
+### Display Routing Table
+
+```
+ip route
+```
+
+---
+
+### Display Network Interfaces
+
+```
+ip link
+```
+
+---
+
+### Display ARP Cache
+
+```
+ip neigh
+```
+
+---
+
+# **Quick Revision**
+
+```
+google.com
+
+↓
+
+DNS
+
+↓
+
+IP Address
+
+↓
+
+Packet Created
+
+↓
+
+Need Router
+
+↓
+
+Need Router's MAC
+
+↓
+
+ARP
+
+↓
+
+Router
+
+↓
+
+ISP
+
+↓
+
+Internet
+
+↓
+
+Google Server
+
+↓
+
+Response
+```
+
+---
+
+# **Common Interview Questions**
+
+1. What is the difference between a Domain Name and an IP Address?
+2. What is DNS?
+3. Why are IP addresses required?
+4. What is the purpose of a router?
+5. What is the difference between a Public IP and a Private IP?
+6. What is a packet?
+7. What is contained in a packet header?
+8. Why are packets numbered?
+9. What is a MAC Address?
+10. Explain ARP in your own words.
