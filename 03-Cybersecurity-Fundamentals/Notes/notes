@@ -1,0 +1,5416 @@
+
+# Part 1
+
+# **Introduction to Cybersecurity**
+
+---
+
+# 1. What is Cybersecurity?
+
+## Definition
+
+Cybersecurity is the practice of protecting computers, networks, applications, devices, and data from unauthorized access, attacks, damage, or theft.
+
+Its primary goal is to ensure that digital systems remain secure, reliable, and available only to authorized users.
+
+---
+
+## Why is Cybersecurity Important?
+
+Today almost everything is connected to the Internet.
+
+Examples include:
+
+- Online Banking
+- UPI Payments
+- WhatsApp
+- Gmail
+- Cloud Storage
+- Government Services
+- Hospital Systems
+- College Portals
+
+If these systems are not protected:
+
+- Sensitive information can be stolen.
+- Money can be transferred illegally.
+- Personal identities can be misused.
+- Businesses can lose millions of dollars.
+- Critical services may stop working.
+
+Cybersecurity helps reduce these risks.
+
+---
+
+## Real-Life Analogy
+
+Imagine your house.
+
+Your house contains:
+
+- Money
+- Important documents
+- Jewelry
+- Family members
+
+To protect them, you install:
+
+- Locks
+- CCTV cameras
+- Security guards
+- Alarm systems
+
+Similarly, computers protect digital assets using:
+
+|House Security|Cybersecurity|
+|---|---|
+|Lock|Password|
+|Security Guard|Firewall|
+|Locker|Encryption|
+|CCTV|Logs & Monitoring|
+|Visitor Register|Authentication|
+
+---
+
+# 2. Goals of Cybersecurity
+
+Cybersecurity aims to:
+
+- Protect sensitive information.
+- Prevent unauthorized access.
+- Detect attacks.
+- Recover quickly after incidents.
+- Ensure systems continue operating normally.
+
+These goals are summarized by the **CIA Triad**.
+
+---
+
+# 3. CIA Triad
+
+The CIA Triad is the foundation of information security.
+
+It consists of three core principles.
+
+```
+          CIA
+
+     Confidentiality
+           ▲
+          / \
+         /   \
+Integrity-----Availability
+```
+
+Every security measure exists to protect one or more of these principles.
+
+---
+
+# 4. Confidentiality
+
+## Definition
+
+Confidentiality means that information should only be accessible to authorized people.
+
+Unauthorized users must not be able to view sensitive information.
+
+---
+
+## Examples
+
+- Bank account details
+- Medical records
+- Passwords
+- WhatsApp chats
+- Company source code
+
+---
+
+## Real-Life Example
+
+Suppose someone guesses your Gmail password and reads your emails.
+
+No files were changed.
+
+No files were deleted.
+
+However, your private information became visible to someone else.
+
+Confidentiality has been compromised.
+
+---
+
+## Technologies Used
+
+- Passwords
+- Encryption
+- Multi-Factor Authentication (MFA)
+- Access Control
+- VPNs
+
+---
+
+# 5. Integrity
+
+## Definition
+
+Integrity ensures that information remains accurate, complete, and unchanged unless modified by an authorized user.
+
+---
+
+## Examples
+
+- Bank balances
+- Exam results
+- Medical prescriptions
+- Government records
+
+---
+
+## Real-Life Example
+
+Suppose your college marks are:
+
+```
+85
+```
+
+A hacker changes them to:
+
+```
+45
+```
+
+Nobody stole the marks.
+
+Nobody deleted the record.
+
+But the information is now incorrect.
+
+Integrity has been compromised.
+
+---
+
+## Technologies Used
+
+- Hashing
+- Digital Signatures
+- Checksums
+- Version Control
+- Access Control
+
+---
+
+# 6. Availability
+
+## Definition
+
+Availability ensures that systems, applications, and data remain accessible whenever authorized users need them.
+
+---
+
+## Examples
+
+- ATM services
+- Hospital servers
+- College portals
+- Banking websites
+- Cloud storage
+
+---
+
+## Real-Life Example
+
+Imagine visiting an ATM.
+
+Instead of showing your balance, it displays:
+
+```
+Service Unavailable
+```
+
+Your money still exists.
+
+No one stole it.
+
+However, you cannot access it.
+
+Availability has failed.
+
+---
+
+## Technologies Used
+
+- Backups
+- Load Balancers
+- Redundant Servers
+- UPS
+- Disaster Recovery
+
+---
+
+# CIA Triad Example
+
+Imagine using Google Drive.
+
+|Principle|Example|
+|---|---|
+|Confidentiality|Only authorized users can access your files.|
+|Integrity|Files are not modified without permission.|
+|Availability|Files are accessible whenever needed.|
+
+---
+
+# 7. Types of Hackers
+
+Hackers are generally classified according to their intent and authorization.
+
+---
+
+## White Hat Hacker
+
+### Definition
+
+A White Hat Hacker is an ethical hacker who has permission to test systems for vulnerabilities.
+
+Their objective is to improve security rather than exploit weaknesses.
+
+---
+
+### Examples
+
+- Penetration Tester
+- Security Consultant
+- Bug Bounty Hunter
+- Red Team Member
+
+---
+
+### Example
+
+A company hires you to test its website.
+
+You discover a vulnerability and report it.
+
+The company fixes the issue.
+
+---
+
+## Black Hat Hacker
+
+### Definition
+
+A Black Hat Hacker accesses systems without permission for malicious purposes.
+
+Their objectives include:
+
+- Financial gain
+- Data theft
+- Ransomware
+- Identity theft
+- Espionage
+
+---
+
+### Example
+
+Stealing customer passwords and selling them online.
+
+---
+
+## Gray Hat Hacker
+
+### Definition
+
+A Gray Hat Hacker accesses systems without permission but usually does not intend to cause harm.
+
+Even if their intentions are good, their actions may still violate laws or organizational policies because they lack authorization.
+
+---
+
+### Example
+
+Someone scans a company's website without permission, discovers a vulnerability, and reports it.
+
+---
+
+# Hacker Comparison
+
+|Type|Permission|Intention|
+|---|---|---|
+|White Hat|✅ Yes|Improve security|
+|Gray Hat|❌ No|Usually helpful but unauthorized|
+|Black Hat|❌ No|Malicious or personal gain|
+
+---
+
+# 8. Authentication
+
+## Definition
+
+Authentication is the process of verifying the identity of a user or system.
+
+It answers the question:
+
+> **Who are you?**
+
+---
+
+## Examples
+
+- Password
+- Fingerprint
+- Face Recognition
+- OTP
+- SSH Keys
+
+---
+
+## Linux Example
+
+```
+ssh soham@server
+Password:
+```
+
+The server verifies whether you are actually Soham.
+
+---
+
+# 9. Authorization
+
+## Definition
+
+Authorization determines what an authenticated user is allowed to do.
+
+It answers the question:
+
+> **What are you allowed to do?**
+
+---
+
+## Linux Example
+
+A normal user logs into Linux successfully.
+
+However,
+
+```
+sudo apt update
+```
+
+returns:
+
+```
+Permission denied
+```
+
+The user has been authenticated but is not authorized to perform administrative actions.
+
+---
+
+# Authentication vs Authorization
+
+|Authentication|Authorization|
+|---|---|
+|Verifies identity|Determines permissions|
+|Who are you?|What can you do?|
+|Happens first|Happens after authentication|
+
+---
+
+# 10. AAA Model
+
+AAA is a widely used security framework.
+
+```
+Authentication
+
+↓
+
+Authorization
+
+↓
+
+Accounting
+```
+
+---
+
+## Authentication
+
+Verifies identity.
+
+Example:
+
+Password
+
+Fingerprint
+
+OTP
+
+---
+
+## Authorization
+
+Determines permissions.
+
+Example:
+
+- File permissions
+- User roles
+- sudo access
+
+---
+
+## Accounting
+
+Records user activities.
+
+It answers:
+
+> **What did you do?**
+
+---
+
+## Examples
+
+Accounting records:
+
+- Login time
+- Logout time
+- Commands executed
+- Files accessed
+- Failed login attempts
+
+---
+
+## Real-Life Example
+
+Suppose an employee deletes company files.
+
+Accounting logs help answer:
+
+- Who deleted them?
+- When were they deleted?
+- Which commands were executed?
+
+---
+
+# AAA Summary
+
+|Component|Purpose|
+|---|---|
+|Authentication|Verify identity|
+|Authorization|Grant permissions|
+|Accounting|Record activities|
+
+---
+
+# 11. Multi-Factor Authentication (MFA)
+
+## Definition
+
+Multi-Factor Authentication (MFA) requires users to provide **two or more different authentication factors** to verify their identity.
+
+---
+
+## Authentication Factors
+
+### Something You Know
+
+- Password
+- PIN
+- Security Question
+
+---
+
+### Something You Have
+
+- Mobile Phone
+- OTP Device
+- Security Key
+- Smart Card
+
+---
+
+### Something You Are
+
+- Fingerprint
+- Face Recognition
+- Iris Scan
+
+---
+
+# Example
+
+```
+Password
+
+↓
+
+OTP
+
+↓
+
+Login Successful
+```
+
+Password:
+
+Something you know
+
+OTP:
+
+Something you have
+
+Therefore,
+
+This is Multi-Factor Authentication.
+
+---
+
+# Why MFA is Important
+
+Without MFA
+
+```
+Password Stolen
+
+↓
+
+Account Compromised
+```
+
+With MFA
+
+```
+Password Stolen
+
+↓
+
+OTP Required
+
+↓
+
+Attacker Doesn't Have Phone
+
+↓
+
+Login Blocked
+```
+
+MFA significantly reduces the risk of account compromise due to stolen passwords.
+
+---
+
+# Important Note
+
+```
+Password + Security Question
+```
+
+is **NOT** Multi-Factor Authentication.
+
+Both belong to the same category:
+
+**Something you know.**
+
+True MFA requires at least **two different authentication factors.**
+
+---
+
+# Quick Revision
+
+```
+Cybersecurity
+
+↓
+
+CIA Triad
+
+↓
+
+Confidentiality
+
+Integrity
+
+Availability
+
+↓
+
+Types of Hackers
+
+↓
+
+Authentication
+
+↓
+
+Authorization
+
+↓
+
+AAA
+
+↓
+
+MFA
+```
+
+---
+
+# Common Interview Questions
+
+1. What is Cybersecurity?
+2. Why is Cybersecurity important?
+3. Explain the CIA Triad with examples.
+4. Can one attack violate multiple parts of the CIA Triad?
+5. Differentiate between White Hat, Black Hat, and Gray Hat Hackers.
+6. What is Authentication?
+7. What is Authorization?
+8. Explain the difference between Authentication and Authorization.
+9. What is the AAA model?
+10. What is Accounting in AAA?
+11. What is Multi-Factor Authentication?
+12. Why is Password + Security Question not considered MFA?
+13. Name the three authentication factors with examples.
+
+
+# Access Control & Security Principles
+
+---
+
+# 1. Principle of Least Privilege (PoLP)
+
+## Definition
+
+The **Principle of Least Privilege (PoLP)** states that every user, application, or process should be given **only the minimum permissions required** to perform its intended task.
+
+In simple words:
+
+> **Give only the permissions that are necessary—nothing more, nothing less.**
+
+This principle is one of the most important concepts in cybersecurity because limiting permissions reduces the damage that can be caused by accidents, malware, or malicious users.
+
+---
+
+## Why is PoLP Important?
+
+Giving excessive permissions increases security risks.
+
+For example, if every employee has administrator privileges:
+
+- Malware can install itself without restrictions.
+- Users may accidentally delete important system files.
+- Attackers who compromise one account gain complete control over the system.
+
+By following PoLP, organizations reduce the **attack surface** and limit the impact of security incidents.
+
+---
+
+## Real-Life Analogy
+
+Imagine a hospital.
+
+### Doctor
+
+Needs access to:
+
+- Patient records
+- Medical history
+- Prescriptions
+
+Does **not** need access to:
+
+- Employee payroll
+- CCTV settings
+- Server configuration
+
+---
+
+### Receptionist
+
+Needs access to:
+
+- Appointment scheduling
+- Patient registration
+
+Does **not** need access to:
+
+- Medical records
+- Financial accounts
+
+---
+
+### IT Administrator
+
+Needs access to:
+
+- Servers
+- Network devices
+- User account management
+
+Each employee receives only the permissions required for their job.
+
+This is the Principle of Least Privilege.
+
+---
+
+## Linux Example
+
+A normal Linux user tries:
+
+```
+sudo apt update
+```
+
+Output:
+
+```
+Permission denied
+```
+
+The user is authenticated but does not have administrative privileges.
+
+PoLP prevents unauthorized system changes.
+
+---
+
+## Benefits of PoLP
+
+- Reduces insider threats.
+- Limits malware damage.
+- Prevents accidental deletion of important files.
+- Improves compliance with security standards.
+- Makes systems easier to audit.
+
+---
+
+# 2. Zero Trust Security
+
+## Definition
+
+Zero Trust is a security model based on the principle:
+
+> **Never Trust, Always Verify.**
+
+Unlike traditional security models that automatically trusted users inside the company network, Zero Trust assumes that **every request must be verified**, regardless of where it originates.
+
+---
+
+## Traditional Security Model
+
+Older security models assumed:
+
+```
+Inside Company Network
+
+↓
+
+Trusted
+```
+
+Once a user entered the network, they often had broad access.
+
+---
+
+## Zero Trust Model
+
+Zero Trust assumes:
+
+```
+User Requests Access
+
+↓
+
+Verify Identity
+
+↓
+
+Verify Device
+
+↓
+
+Verify Location
+
+↓
+
+Allow or Deny Access
+```
+
+Every request is verified before access is granted.
+
+---
+
+## Real-Life Example
+
+Imagine entering your office building.
+
+You use your ID card to enter the main entrance.
+
+Later you try to access:
+
+- Finance Department
+- Server Room
+- Research Lab
+
+Each area requires another authentication step.
+
+Even though you are already inside the building, you are **not automatically trusted**.
+
+---
+
+## Example in Daily Life
+
+When you log into Gmail from a new device or country, Google may ask for:
+
+- OTP
+- Fingerprint
+- Security confirmation
+
+Even though your password is correct.
+
+This is Zero Trust in action.
+
+---
+
+## Benefits of Zero Trust
+
+- Reduces unauthorized access.
+- Protects against stolen passwords.
+- Prevents lateral movement by attackers.
+- Improves overall security.
+
+---
+
+# 3. Access Control
+
+## Definition
+
+Access Control determines **who is allowed to access a resource and what actions they are permitted to perform**.
+
+Resources include:
+
+- Files
+- Databases
+- Applications
+- Servers
+- Network devices
+
+---
+
+## How Access Control Works
+
+```
+User Requests Access
+
+↓
+
+Authentication
+
+↓
+
+Authorization
+
+↓
+
+Access Control Rules
+
+↓
+
+Allow
+
+OR
+
+Deny
+```
+
+---
+
+## Examples
+
+Access Control decides:
+
+- Can this user read the file?
+- Can they modify it?
+- Can they delete it?
+- Can they install software?
+
+---
+
+# 4. Access Control Models
+
+Organizations implement Access Control using different models.
+
+---
+
+# A. DAC (Discretionary Access Control)
+
+## Definition
+
+In DAC, the **owner of the resource** decides who can access it and what permissions they receive.
+
+---
+
+## Example
+
+You create:
+
+```
+notes.txt
+```
+
+You decide:
+
+Friend A:
+
+- Read
+
+Friend B:
+
+- Read + Write
+
+You control the permissions.
+
+---
+
+## Linux Example
+
+```
+chmod 644 notes.txt
+```
+
+The file owner changes permissions.
+
+---
+
+## Advantages
+
+- Flexible
+- Easy to use
+- Common in personal computers
+
+---
+
+## Disadvantages
+
+- Users may accidentally grant excessive permissions.
+- Less secure for highly sensitive environments.
+
+---
+
+# B. MAC (Mandatory Access Control)
+
+## Definition
+
+In MAC, users **cannot change permissions**.
+
+The operating system or security administrator defines all access rules.
+
+---
+
+## Example
+
+Military documents:
+
+```
+Top Secret
+
+↓
+
+Secret
+
+↓
+
+Confidential
+
+↓
+
+Public
+```
+
+A soldier cannot simply grant themselves access to a "Top Secret" document.
+
+---
+
+## Advantages
+
+- Very secure
+- Centralized management
+- Prevents unauthorized permission changes
+
+---
+
+## Disadvantages
+
+- Less flexible
+- More difficult to manage
+
+---
+
+# C. RBAC (Role-Based Access Control)
+
+## Definition
+
+Permissions are assigned to **roles**, and users inherit permissions based on their assigned role.
+
+---
+
+## Example
+
+Hospital
+
+```
+Doctor
+
+↓
+
+Patient Records
+
+Nurse
+
+↓
+
+Update Patient Status
+
+Receptionist
+
+↓
+
+Schedule Appointments
+```
+
+When a new doctor joins, assigning the "Doctor" role automatically grants all necessary permissions.
+
+---
+
+## Real-World Examples
+
+- Microsoft Active Directory
+- AWS IAM Roles
+- Azure Active Directory
+- Google Workspace
+
+---
+
+## Advantages
+
+- Easy to manage
+- Scales well
+- Widely used in enterprises
+
+---
+
+# D. ABAC (Attribute-Based Access Control)
+
+## Definition
+
+ABAC grants access based on **attributes** rather than fixed roles.
+
+Attributes may include:
+
+- Department
+- Job Title
+- Time
+- Device
+- Location
+- Security Clearance
+
+---
+
+## Example
+
+Allow access only if:
+
+```
+Department = Finance
+
+AND
+
+Location = Office
+
+AND
+
+Time = 9 AM–6 PM
+```
+
+If any condition fails, access is denied.
+
+---
+
+## Advantages
+
+- Very flexible
+- Supports complex security policies
+
+---
+
+## Disadvantages
+
+- More difficult to configure
+- Requires careful planning
+
+---
+
+# Comparison of Access Control Models
+
+|Model|Controlled By|Example|
+|---|---|---|
+|DAC|Resource Owner|Linux file permissions|
+|MAC|Operating System / Administrator|Military systems|
+|RBAC|User Role|Hospitals, Companies|
+|ABAC|User & Environment Attributes|Cloud platforms|
+
+---
+
+# 5. Password Security
+
+Passwords are the first line of defense against unauthorized access.
+
+A weak password can compromise an entire system, regardless of how secure the software is.
+
+---
+
+## Characteristics of a Strong Password
+
+A secure password should:
+
+- Be at least 12–16 characters long.
+- Contain uppercase and lowercase letters.
+- Include numbers.
+- Include special characters.
+- Avoid dictionary words.
+- Avoid personal information.
+- Be unique for every account.
+
+---
+
+### Weak Passwords
+
+```
+123456
+
+password
+
+qwerty
+
+india123
+
+soham123
+```
+
+---
+
+### Strong Password
+
+```
+M0unt@in!River#27Sky
+```
+
+---
+
+# Password Reuse
+
+Using the same password on multiple websites is dangerous.
+
+Example:
+
+```
+Gmail
+
+↓
+
+GitHub
+
+↓
+
+Amazon
+
+↓
+
+Spotify
+
+↓
+
+Same Password
+```
+
+If one website suffers a data breach, attackers can try the same password on all your other accounts.
+
+This attack is known as **Credential Stuffing**, which we study in the next chapter.
+
+---
+
+# Password Manager
+
+## Definition
+
+A Password Manager securely stores passwords and generates strong, unique passwords for every website.
+
+Instead of remembering dozens of passwords, users only remember **one strong master password**.
+
+---
+
+## Advantages
+
+- Generates strong passwords.
+- Prevents password reuse.
+- Encrypts stored passwords.
+- Simplifies password management.
+
+---
+
+## Popular Password Managers
+
+- Bitwarden
+- KeePass
+- 1Password
+- Dashlane
+
+---
+
+# Best Practices
+
+- Use unique passwords.
+- Enable Multi-Factor Authentication (MFA).
+- Use a password manager.
+- Never share passwords.
+- Avoid writing passwords on paper.
+- Change passwords immediately after a suspected compromise.
+
+---
+
+# Quick Revision
+
+```
+Authentication
+
+↓
+
+Authorization
+
+↓
+
+Access Control
+
+↓
+
+DAC
+MAC
+RBAC
+ABAC
+
+↓
+
+PoLP
+
+↓
+
+Zero Trust
+
+↓
+
+Strong Passwords
+
+↓
+
+Password Manager
+
+↓
+
+Secure System
+```
+
+---
+
+# Common Interview Questions
+
+1. What is the Principle of Least Privilege?
+2. Why is PoLP important in cybersecurity?
+3. Explain Zero Trust Security.
+4. What is the difference between Authentication and Authorization?
+5. What is Access Control?
+6. Explain DAC with an example.
+7. Explain MAC with an example.
+8. What is RBAC and where is it commonly used?
+9. What is ABAC?
+10. Compare DAC, MAC, RBAC, and ABAC.
+11. What makes a password strong?
+12. Why is password reuse dangerous?
+13. What is a Password Manager?
+14. Why should organizations encourage MFA along with strong passwords?
+
+---
+
+# 💡 Key Takeaways
+
+- **PoLP** limits permissions to only what is necessary, reducing the impact of mistakes and attacks.
+- **Zero Trust** assumes no user or device is trusted automatically; every request must be verified.
+- **Access Control** determines who can access resources and what they are allowed to do.
+- **DAC, MAC, RBAC, and ABAC** are different models used to enforce access control, each suited to different environments.
+- **Strong, unique passwords**, combined with **MFA** and a **password manager**, provide a much stronger defense against account compromise.
+
+
+# Password Security & Authentication Attacks
+
+---
+
+# 1. Introduction
+
+Passwords are the **first line of defense** for almost every digital system.
+
+Whether logging into:
+
+- Gmail
+- GitHub
+- Linux
+- Banking Apps
+- College Portal
+
+the first security mechanism is usually a password.
+
+Unfortunately, passwords are also one of the weakest security points because humans often choose weak or predictable passwords.
+
+Cyber attackers exploit this behavior using different password attacks.
+
+---
+
+# Why Password Security Matters
+
+Suppose an attacker steals your Gmail password.
+
+They may also gain access to:
+
+- Google Drive
+- Photos
+- Contacts
+- Password Reset Emails
+- Banking OTP Emails
+- GitHub
+
+One compromised password can lead to multiple compromised accounts.
+
+---
+
+# Common Causes of Password Compromise
+
+Passwords are usually stolen because of:
+
+- Weak passwords
+- Password reuse
+- Phishing
+- Data breaches
+- Social engineering
+- Malware
+- Poor password policies
+
+---
+
+# 2. Brute Force Attack
+
+## Definition
+
+A **Brute Force Attack** attempts every possible password combination until the correct password is found.
+
+Instead of guessing intelligently, the attacker systematically tries every possible combination.
+
+---
+
+## Example
+
+Suppose the password is:
+
+```
+cat
+```
+
+The attacker tries:
+
+```
+aaa
+aab
+aac
+...
+cat
+```
+
+Eventually, the correct password is found.
+
+---
+
+## Real-Life Analogy
+
+Imagine trying every key on a giant keychain until one opens a locked door.
+
+---
+
+## Advantages (for the attacker)
+
+- Guaranteed to work eventually
+- No knowledge of the password required
+
+---
+
+## Disadvantages
+
+- Extremely slow
+- Long passwords make brute force practically impossible
+- Easily detected by security systems
+
+---
+
+## Defenses
+
+- Long passwords
+- Multi-Factor Authentication (MFA)
+- Account Lockout
+- Rate Limiting
+
+---
+
+# 3. Dictionary Attack
+
+## Definition
+
+Instead of trying every possible password, the attacker uses a **dictionary** containing common passwords.
+
+---
+
+## Example Password List
+
+```
+password
+
+123456
+
+admin
+
+welcome
+
+india123
+
+football
+
+letmein
+```
+
+The attacker checks whether the user's password exists in this list.
+
+---
+
+## Why Dictionary Attacks Work
+
+Many users choose predictable passwords based on:
+
+- Names
+- Birthdays
+- Sports
+- Cities
+- Pets
+
+---
+
+## Advantages
+
+- Faster than brute force
+- Effective against weak passwords
+
+---
+
+## Disadvantages
+
+- Fails if users choose random passwords
+
+---
+
+## Defense
+
+- Long passwords
+- Random passwords
+- Password Managers
+
+---
+
+# Brute Force vs Dictionary Attack
+
+|Brute Force|Dictionary|
+|---|---|
+|Tries every combination|Tries common passwords|
+|Slow|Faster|
+|Guaranteed eventually|Works only if password is common|
+
+---
+
+# 4. Password Spraying
+
+## Definition
+
+Password Spraying attempts **one common password against many different accounts**.
+
+Instead of attacking one user repeatedly, attackers spread their attempts across many users.
+
+---
+
+## Example
+
+Company:
+
+```
+500 Employees
+```
+
+Attacker tries:
+
+```
+Welcome123
+```
+
+against:
+
+```
+employee1
+
+employee2
+
+employee3
+
+employee500
+```
+
+Eventually, someone may be using that password.
+
+---
+
+## Why Attackers Use Password Spraying
+
+Many systems lock an account after multiple failed login attempts.
+
+Trying only one password per account avoids triggering account lockout.
+
+---
+
+## Defense
+
+- Strong Password Policy
+- MFA
+- Account Monitoring
+
+---
+
+# Brute Force vs Password Spraying
+
+```
+Brute Force
+
+One Account
+
+↓
+
+Many Passwords
+```
+
+```
+Password Spraying
+
+Many Accounts
+
+↓
+
+One Password
+```
+
+---
+
+# 5. Credential Stuffing
+
+## Definition
+
+Credential Stuffing uses **stolen usernames and passwords from one data breach** to access accounts on other websites.
+
+---
+
+## Example
+
+Suppose a shopping website suffers a data breach.
+
+Leaked password:
+
+```
+Soham@123
+```
+
+The attacker now tries the same credentials on:
+
+- Gmail
+- GitHub
+- Instagram
+- Amazon
+
+If the user reused the password, multiple accounts are compromised.
+
+---
+
+## Why Credential Stuffing Works
+
+Many people reuse the same password across different services.
+
+---
+
+## Defense
+
+- Unique password for every website
+- Password Manager
+- MFA
+
+---
+
+# 6. Phishing
+
+## Definition
+
+Phishing is a **social engineering attack** where attackers trick users into revealing sensitive information such as passwords, OTPs, or banking details.
+
+---
+
+## Example
+
+Victim receives an email:
+
+```
+URGENT!
+
+Your Bank Account Has Been Locked.
+
+Click Here Immediately.
+```
+
+The link opens a fake banking website.
+
+The victim enters:
+
+- Username
+- Password
+- OTP
+
+The attacker steals everything.
+
+---
+
+## Common Signs of Phishing
+
+- Urgent language
+- Unknown sender
+- Spelling mistakes
+- Suspicious URLs
+- Requests for passwords or OTPs
+
+---
+
+## Defense
+
+- Verify the sender
+- Check URLs carefully
+- Never share OTPs
+- Enable MFA
+
+---
+
+# 7. Social Engineering
+
+## Definition
+
+Social Engineering is the practice of manipulating people into performing actions that compromise security.
+
+Unlike technical attacks, it targets **human behavior** rather than software vulnerabilities.
+
+---
+
+## Why It Is Dangerous
+
+Humans are often easier to deceive than computers.
+
+Even highly secure systems can be compromised if users voluntarily reveal their credentials.
+
+---
+
+## Common Types of Social Engineering
+
+---
+
+### A. Phishing
+
+Uses emails or fake websites.
+
+---
+
+### B. Vishing
+
+Voice phishing.
+
+Example:
+
+```
+Hello.
+
+This is Microsoft Support.
+
+Please tell me your OTP.
+```
+
+---
+
+### C. Smishing
+
+SMS phishing.
+
+Example:
+
+```
+Your Bank Account Has Been Locked.
+
+Click Here.
+```
+
+---
+
+### D. Baiting
+
+The attacker leaves:
+
+```
+Salary_List_2026.pdf.exe
+```
+
+or
+
+an infected USB drive.
+
+The victim opens it.
+
+Malware installs automatically.
+
+---
+
+### E. Tailgating
+
+An attacker follows an employee into a restricted building without authorization.
+
+---
+
+# Phishing vs Social Engineering
+
+|Phishing|Social Engineering|
+|---|---|
+|Specific attack|Broader category|
+|Usually email/websites|Targets human psychology|
+|One type of social engineering|Includes phishing, vishing, smishing, baiting, tailgating|
+
+---
+
+# 8. Password Policies
+
+Organizations define password policies to improve security.
+
+Typical rules include:
+
+- Minimum length of 12–16 characters
+- Uppercase letters
+- Lowercase letters
+- Numbers
+- Special characters
+- No common passwords
+- No password reuse
+
+---
+
+## Example Policy
+
+```
+Minimum Length
+
+16 Characters
+
+↓
+
+Uppercase
+
+↓
+
+Lowercase
+
+↓
+
+Numbers
+
+↓
+
+Special Characters
+```
+
+---
+
+# 9. Account Lockout
+
+## Definition
+
+Account Lockout temporarily disables an account after several failed login attempts.
+
+Example:
+
+```
+Wrong Password
+
+↓
+
+5 Attempts
+
+↓
+
+Account Locked
+
+↓
+
+30 Minutes
+```
+
+---
+
+## Advantages
+
+- Stops brute force attacks
+- Slows attackers
+
+---
+
+## Disadvantages
+
+Attackers may intentionally lock users out of their own accounts (a form of Denial-of-Service).
+
+---
+
+# Best Practices
+
+- Use unique passwords.
+- Enable MFA.
+- Use a password manager.
+- Never reuse passwords.
+- Be cautious of suspicious emails.
+- Verify website URLs.
+- Never share OTPs.
+
+---
+
+# Attack Comparison
+
+|Attack|Strategy|Primary Defense|
+|---|---|---|
+|Brute Force|Every password|Long passwords, MFA|
+|Dictionary|Common passwords|Strong passwords|
+|Password Spraying|One password, many accounts|Password policy, MFA|
+|Credential Stuffing|Reused leaked credentials|Unique passwords, MFA|
+|Phishing|Trick the user|Awareness, MFA|
+|Vishing|Voice calls|Verify caller|
+|Smishing|SMS|Verify links|
+|Baiting|Fake files/USB|User awareness|
+
+---
+
+# Quick Revision
+
+```
+Weak Password
+
+↓
+
+Password Attacks
+
+↓
+
+Brute Force
+
+Dictionary
+
+Password Spraying
+
+Credential Stuffing
+
+↓
+
+Social Engineering
+
+↓
+
+Phishing
+
+Vishing
+
+Smishing
+
+Baiting
+
+↓
+
+MFA
+
+↓
+
+Secure Account
+```
+
+---
+
+# Common Interview Questions
+
+1. What is a Brute Force Attack?
+2. Explain the difference between Brute Force and Dictionary Attack.
+3. What is Password Spraying?
+4. What is Credential Stuffing?
+5. Why does password reuse increase security risks?
+6. Explain Phishing with an example.
+7. What is Social Engineering?
+8. Differentiate between Phishing, Vishing, and Smishing.
+9. What is Baiting?
+10. What is Tailgating?
+11. What is an Account Lockout?
+12. Why do organizations implement password policies?
+13. Name three defenses against password attacks.
+14. How does MFA reduce the effectiveness of password attacks?
+
+---
+
+# 💡 Key Takeaways
+
+- **Brute Force** tries every possible password, while **Dictionary Attacks** rely on common passwords.
+- **Password Spraying** targets many users with one common password, whereas **Credential Stuffing** reuses stolen credentials from data breaches.
+- **Phishing** is a form of **Social Engineering**, which focuses on exploiting human behavior rather than technical vulnerabilities.
+- **Strong, unique passwords**, **MFA**, **password managers**, and **user awareness** are the most effective defenses against authentication attacks.
+- Security is not only about technology—it also depends on educating users to recognize and resist social engineering attempts.
+
+
+# Cryptography Basics
+
+---
+
+# 1. What is Cryptography?
+
+## Definition
+
+**Cryptography** is the science of protecting information by converting it into a form that unauthorized users cannot understand.
+
+It ensures that even if data is intercepted during transmission, attackers cannot read or modify it without the correct key.
+
+In simple words:
+
+> **Cryptography protects data from unauthorized access.**
+
+---
+
+## Why is Cryptography Important?
+
+Without cryptography:
+
+- Passwords would travel across the Internet as plain text.
+- Banking transactions could be intercepted.
+- Anyone connected to the same network could read your messages.
+- Online shopping would not be secure.
+
+Cryptography is one of the foundations of modern cybersecurity.
+
+---
+
+## Real-World Applications
+
+Cryptography is used in:
+
+- HTTPS websites
+- Online Banking
+- WhatsApp
+- Signal
+- SSH
+- VPNs
+- Wi-Fi (WPA2/WPA3)
+- Cloud Storage
+- Password Managers
+- Cryptocurrency
+
+Almost every secure communication on the Internet depends on cryptography.
+
+---
+
+# 2. Goals of Cryptography
+
+Cryptography helps achieve several important security objectives.
+
+|Goal|Description|
+|---|---|
+|Confidentiality|Prevent unauthorized users from reading data|
+|Integrity|Ensure data has not been modified|
+|Authentication|Verify the identity of users or systems|
+|Non-Repudiation|Prevent a sender from denying that they sent a message|
+
+---
+
+## Confidentiality
+
+Only authorized users should be able to read information.
+
+Example:
+
+Your banking password should only be readable by:
+
+- You
+- The bank's server
+
+Not by:
+
+- Hackers
+- ISPs
+- Other users on the network
+
+---
+
+## Integrity
+
+Integrity ensures that data remains unchanged.
+
+Example:
+
+Original message:
+
+```
+Transfer ₹1000
+```
+
+Modified message:
+
+```
+Transfer ₹10000
+```
+
+Integrity mechanisms detect such changes.
+
+---
+
+## Authentication
+
+Authentication confirms the identity of the communicating parties.
+
+Example:
+
+Before accessing Gmail:
+
+```
+Username
+
+↓
+
+Password
+
+↓
+
+OTP
+
+↓
+
+Login
+```
+
+Google verifies that you are the legitimate account owner.
+
+---
+
+## Non-Repudiation
+
+A sender cannot later claim:
+
+> "I never sent that message."
+
+Digital signatures provide this property.
+
+---
+
+# 3. Plaintext
+
+## Definition
+
+**Plaintext** is the original readable data before encryption.
+
+Examples:
+
+```
+Hello World
+
+Soham@123
+
+Meet me at 5 PM
+```
+
+Anyone who reads plaintext can understand it.
+
+---
+
+# 4. Ciphertext
+
+## Definition
+
+**Ciphertext** is the encrypted version of plaintext.
+
+Example:
+
+Plaintext:
+
+```
+Hello Soham
+```
+
+Ciphertext:
+
+```
+K8#Lx9Q@1Pv7
+```
+
+Without the correct key, the ciphertext appears meaningless.
+
+---
+
+## Plaintext vs Ciphertext
+
+|Plaintext|Ciphertext|
+|---|---|
+|Readable|Unreadable|
+|Original Data|Encrypted Data|
+|Human Understandable|Requires a Key|
+
+---
+
+# 5. Encryption
+
+## Definition
+
+**Encryption** is the process of converting plaintext into ciphertext.
+
+The purpose is to protect data from unauthorized access.
+
+---
+
+## Encryption Process
+
+```
+Plaintext
+     │
+     ▼
+Encryption Algorithm
+     │
+     ▼
+Ciphertext
+```
+
+---
+
+## Example
+
+Original message:
+
+```
+Password = Soham@123
+```
+
+After encryption:
+
+```
+L7#P9v@X2q8
+```
+
+Even if attackers intercept the message, they cannot understand it without the correct key.
+
+---
+
+# 6. Decryption
+
+## Definition
+
+**Decryption** is the process of converting ciphertext back into readable plaintext.
+
+Only users with the correct key can decrypt the message.
+
+---
+
+## Decryption Process
+
+```
+Ciphertext
+     │
+     ▼
+Decryption Algorithm
+     │
+     ▼
+Plaintext
+```
+
+---
+
+# Complete Communication Flow
+
+```
+Sender
+
+↓
+
+Plaintext
+
+↓
+
+Encryption
+
+↓
+
+Ciphertext
+
+↓
+
+Internet
+
+↓
+
+Ciphertext
+
+↓
+
+Decryption
+
+↓
+
+Plaintext
+
+↓
+
+Receiver
+```
+
+---
+
+# 7. Encryption Key
+
+## Definition
+
+An **Encryption Key** is a secret value used during encryption and decryption.
+
+The key determines how the plaintext is transformed into ciphertext.
+
+Without the correct key, the encrypted data cannot be correctly decrypted.
+
+---
+
+## Real-Life Analogy
+
+Imagine a locker.
+
+The locker represents encrypted data.
+
+The key represents the encryption key.
+
+Without the correct key:
+
+```
+Locker
+
+↓
+
+Cannot Open
+```
+
+With the correct key:
+
+```
+Locker
+
+↓
+
+Opens Successfully
+```
+
+---
+
+## Important Concept
+
+The **algorithm** can be public.
+
+The **key must remain secret**.
+
+Security depends on protecting the key, not hiding the algorithm.
+
+This principle is known as **Kerckhoffs's Principle**.
+
+---
+
+# 8. Encryption Algorithms
+
+## Definition
+
+An **Encryption Algorithm** is the mathematical procedure used to convert plaintext into ciphertext.
+
+Think of it as a recipe.
+
+The algorithm tells the computer _how_ to encrypt data.
+
+The key determines _which result_ is produced.
+
+---
+
+## Algorithm vs Key
+
+|Encryption Algorithm|Encryption Key|
+|---|---|
+|Mathematical method|Secret value|
+|Publicly known|Must remain secret|
+|Defines encryption process|Produces unique ciphertext|
+
+---
+
+## Example
+
+Message:
+
+```
+Hello
+```
+
+Algorithm:
+
+```
+AES
+```
+
+Key:
+
+```
+Secret123
+```
+
+↓
+
+Ciphertext:
+
+```
+P8#Kx91L@
+```
+
+Using the same algorithm but a different key produces completely different ciphertext.
+
+---
+
+# 9. Types of Encryption (Introduction)
+
+Encryption is divided into two categories.
+
+---
+
+## Symmetric Encryption
+
+Uses:
+
+- One secret key
+
+The same key encrypts and decrypts data.
+
+Examples:
+
+- AES
+- DES
+- ChaCha20
+
+---
+
+## Asymmetric Encryption
+
+Uses:
+
+- Public Key
+- Private Key
+
+Examples:
+
+- RSA
+- ECC
+
+These will be discussed in detail in the next chapter.
+
+---
+
+# Encryption vs Hashing
+
+Many beginners confuse these concepts.
+
+|Encryption|Hashing|
+|---|---|
+|Reversible|One-way|
+|Uses Keys|Usually No Key|
+|Protects Confidentiality|Protects Integrity|
+|Original Data Can Be Recovered|Original Data Cannot Be Recovered|
+
+---
+
+# How HTTPS Uses Encryption
+
+When visiting:
+
+```
+https://google.com
+```
+
+The browser:
+
+```
+User
+
+↓
+
+Browser
+
+↓
+
+TLS
+
+↓
+
+Encryption
+
+↓
+
+Internet
+
+↓
+
+Google Server
+
+↓
+
+Decryption
+
+↓
+
+Response
+```
+
+This is why Wireshark can display:
+
+- Source IP
+- Destination IP
+- Port 443
+
+But cannot display:
+
+- Passwords
+- Credit Card Numbers
+- Banking Information
+
+The payload is encrypted before transmission.
+
+---
+
+# Common Misconceptions
+
+### ❌ Encryption is the same as Hashing.
+
+**Correct:**
+
+Encryption is reversible.
+
+Hashing is not.
+
+---
+
+### ❌ Secret algorithms provide security.
+
+**Correct:**
+
+Modern cryptography assumes the algorithm is public.
+
+Only the key must remain secret.
+
+---
+
+### ❌ HTTPS hides everything.
+
+**Correct:**
+
+HTTPS encrypts the data (payload), but metadata such as:
+
+- Source IP
+- Destination IP
+- Port Numbers
+
+are still visible.
+
+---
+
+# Best Practices
+
+- Use strong encryption algorithms.
+- Protect encryption keys.
+- Never hardcode keys into applications.
+- Always use HTTPS instead of HTTP.
+- Keep cryptographic software updated.
+
+---
+
+# Quick Revision
+
+```
+Plaintext
+
+↓
+
+Encryption
+
+↓
+
+Ciphertext
+
+↓
+
+Internet
+
+↓
+
+Ciphertext
+
+↓
+
+Decryption
+
+↓
+
+Plaintext
+```
+
+---
+
+# Summary Table
+
+|Concept|Purpose|
+|---|---|
+|Plaintext|Original readable data|
+|Ciphertext|Encrypted unreadable data|
+|Encryption|Protects confidentiality|
+|Decryption|Restores original data|
+|Encryption Key|Secret used during encryption/decryption|
+|Encryption Algorithm|Mathematical process for encryption|
+
+---
+
+# Common Interview Questions
+
+1. What is Cryptography?
+2. Why is Cryptography important?
+3. Explain the difference between Plaintext and Ciphertext.
+4. What is Encryption?
+5. What is Decryption?
+6. What is an Encryption Key?
+7. Explain the difference between an Encryption Algorithm and an Encryption Key.
+8. What are the goals of Cryptography?
+9. Explain Kerckhoffs's Principle.
+10. How does HTTPS use Encryption?
+11. Why can't Wireshark read HTTPS passwords?
+12. What is the difference between Encryption and Hashing?
+
+---
+
+# 💡 Key Takeaways
+
+- **Cryptography** protects data from unauthorized access by converting readable information into an unreadable format.
+- **Encryption** provides confidentiality, while **decryption** restores the original information.
+- **Plaintext** is readable data, and **ciphertext** is its encrypted form.
+- **Encryption algorithms** define the mathematical process, whereas **encryption keys** are the secret values that make encryption secure.
+- Modern cryptographic systems rely on **keeping keys secret**, not algorithms.
+- HTTPS, VPNs, SSH, and secure messaging applications all depend on these cryptographic principles to protect communication.
+
+
+# Symmetric vs Asymmetric Encryption
+
+---
+
+# 1. Introduction
+
+Encryption is used to protect information from unauthorized access. However, there are **two different ways** encryption can be performed.
+
+These are:
+
+- **Symmetric Encryption**
+- **Asymmetric Encryption**
+
+Both provide confidentiality but differ in how they manage encryption keys.
+
+Modern secure communication (HTTPS, SSH, VPNs, Email Encryption) uses **both** techniques together.
+
+---
+
+# Why Do We Need Two Types?
+
+Suppose Alice wants to send a confidential message to Bob.
+
+The first question is:
+
+> **How will Alice and Bob share the encryption key securely?**
+
+If an attacker steals the key during transmission, the encrypted message becomes useless.
+
+To solve this problem, modern cryptography introduced **Asymmetric Encryption**.
+
+---
+
+# 2. Symmetric Encryption
+
+## Definition
+
+Symmetric Encryption uses **one secret key** for both:
+
+- Encryption
+- Decryption
+
+The sender and receiver must already know the same secret key.
+
+---
+
+## Working
+
+```
+             Secret Key
+                 │
+                 ▼
+Plaintext → Encryption → Ciphertext
+                                 │
+                                 ▼
+                     Decryption (Same Key)
+                                 │
+                                 ▼
+                           Plaintext
+```
+
+---
+
+## Example
+
+Alice wants to send:
+
+```
+Hello Bob
+```
+
+Both Alice and Bob know:
+
+```
+Secret Key = ABC123
+```
+
+Alice encrypts the message using **ABC123**.
+
+Bob decrypts the message using the **same key**.
+
+---
+
+## Real-Life Analogy
+
+Imagine a locker.
+
+Both you and your friend possess **identical copies of the same key**.
+
+One person locks it.
+
+The other unlocks it.
+
+The same key performs both operations.
+
+---
+
+## Advantages
+
+- Very fast
+- Efficient for large amounts of data
+- Requires less computational power
+- Suitable for file encryption and network communication
+
+---
+
+## Disadvantages
+
+The biggest challenge is **key distribution**.
+
+How do both users obtain the secret key securely?
+
+If the key is intercepted:
+
+- All encrypted data becomes readable.
+
+---
+
+## Popular Symmetric Algorithms
+
+|Algorithm|Status|
+|---|---|
+|AES|✅ Modern Standard|
+|ChaCha20|✅ Modern Standard|
+|DES|❌ Deprecated|
+|3DES|⚠ Legacy|
+
+---
+
+# AES (Advanced Encryption Standard)
+
+AES is the world's most widely used symmetric encryption algorithm.
+
+It protects:
+
+- HTTPS
+- Wi-Fi (WPA2/WPA3)
+- VPNs
+- Banking Systems
+- Government Networks
+
+---
+
+## Key Sizes
+
+AES supports:
+
+- 128-bit
+- 192-bit
+- 256-bit
+
+Larger keys provide stronger security.
+
+---
+
+# 3. Asymmetric Encryption
+
+## Definition
+
+Asymmetric Encryption uses **two mathematically related keys**:
+
+- Public Key
+- Private Key
+
+Unlike symmetric encryption, the encryption key and decryption key are different.
+
+---
+
+## Public Key
+
+The Public Key can be shared freely.
+
+Anyone can download it.
+
+It is used for:
+
+- Encryption
+- Signature Verification
+
+---
+
+## Private Key
+
+The Private Key must remain secret.
+
+Only the owner should possess it.
+
+It is used for:
+
+- Decryption
+- Creating Digital Signatures
+
+---
+
+## Working
+
+```
+Public Key
+
+↓
+
+Encryption
+
+↓
+
+Ciphertext
+
+↓
+
+Private Key
+
+↓
+
+Decryption
+
+↓
+
+Plaintext
+```
+
+---
+
+## Example
+
+Bob creates:
+
+```
+Public Key
+
+Private Key
+```
+
+Bob uploads the Public Key to his website.
+
+Alice downloads it.
+
+Alice encrypts:
+
+```
+Hello Bob
+```
+
+using Bob's Public Key.
+
+Only Bob can decrypt it because only Bob has the Private Key.
+
+---
+
+## Real-Life Analogy
+
+Imagine a mailbox.
+
+Anyone can place letters inside.
+
+Only the owner has the key to open it.
+
+```
+Everyone
+
+↓
+
+Insert Letter
+
+↓
+
+Mailbox
+
+↓
+
+Owner Opens
+```
+
+This is exactly how public key encryption works.
+
+---
+
+## Advantages
+
+- No need to secretly exchange keys beforehand.
+- Suitable for secure communication over the Internet.
+- Solves the key distribution problem.
+
+---
+
+## Disadvantages
+
+- Slower than symmetric encryption.
+- Computationally expensive.
+- Not suitable for encrypting very large files.
+
+---
+
+# Popular Asymmetric Algorithms
+
+|Algorithm|Status|
+|---|---|
+|RSA|Widely Used|
+|ECC|Modern Standard|
+|DSA|Mainly Digital Signatures|
+
+---
+
+# RSA (Rivest-Shamir-Adleman)
+
+RSA is one of the oldest and most widely used public-key cryptographic algorithms.
+
+Applications:
+
+- HTTPS
+- SSH
+- Email Encryption
+- Digital Signatures
+
+RSA is mainly used for:
+
+- Secure Key Exchange
+- Authentication
+
+It is **not used to encrypt large amounts of data** because it is much slower than AES.
+
+---
+
+# ECC (Elliptic Curve Cryptography)
+
+ECC provides the same level of security as RSA while using much smaller keys.
+
+Advantages:
+
+- Faster
+- Smaller keys
+- Lower CPU usage
+- Common on mobile devices
+
+Many modern HTTPS websites now prefer ECC.
+
+---
+
+# Symmetric vs Asymmetric Encryption
+
+|Feature|Symmetric|Asymmetric|
+|---|---|---|
+|Number of Keys|One|Two|
+|Encryption Key|Same as Decryption Key|Public Key|
+|Decryption Key|Same Key|Private Key|
+|Speed|Very Fast|Slower|
+|Used For|Data Encryption|Key Exchange & Authentication|
+|Examples|AES, ChaCha20|RSA, ECC|
+
+---
+
+# 4. Why Doesn't HTTPS Use Only RSA?
+
+Suppose Google wants to encrypt:
+
+```
+20 GB Video
+```
+
+using RSA.
+
+RSA is computationally expensive.
+
+Encryption would become extremely slow.
+
+Instead, HTTPS combines both encryption methods.
+
+---
+
+# HTTPS Workflow
+
+Step 1
+
+Browser connects to Google.
+
+↓
+
+Step 2
+
+Google sends:
+
+- Public Key
+- Digital Certificate
+
+↓
+
+Step 3
+
+Browser verifies the certificate.
+
+↓
+
+Step 4
+
+Browser generates a random AES session key.
+
+↓
+
+Step 5
+
+Browser encrypts the AES key using Google's Public Key.
+
+↓
+
+Step 6
+
+Google decrypts it using its Private Key.
+
+↓
+
+Step 7
+
+Both now share the same AES key.
+
+↓
+
+Step 8
+
+Everything else is encrypted using AES.
+
+---
+
+# Complete HTTPS Flow
+
+```
+Browser
+
+↓
+
+DNS Lookup
+
+↓
+
+TCP Handshake
+
+↓
+
+TLS Handshake
+
+↓
+
+Certificate Verification
+
+↓
+
+RSA / ECC
+
+↓
+
+AES Session Key Exchange
+
+↓
+
+AES Encryption
+
+↓
+
+Secure HTTPS Communication
+```
+
+---
+
+# Why Use Both?
+
+RSA provides:
+
+✅ Secure key exchange.
+
+AES provides:
+
+✅ Fast encryption.
+
+Combining them provides:
+
+- Speed
+- Security
+- Scalability
+
+---
+
+# Real-World Examples
+
+|Technology|Uses|
+|---|---|
+|HTTPS|RSA/ECC + AES|
+|SSH|RSA/ECC + AES|
+|VPN|RSA/ECC + AES|
+|Signal|ECC + AES|
+|WhatsApp|ECC + AES|
+
+---
+
+# Common Misconceptions
+
+### ❌ Public Key must remain secret.
+
+Correct:
+
+Public Keys are intentionally shared.
+
+---
+
+### ❌ RSA encrypts all HTTPS traffic.
+
+Correct:
+
+RSA securely exchanges the AES session key.
+
+AES encrypts the actual communication.
+
+---
+
+### ❌ AES uses Public and Private Keys.
+
+Correct:
+
+AES uses only **one shared secret key**.
+
+---
+
+### ❌ Public Key can decrypt encrypted messages.
+
+Correct:
+
+Only the matching Private Key can decrypt data encrypted with the Public Key.
+
+---
+
+# Best Practices
+
+- Protect Private Keys.
+- Never expose Private Keys publicly.
+- Use modern algorithms such as AES-256 and ECC.
+- Avoid deprecated algorithms like DES.
+- Use HTTPS instead of HTTP.
+
+---
+
+# Quick Revision
+
+```
+Symmetric Encryption
+
+↓
+
+One Key
+
+↓
+
+AES
+
+↓
+
+Fast
+
+↓
+
+Large Data
+
+
+
+Asymmetric Encryption
+
+↓
+
+Two Keys
+
+↓
+
+RSA / ECC
+
+↓
+
+Key Exchange
+
+↓
+
+Authentication
+
+
+
+HTTPS
+
+↓
+
+RSA / ECC
+
+↓
+
+Exchange AES Key
+
+↓
+
+AES
+
+↓
+
+Encrypted Communication
+```
+
+---
+
+# Summary Table
+
+|Concept|Purpose|
+|---|---|
+|Symmetric Encryption|Fast data encryption|
+|Asymmetric Encryption|Secure key exchange|
+|Public Key|Encrypt data / Verify signatures|
+|Private Key|Decrypt data / Create signatures|
+|AES|Symmetric algorithm|
+|RSA|Asymmetric algorithm|
+|ECC|Modern asymmetric algorithm|
+
+---
+
+# Common Interview Questions
+
+1. What is Symmetric Encryption?
+2. What is Asymmetric Encryption?
+3. Explain the difference between Symmetric and Asymmetric Encryption.
+4. Why is AES faster than RSA?
+5. Why doesn't HTTPS use only RSA?
+6. What is a Public Key?
+7. What is a Private Key?
+8. What are the advantages of Asymmetric Encryption?
+9. Why is AES widely used?
+10. Explain the HTTPS encryption workflow.
+11. What is ECC and why is it preferred over RSA in many modern systems?
+12. What is the difference between RSA and AES?
+
+---
+
+# 💡 Key Takeaways
+
+- **Symmetric Encryption** uses a single shared key and is ideal for encrypting large amounts of data quickly.
+- **Asymmetric Encryption** uses a public/private key pair and solves the problem of securely exchanging keys over the Internet.
+- **AES** is the most widely used symmetric algorithm because of its speed and strong security.
+- **RSA** and **ECC** are primarily used for secure key exchange and authentication rather than encrypting large files.
+- Modern protocols such as **HTTPS**, **SSH**, and **VPNs** combine **RSA/ECC** with **AES**, providing both secure key exchange and efficient encrypted communication.
+- Understanding this combination is essential for understanding how secure web communication works in the real world.
+
+
+
+# 🔐 Hashing & Password Storage
+
+---
+
+# 1. Introduction
+
+When users create an account on a website, they provide a password.
+
+A common question is:
+
+> **Does the website store my actual password?**
+
+The answer should be:
+
+> **No.**
+
+Modern websites should **never store passwords in plain text**.
+
+Instead, they store a **cryptographic hash** of the password.
+
+Hashing protects user credentials even if the database is compromised.
+
+---
+
+# Why Do We Need Hashing?
+
+Imagine a website stores passwords like this:
+
+|Username|Password|
+|---|---|
+|Soham|Soham@123|
+|Rahul|Rahul@123|
+
+If an attacker steals the database:
+
+- Every password is immediately exposed.
+- Users who reused passwords on other websites are also at risk.
+- The attacker can perform **Credential Stuffing** attacks.
+
+This is why passwords should never be stored in plain text.
+
+---
+
+# 2. What is Hashing?
+
+## Definition
+
+**Hashing** is the process of converting data of any size into a **fixed-length value**, called a **hash** or **message digest**, using a mathematical algorithm.
+
+Unlike encryption:
+
+> **Hashing is a one-way process.**
+
+The original data cannot be recovered from the hash.
+
+---
+
+## Hashing Process
+
+```
+Input Data
+
+↓
+
+Hash Function
+
+↓
+
+Hash (Fixed Length)
+```
+
+---
+
+## Example
+
+Password:
+
+```
+Soham@123
+```
+
+↓
+
+SHA-256
+
+↓
+
+```
+9d2f1d8c0b7a3e5...
+```
+
+The hash is **not encrypted text**.
+
+It is a unique mathematical representation of the original input.
+
+---
+
+# 3. Properties of a Good Hash Function
+
+A secure hash function should satisfy the following properties.
+
+---
+
+## A. Deterministic
+
+The same input always produces the same output.
+
+Example:
+
+```
+Hello
+
+↓
+
+SHA-256
+
+↓
+
+ABC123
+```
+
+Every time.
+
+---
+
+## B. Fixed-Length Output
+
+Regardless of input size:
+
+```
+Hi
+```
+
+or
+
+```
+Entire Wikipedia Database
+```
+
+SHA-256 always produces:
+
+```
+256-bit Hash
+```
+
+---
+
+## C. Avalanche Effect
+
+A very small change in the input should completely change the hash.
+
+Example:
+
+Original:
+
+```
+Hello
+```
+
+↓
+
+Hash:
+
+```
+ABC123
+```
+
+Now change one character:
+
+```
+hello
+```
+
+↓
+
+Hash:
+
+```
+XZ91PQ
+```
+
+Even a one-letter change results in a completely different hash.
+
+---
+
+## D. One-Way Property
+
+Given:
+
+```
+9D1A83BC...
+```
+
+It should be computationally infeasible to recover:
+
+```
+Soham@123
+```
+
+This is why hashing is **not encryption**.
+
+---
+
+# 4. Hash Functions
+
+A **Hash Function** is the mathematical algorithm used to generate a hash.
+
+Popular hash functions include:
+
+|Algorithm|Status|
+|---|---|
+|MD5|❌ Broken|
+|SHA-1|❌ Broken|
+|SHA-256|✅ Secure|
+|SHA-512|✅ Secure|
+
+---
+
+# MD5
+
+Produces:
+
+```
+128-bit Hash
+```
+
+Historically popular.
+
+Today:
+
+❌ Not recommended.
+
+Reason:
+
+Attackers can generate **collisions**.
+
+---
+
+# SHA Family
+
+Modern systems use:
+
+- SHA-256
+- SHA-384
+- SHA-512
+
+These provide significantly stronger security than MD5 and SHA-1.
+
+---
+
+# 5. What is a Collision?
+
+## Definition
+
+A **Collision** occurs when:
+
+> **Two different inputs produce the same hash output.**
+
+Example:
+
+```
+File A
+
+↓
+
+Hash
+
+↓
+
+ABC123
+```
+
+```
+File B
+
+↓
+
+Hash
+
+↓
+
+ABC123
+```
+
+This should ideally never happen.
+
+Modern cryptographic hash functions make collisions extremely difficult to generate.
+
+---
+
+# 6. Password Storage
+
+## Incorrect Method
+
+```
+Password
+
+↓
+
+Database
+```
+
+Database:
+
+|User|Password|
+|---|---|
+|Soham|Soham@123|
+
+If the database leaks:
+
+Everything is exposed.
+
+---
+
+## Correct Method
+
+```
+Password
+
+↓
+
+SHA-256
+
+↓
+
+Hash
+
+↓
+
+Database
+```
+
+Database:
+
+|User|Hash|
+|---|---|
+|Soham|8A71D92...|
+
+Now even if the database is stolen, the attacker does not immediately know the original password.
+
+---
+
+# Login Process
+
+Suppose a user enters:
+
+```
+Soham@123
+```
+
+The website performs:
+
+```
+User Password
+
+↓
+
+Hash Function
+
+↓
+
+Generated Hash
+
+↓
+
+Compare With Stored Hash
+
+↓
+
+Match?
+
+↓
+
+Login Successful
+```
+
+Notice:
+
+The website **never decrypts anything**.
+
+It simply hashes the entered password again and compares the hashes.
+
+---
+
+# 7. Salting
+
+## Problem
+
+Suppose two users choose:
+
+```
+password123
+```
+
+Without salting:
+
+Both hashes will be identical.
+
+Attackers immediately know:
+
+Both users chose the same password.
+
+---
+
+## Solution
+
+Generate a random value called a **Salt**.
+
+Example:
+
+User 1
+
+Password:
+
+```
+password123
+```
+
+Salt:
+
+```
+A7K91
+```
+
+Stored:
+
+```
+A7K91password123
+
+↓
+
+Hash
+```
+
+---
+
+User 2
+
+Password:
+
+```
+password123
+```
+
+Salt:
+
+```
+P2XQ8
+```
+
+Stored:
+
+```
+P2XQ8password123
+
+↓
+
+Hash
+```
+
+Even though both users chose the same password,
+
+their stored hashes are completely different.
+
+---
+
+# Why Salting is Important
+
+Salting protects against:
+
+- Rainbow Table attacks
+- Precomputed hash attacks
+- Large-scale password cracking
+
+It also ensures:
+
+> Same password ≠ Same stored hash
+
+---
+
+# 8. Hashing vs Encryption
+
+|Hashing|Encryption|
+|---|---|
+|One-way|Reversible|
+|No decryption|Can be decrypted with the correct key|
+|Protects integrity|Protects confidentiality|
+|Used for password storage|Used for secure communication|
+
+---
+
+# 9. Real-World Applications
+
+Hashing is used in:
+
+- Password storage
+- File integrity verification
+- Software downloads
+- Blockchain
+- Digital signatures
+- Data integrity checks
+
+---
+
+## Example
+
+When downloading Ubuntu:
+
+The website provides:
+
+```
+ubuntu.iso
+
+↓
+
+SHA-256 Hash
+```
+
+After downloading,
+
+you calculate the hash.
+
+If both hashes match,
+
+the file was not modified.
+
+---
+
+# Common Misconceptions
+
+### ❌ Hashing is Encryption.
+
+Correct:
+
+Hashing is a one-way mathematical process.
+
+Encryption is reversible.
+
+---
+
+### ❌ Websites decrypt stored passwords.
+
+Correct:
+
+Passwords are never decrypted.
+
+The entered password is hashed again and compared.
+
+---
+
+### ❌ Salting encrypts passwords.
+
+Correct:
+
+Salting adds randomness before hashing.
+
+---
+
+### ❌ Same password always produces different hashes.
+
+Correct:
+
+Only when different salts are used.
+
+---
+
+# Best Practices
+
+- Never store passwords in plain text.
+- Use strong hash functions (SHA-256 or better).
+- Always use unique salts.
+- Use Password Managers.
+- Enable MFA.
+- Avoid password reuse.
+
+---
+
+# Quick Revision
+
+```
+Password
+
+↓
+
+Salt
+
+↓
+
+Hash Function
+
+↓
+
+Hash
+
+↓
+
+Database
+
+
+
+User Login
+
+↓
+
+Hash Password Again
+
+↓
+
+Compare Hashes
+
+↓
+
+Access Granted
+```
+
+---
+
+# Summary Table
+
+|Concept|Purpose|
+|---|---|
+|Hashing|Protect data integrity|
+|Hash Function|Generates a fixed-length hash|
+|SHA-256|Modern secure hash algorithm|
+|MD5|Deprecated hash algorithm|
+|Collision|Two inputs produce same hash|
+|Salt|Adds randomness before hashing|
+|Password Hashing|Secure password storage|
+
+---
+
+# Common Interview Questions
+
+1. What is Hashing?
+2. Explain the difference between Hashing and Encryption.
+3. Why is Hashing considered one-way?
+4. What are the properties of a good hash function?
+5. What is the Avalanche Effect?
+6. What is a Collision?
+7. Why is MD5 considered insecure?
+8. What is SHA-256?
+9. Why should websites never store passwords in plain text?
+10. Explain the password login verification process.
+11. What is Salting?
+12. Why is Salting important?
+13. Can two users with the same password have different stored hashes?
+14. Explain how websites verify passwords without decrypting them.
+
+---
+
+# 💡 Key Takeaways
+
+- **Hashing** converts data into a fixed-length hash and is designed to be **one-way**, making it suitable for password storage.
+- **Good hash functions** are deterministic, produce fixed-length outputs, exhibit the avalanche effect, and are computationally difficult to reverse.
+- **SHA-256** is a modern, secure hashing algorithm, while **MD5** and **SHA-1** should no longer be used for security-sensitive applications.
+- **Salting** adds randomness before hashing, ensuring that identical passwords produce different stored hashes and protecting against rainbow table attacks.
+- Websites **do not decrypt passwords** during login—they hash the entered password again and compare it with the stored hash.
+- Hashing is essential not only for password storage but also for **file integrity verification**, **digital signatures**, and **blockchain technology**.
+
+
+
+# 🔐 Digital Signatures, PKI & TLS
+
+---
+
+# 1. Introduction
+
+When you visit:
+
+```
+https://google.com
+```
+
+your browser must answer three important questions before sending sensitive information like passwords or credit card details.
+
+1. **Am I really talking to Google?**
+2. **Has anyone modified the data during transmission?**
+3. **Can attackers read my communication?**
+
+Digital Signatures, Public Key Infrastructure (PKI), Certificates, and TLS work together to answer these questions.
+
+---
+
+# 2. Digital Signature
+
+## Definition
+
+A **Digital Signature** is a cryptographic technique that provides:
+
+- Authentication
+- Integrity
+- Non-Repudiation
+
+Unlike encryption, the purpose of a Digital Signature is **not to hide data**.
+
+Instead, it proves:
+
+- Who sent the message.
+- That the message has not been modified.
+
+---
+
+## Why Do We Need Digital Signatures?
+
+Suppose Alice sends Bob:
+
+```
+Transfer ₹1000
+```
+
+An attacker intercepts the message and changes it to:
+
+```
+Transfer ₹10000
+```
+
+Without a Digital Signature:
+
+Bob cannot detect the modification.
+
+With a Digital Signature:
+
+The change is immediately detected because the signature becomes invalid.
+
+---
+
+# Real-Life Analogy
+
+Think of signing a legal document.
+
+Your handwritten signature proves:
+
+- You approved the document.
+- The document should not be modified afterwards.
+
+Digital Signatures provide the same guarantee electronically.
+
+---
+
+# 3. How Digital Signatures Work
+
+Suppose Alice wants to send Bob:
+
+```
+Hello Bob
+```
+
+### Step 1 – Create a Hash
+
+```
+Message
+
+↓
+
+SHA-256
+
+↓
+
+Hash
+```
+
+---
+
+### Step 2 – Sign the Hash
+
+Alice encrypts **only the hash** using **her Private Key**.
+
+```
+Hash
+
+↓
+
+Alice's Private Key
+
+↓
+
+Digital Signature
+```
+
+Notice:
+
+The **message itself is not encrypted**.
+
+Only its hash is signed.
+
+---
+
+### Step 3 – Send
+
+Alice sends:
+
+- Message
+- Digital Signature
+
+to Bob.
+
+---
+
+### Step 4 – Verification
+
+Bob:
+
+1. Hashes the received message.
+2. Uses Alice's Public Key to verify the signature.
+
+If both hashes match:
+
+✅ Message is authentic.
+
+✅ Message has not been modified.
+
+---
+
+# Why Sign the Hash Instead of the Entire File?
+
+Imagine signing:
+
+```
+50 GB Movie
+```
+
+Instead of:
+
+```
+256-bit Hash
+```
+
+Signing the hash is much faster while still guaranteeing integrity.
+
+---
+
+# Digital Signature Workflow
+
+```
+Message
+
+↓
+
+Hash
+
+↓
+
+Private Key
+
+↓
+
+Digital Signature
+
+↓
+
+Receiver
+
+↓
+
+Hash Again
+
+↓
+
+Public Key
+
+↓
+
+Verify
+
+↓
+
+Valid?
+```
+
+---
+
+# Encryption vs Digital Signature
+
+|Encryption|Digital Signature|
+|---|---|
+|Protects Confidentiality|Protects Integrity|
+|Uses Public Key to Encrypt|Uses Private Key to Sign|
+|Private Key Decrypts|Public Key Verifies|
+
+---
+
+# Easy Memory Trick
+
+### Encryption
+
+```
+Public Key
+
+↓
+
+Encrypt
+
+↓
+
+Private Key
+
+↓
+
+Decrypt
+```
+
+Think:
+
+> **Public Locks, Private Unlocks**
+
+---
+
+### Digital Signature
+
+```
+Private Key
+
+↓
+
+Sign
+
+↓
+
+Public Key
+
+↓
+
+Verify
+```
+
+Think:
+
+> **Private Signs, Public Verifies**
+
+---
+
+# 4. Public Key Infrastructure (PKI)
+
+## Definition
+
+PKI (Public Key Infrastructure) is the complete framework that manages:
+
+- Public Keys
+- Private Keys
+- Digital Certificates
+- Certificate Authorities (CA)
+- Trust Relationships
+
+PKI is the **trust system of the Internet**.
+
+---
+
+# Why Do We Need PKI?
+
+Suppose someone sends you a Public Key claiming:
+
+```
+This belongs to Google.
+```
+
+How do you know it's actually Google's key?
+
+Without verification:
+
+An attacker could send you a fake Public Key.
+
+You would unknowingly communicate with the attacker.
+
+PKI prevents this problem.
+
+---
+
+# Components of PKI
+
+A PKI consists of:
+
+- Public Keys
+- Private Keys
+- Digital Certificates
+- Certificate Authorities
+- Trust Chains
+
+---
+
+# 5. Digital Certificate
+
+## Definition
+
+A **Digital Certificate** is an electronic document that proves:
+
+> **This Public Key belongs to this organization.**
+
+It binds:
+
+- Website Identity
+- Public Key
+
+together.
+
+---
+
+# Information Stored in a Certificate
+
+A certificate usually contains:
+
+- Domain Name
+- Public Key
+- Organization Name
+- Expiry Date
+- Issuing Certificate Authority
+- Digital Signature of the CA
+
+---
+
+# Real-Life Analogy
+
+A passport contains:
+
+- Name
+- Photograph
+- Passport Number
+- Government Seal
+
+Similarly,
+
+a Digital Certificate contains:
+
+- Website Identity
+- Public Key
+- CA Signature
+
+---
+
+# 6. Certificate Authority (CA)
+
+## Definition
+
+A **Certificate Authority (CA)** is a trusted organization that verifies identities and issues Digital Certificates.
+
+Popular Certificate Authorities include:
+
+- DigiCert
+- Let's Encrypt
+- GlobalSign
+- Sectigo
+
+---
+
+# Role of a Certificate Authority
+
+Suppose Google requests a certificate.
+
+The CA verifies:
+
+- Google owns the domain.
+- Google controls the server.
+
+If everything is correct,
+
+the CA signs Google's certificate.
+
+Now browsers trust Google's identity.
+
+---
+
+# Trust Chain
+
+```
+Google
+
+↓
+
+Certificate
+
+↓
+
+Signed By
+
+↓
+
+DigiCert
+
+↓
+
+Trusted By Browser
+```
+
+Browsers already trust major Certificate Authorities.
+
+---
+
+# 7. TLS (Transport Layer Security)
+
+## Definition
+
+TLS is the protocol responsible for securing communication between:
+
+- Browser
+- Web Server
+
+TLS provides:
+
+- Confidentiality
+- Integrity
+- Authentication
+
+HTTPS is simply:
+
+```
+HTTP + TLS
+```
+
+---
+
+# TLS Handshake
+
+Before encrypted communication begins,
+
+Browser and Server perform a TLS Handshake.
+
+---
+
+## Step 1
+
+Browser connects.
+
+---
+
+## Step 2
+
+Server sends:
+
+- Digital Certificate
+- Public Key
+
+---
+
+## Step 3
+
+Browser verifies:
+
+- Certificate valid?
+- Certificate expired?
+- Signed by trusted CA?
+
+If verification fails:
+
+```
+Your connection is not private
+```
+
+---
+
+## Step 4
+
+Browser generates a random AES Session Key.
+
+---
+
+## Step 5
+
+Browser encrypts the AES key using the Server's Public Key.
+
+```
+AES Session Key
+
+↓
+
+Server Public Key
+
+↓
+
+Encrypted Session Key
+```
+
+---
+
+## Step 6
+
+Server decrypts it using its Private Key.
+
+Now:
+
+Browser and Server share the same AES key.
+
+---
+
+## Step 7
+
+All remaining communication uses:
+
+```
+AES
+```
+
+because it is much faster.
+
+---
+
+# Complete HTTPS Workflow
+
+```
+User Types URL
+
+↓
+
+DNS Lookup
+
+↓
+
+TCP Three-Way Handshake
+
+↓
+
+TLS Handshake
+
+↓
+
+Certificate Verification
+
+↓
+
+Public Key Encryption
+
+↓
+
+AES Session Key Exchange
+
+↓
+
+AES Encrypted HTTPS Communication
+```
+
+---
+
+# Why Doesn't HTTPS Use RSA for Everything?
+
+RSA is secure but slow.
+
+Encrypting:
+
+```
+10 GB Video
+```
+
+using RSA would be inefficient.
+
+Instead:
+
+- RSA/ECC securely exchanges the AES Session Key.
+- AES encrypts all application data.
+
+This provides both:
+
+- Security
+- Performance
+
+---
+
+# Why Can't Wireshark Read HTTPS Passwords?
+
+During packet capture,
+
+Wireshark can display:
+
+- Source IP
+- Destination IP
+- Port Number
+- Protocol
+
+However,
+
+passwords remain hidden because:
+
+```
+Password
+
+↓
+
+AES Encryption
+
+↓
+
+Encrypted Payload
+
+↓
+
+Internet
+```
+
+The payload is encrypted before transmission.
+
+---
+
+# Common Misconceptions
+
+### ❌ Digital Signatures encrypt messages.
+
+Correct:
+
+They verify integrity and authenticity.
+
+---
+
+### ❌ Public Keys must remain secret.
+
+Correct:
+
+Public Keys are intentionally shared.
+
+---
+
+### ❌ Certificates encrypt traffic.
+
+Correct:
+
+Certificates prove identity.
+
+Encryption is performed using TLS.
+
+---
+
+### ❌ HTTPS hides IP addresses.
+
+Correct:
+
+HTTPS encrypts application data, not network metadata.
+
+---
+
+# Best Practices
+
+- Use HTTPS for all websites.
+- Never ignore certificate warnings.
+- Protect Private Keys.
+- Renew certificates before expiry.
+- Use modern TLS versions (TLS 1.2 / TLS 1.3).
+
+---
+
+# Quick Revision
+
+```
+Message
+
+↓
+
+Hash
+
+↓
+
+Private Key
+
+↓
+
+Digital Signature
+
+↓
+
+Public Key
+
+↓
+
+Verification
+
+────────────────────
+
+Website
+
+↓
+
+Certificate
+
+↓
+
+Certificate Authority
+
+↓
+
+Browser Trust
+
+────────────────────
+
+TLS Handshake
+
+↓
+
+RSA / ECC
+
+↓
+
+AES Session Key
+
+↓
+
+HTTPS Communication
+```
+
+---
+
+# Summary Table
+
+|Technology|Purpose|
+|---|---|
+|Hashing|Integrity|
+|Digital Signature|Integrity + Authentication + Non-Repudiation|
+|Digital Certificate|Identity Verification|
+|Certificate Authority|Trust|
+|PKI|Manages trust and certificates|
+|TLS|Secure communication|
+|HTTPS|HTTP secured with TLS|
+
+---
+
+# Common Interview Questions
+
+1. What is a Digital Signature?
+2. Why are Digital Signatures important?
+3. Explain the Digital Signature verification process.
+4. What is PKI?
+5. What is a Digital Certificate?
+6. What information is stored in a Digital Certificate?
+7. What is a Certificate Authority?
+8. Explain the TLS Handshake.
+9. Why does HTTPS use both RSA/ECC and AES?
+10. What is the difference between Encryption and Digital Signatures?
+11. Why can't Wireshark read HTTPS passwords?
+12. What happens if a browser receives an invalid certificate?
+
+---
+
+# 💡 Key Takeaways
+
+- **Digital Signatures** provide **authentication**, **integrity**, and **non-repudiation** by signing a hash with the sender's **private key** and verifying it with the sender's **public key**.
+- **PKI (Public Key Infrastructure)** establishes trust on the Internet by managing public keys, certificates, and trusted Certificate Authorities.
+- **Digital Certificates** bind a website's identity to its public key, allowing browsers to verify that they are communicating with the legitimate server.
+- **Certificate Authorities (CAs)** validate website ownership and digitally sign certificates, enabling browsers to trust websites.
+- During the **TLS Handshake**, the browser verifies the server's certificate, securely exchanges an AES session key using RSA or ECC, and then encrypts all further communication using AES.
+- HTTPS combines **Networking**, **Cryptography**, and **Authentication** to create secure communication between browsers and web servers.
+
+
+
+# 🦠 Malware & Common Cyber Attacks
+
+---
+
+# 1. Introduction
+
+Cyber attacks do not always begin with hackers typing commands into a terminal.
+
+Many attacks begin when a victim unknowingly:
+
+- Opens a malicious email attachment
+- Downloads pirated software
+- Clicks a fake advertisement
+- Connects an infected USB drive
+
+These attacks often involve **Malware**.
+
+---
+
+# What is Malware?
+
+## Definition
+
+**Malware (Malicious Software)** is software intentionally designed to:
+
+- Damage systems
+- Steal information
+- Spy on users
+- Encrypt files
+- Gain unauthorized access
+- Disrupt computer operations
+
+Malware is one of the most common tools used by cybercriminals.
+
+---
+
+# Goals of Malware
+
+Attackers create malware to:
+
+- Steal passwords
+- Monitor victims
+- Encrypt files for ransom
+- Build botnets
+- Mine cryptocurrency
+- Destroy data
+- Spy on organizations
+
+---
+
+# Types of Malware
+
+The most common malware includes:
+
+- Virus
+- Worm
+- Trojan
+- Ransomware
+- Spyware
+- Adware
+
+---
+
+# 2. Virus
+
+## Definition
+
+A **Virus** is malicious software that attaches itself to another legitimate program or file.
+
+A virus **cannot spread by itself**.
+
+It requires user action to execute.
+
+---
+
+## How a Virus Works
+
+```
+Infected File
+
+↓
+
+User Opens File
+
+↓
+
+Virus Executes
+
+↓
+
+Infects Other Files
+```
+
+---
+
+## Example
+
+User downloads:
+
+```
+CrackedPhotoshop.exe
+```
+
+The file appears normal.
+
+When executed:
+
+- Virus activates.
+- Infects other files.
+- May damage the operating system.
+
+---
+
+## Characteristics
+
+✅ Needs a host file
+
+✅ Requires user interaction
+
+❌ Cannot self-replicate across networks
+
+---
+
+# Real-Life Analogy
+
+A biological virus needs a host body.
+
+Similarly,
+
+a computer virus needs a host file.
+
+---
+
+# 3. Worm
+
+## Definition
+
+A **Worm** is malware that spreads automatically across networks without requiring user interaction.
+
+Unlike viruses,
+
+worms do **not** need a host program.
+
+---
+
+## How a Worm Works
+
+```
+Computer A
+
+↓
+
+Network Scan
+
+↓
+
+Computer B
+
+↓
+
+Computer C
+
+↓
+
+Entire Network
+```
+
+---
+
+## Characteristics
+
+✅ Self-replicates
+
+✅ Spreads automatically
+
+✅ Very fast
+
+---
+
+# Real Example
+
+### WannaCry (2017)
+
+WannaCry exploited a Windows vulnerability and infected more than **200,000 computers** in over **150 countries** within hours.
+
+It caused billions of dollars in damages.
+
+---
+
+# Virus vs Worm
+
+|Virus|Worm|
+|---|---|
+|Needs host file|No host file|
+|Requires user action|Automatic spread|
+|Slower|Very fast|
+
+---
+
+# 4. Trojan Horse
+
+## Definition
+
+A **Trojan** is malware disguised as legitimate software.
+
+Unlike viruses and worms,
+
+Trojans rely on **deception** rather than self-replication.
+
+---
+
+## Example
+
+User downloads:
+
+```
+Free PUBG Hack.exe
+```
+
+The application appears legitimate.
+
+Behind the scenes it may:
+
+- Install spyware
+- Open a backdoor
+- Steal passwords
+- Download additional malware
+
+---
+
+## Characteristics
+
+- Appears trustworthy
+- Tricks the victim
+- Does not spread automatically
+
+---
+
+# Real-Life Analogy
+
+The Trojan Horse from Greek mythology looked like a gift but secretly contained soldiers.
+
+Similarly,
+
+a Trojan appears harmless while hiding malicious code.
+
+---
+
+# 5. Ransomware
+
+## Definition
+
+Ransomware encrypts a victim's files and demands payment to restore access.
+
+---
+
+## How It Works
+
+Victim files:
+
+```
+Photos
+
+Documents
+
+Projects
+```
+
+↓
+
+Encrypted
+
+↓
+
+```
+.photos.locked
+
+.doc.locked
+```
+
+↓
+
+Ransom Note
+
+```
+Pay $500 in Bitcoin
+```
+
+---
+
+# Famous Examples
+
+- WannaCry
+- Ryuk
+- LockBit
+- REvil
+
+---
+
+# Protection Against Ransomware
+
+- Regular backups
+- Antivirus
+- Software updates
+- Email filtering
+- User awareness training
+
+---
+
+# 6. Spyware
+
+## Definition
+
+Spyware secretly monitors user activity without permission.
+
+Its goal is to steal sensitive information.
+
+---
+
+## Information Collected
+
+- Passwords
+- Browser history
+- Banking credentials
+- Screenshots
+- Keystrokes
+
+---
+
+# Keylogger
+
+A **Keylogger** is a type of spyware that records every key pressed on the keyboard.
+
+Example:
+
+```
+Username
+
+↓
+
+Password
+
+↓
+
+OTP
+```
+
+Everything typed is secretly recorded.
+
+---
+
+# 7. Adware
+
+## Definition
+
+Adware continuously displays unwanted advertisements.
+
+Although less dangerous than ransomware,
+
+it can:
+
+- Slow down systems
+- Track browsing activity
+- Install additional unwanted software
+
+---
+
+## Example
+
+Every few minutes:
+
+```
+Congratulations!
+
+You Won An iPhone!
+```
+
+appears on the screen.
+
+---
+
+# Malware Comparison
+
+|Malware|Primary Goal|
+|---|---|
+|Virus|Infect files|
+|Worm|Spread automatically|
+|Trojan|Disguise itself|
+|Ransomware|Encrypt files|
+|Spyware|Steal information|
+|Adware|Display advertisements|
+
+---
+
+# 8. Denial of Service (DoS)
+
+## Definition
+
+A **Denial of Service (DoS)** attack attempts to make a service unavailable by overwhelming it with excessive requests.
+
+---
+
+## Example
+
+Normal traffic:
+
+```
+100 Requests / Second
+```
+
+Attack traffic:
+
+```
+100,000 Requests / Second
+```
+
+The server becomes overloaded.
+
+Legitimate users cannot access the service.
+
+---
+
+# Characteristics
+
+- Single attacking system
+- Consumes server resources
+- Makes services unavailable
+
+---
+
+# 9. Distributed Denial of Service (DDoS)
+
+## Definition
+
+A **Distributed Denial of Service (DDoS)** attack uses **multiple compromised computers** to flood a target simultaneously.
+
+---
+
+# Botnet
+
+A **Botnet** is a network of infected computers controlled by an attacker.
+
+```
+PC1
+
+PC2
+
+PC3
+
+...
+
+100,000 Computers
+
+↓
+
+Target Website
+```
+
+---
+
+# Why DDoS is Dangerous
+
+Unlike DoS,
+
+traffic comes from thousands of different devices,
+
+making it much harder to block.
+
+---
+
+# DoS vs DDoS
+
+|DoS|DDoS|
+|---|---|
+|One attacker|Many attackers|
+|Easier to block|Difficult to block|
+|Smaller scale|Large scale|
+
+---
+
+# Common Defenses
+
+- Rate Limiting
+- Firewalls
+- Web Application Firewalls (WAF)
+- Load Balancers
+- CDN (Cloudflare)
+- DDoS Protection Services
+
+---
+
+# 10. Insider Threat
+
+Not all attacks originate from external hackers.
+
+Sometimes,
+
+the threat comes from inside the organization.
+
+---
+
+# Definition
+
+An **Insider Threat** is a security risk caused by someone with legitimate access.
+
+Examples:
+
+- Employee
+- Contractor
+- Former employee
+- Business partner
+
+---
+
+# Examples
+
+- Copying confidential data before resigning.
+- Selling customer databases.
+- Deleting important files.
+- Installing malware.
+
+---
+
+# Protection
+
+Organizations reduce insider threats by implementing:
+
+- Principle of Least Privilege (PoLP)
+- Role-Based Access Control (RBAC)
+- Logging
+- Monitoring
+- Employee awareness programs
+
+---
+
+# How Everything Connects
+
+```
+Weak Password
+
+↓
+
+Phishing
+
+↓
+
+Malware
+
+↓
+
+Spyware
+
+↓
+
+Password Theft
+
+↓
+
+Credential Stuffing
+
+↓
+
+Unauthorized Access
+
+↓
+
+Ransomware
+
+↓
+
+Financial Loss
+```
+
+Cyber attacks often occur in multiple stages rather than as a single event.
+
+---
+
+# Common Misconceptions
+
+### ❌ Every malware is a virus.
+
+Correct:
+
+Virus is only one type of malware.
+
+---
+
+### ❌ Trojans spread automatically.
+
+Correct:
+
+Trojans rely on users executing them.
+
+---
+
+### ❌ Antivirus stops every attack.
+
+Correct:
+
+No antivirus detects 100% of threats.
+
+Security requires multiple layers.
+
+---
+
+### ❌ Paying ransomware guarantees file recovery.
+
+Correct:
+
+Attackers may never provide the decryption key.
+
+---
+
+# Best Practices
+
+- Keep software updated.
+- Enable automatic security updates.
+- Use antivirus software.
+- Avoid pirated software.
+- Never open suspicious email attachments.
+- Maintain offline backups.
+- Enable MFA.
+- Follow the Principle of Least Privilege.
+
+---
+
+# Quick Revision
+
+```
+Malware
+
+↓
+
+Virus
+
+Worm
+
+Trojan
+
+Ransomware
+
+Spyware
+
+Adware
+
+↓
+
+DoS
+
+↓
+
+DDoS
+
+↓
+
+Insider Threat
+
+↓
+
+Security Controls
+```
+
+---
+
+# Summary Table
+
+|Attack|Purpose|
+|---|---|
+|Virus|Infect files|
+|Worm|Spread automatically|
+|Trojan|Trick users|
+|Ransomware|Encrypt files for ransom|
+|Spyware|Monitor victims|
+|Adware|Display unwanted advertisements|
+|DoS|Overload a service|
+|DDoS|Distributed service overload|
+|Insider Threat|Attack from inside an organization|
+
+---
+
+# Common Interview Questions
+
+1. What is Malware?
+2. Differentiate between Virus and Worm.
+3. What is a Trojan Horse?
+4. Explain Ransomware with an example.
+5. What is Spyware?
+6. What is a Keylogger?
+7. Explain the difference between DoS and DDoS.
+8. What is a Botnet?
+9. What is an Insider Threat?
+10. How can organizations defend against malware?
+11. Why are regular backups important in ransomware attacks?
+12. Why is antivirus alone not sufficient for security?
+
+---
+
+# 💡 Key Takeaways
+
+- **Malware** is malicious software designed to damage systems, steal information, or disrupt operations.
+- **Viruses** require a host file and user interaction, while **worms** spread automatically across networks without user action.
+- **Trojans** disguise themselves as legitimate software to trick users into installing malware.
+- **Ransomware** encrypts files and demands payment, making regular backups one of the most effective defenses.
+- **Spyware**, including **keyloggers**, silently collects sensitive information such as passwords and banking details.
+- **DoS** attacks originate from a single system, whereas **DDoS** attacks use large botnets to overwhelm a target.
+- **Insider threats** demonstrate that security risks can come from trusted users as well as external attackers.
+- Effective cybersecurity relies on **multiple layers of defense**, including strong passwords, MFA, least privilege, software updates, antivirus, backups, user awareness, and continuous monitoring
