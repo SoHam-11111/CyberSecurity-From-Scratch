@@ -45,8 +45,8 @@ CyberSecurity-From-Scratch
 | Linux | ✅ | Complete |
 | Networking | ✅ | Complete |
 | Cybersecurity Fundamentals | ✅ | Complete  |
-| Cryptography | ⏳ | Planned |
-| Web Security | ⏳ | Planned |
+| Cryptography | ✅ | Complete |
+| Web Security | ✅ | Complete |
 | TryHackMe | ⏳ | Planned |
 | Python for Security | ⏳ | Planned |
 | Projects | ⏳ | Planned |
