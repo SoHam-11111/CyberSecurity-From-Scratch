@@ -1,0 +1,474 @@
+# 🌐 Understanding URLs
+
+> **Module:** Web Security  
+> **Lesson:** Day 2
+
+---
+
+## Introduction
+
+Every website on the Internet is accessed using a **URL (Uniform Resource Locator)**.
+
+A URL is much more than just a website address. It contains valuable information about **where a resource is located** and **how the browser should access it**.
+
+For a web developer, a URL helps navigate a website.
+
+For a penetration tester, a URL is often the **first place to look for vulnerabilities**.
+
+---
+
+## What is a URL?
+
+A URL (Uniform Resource Locator) is the address used to locate a resource on the Internet.
+
+Example:
+
+```text
+https://blog.example.com:443/articles/security?id=15&sort=new#comments
+```
+
+Every part of this URL has a specific purpose.
+
+---
+
+## URL Structure
+
+```text
+https://blog.example.com:443/articles/security?id=15&sort=new#comments
+
+│       │               │   │                  │                 │
+│       │               │   │                  │                 └── Fragment
+│       │               │   │                  └──────────────────── Query Parameters
+│       │               │   └────────────────────────────────────── Path
+│       │               └────────────────────────────────────────── Port
+│       └────────────────────────────────────────────────────────── Domain
+└────────────────────────────────────────────────────────────────── Protocol
+```
+
+---
+
+## 1. Protocol (Scheme)
+
+The protocol tells the browser **how communication should happen**.
+
+Example:
+
+```text
+https://
+```
+
+Common protocols:
+
+| Protocol | Purpose |
+|----------|----------|
+| HTTP | Transfers web pages without encryption |
+| HTTPS | Secure communication using TLS |
+| FTP | File Transfer |
+| SSH | Secure remote login |
+
+> Today, almost every website uses **HTTPS**.
+
+---
+
+## 2. Domain Name
+
+The domain is the human-readable name of a website.
+
+Example:
+
+```text
+google.com
+```
+
+Instead of remembering an IP address, users simply remember the domain name.
+
+DNS converts the domain into an IP address.
+
+Examples:
+
+```text
+google.com
+
+github.com
+
+amazon.com
+
+tryhackme.com
+```
+
+---
+
+## 3. Subdomain
+
+A subdomain is a subdivision of the main domain.
+
+Example:
+
+```text
+mail.google.com
+```
+
+Here,
+
+```text
+mail
+```
+
+is the subdomain.
+
+Examples:
+
+| URL | Subdomain |
+|------|-----------|
+| mail.google.com | mail |
+| drive.google.com | drive |
+| docs.google.com | docs |
+
+Each subdomain usually provides a different service while belonging to the same organization.
+
+---
+
+## 4. Top-Level Domain (TLD)
+
+The Top-Level Domain is the last part of the domain name.
+
+Examples:
+
+```text
+.com
+
+.org
+
+.edu
+
+.gov
+
+.in
+
+.uk
+```
+
+Example:
+
+```text
+google.com
+```
+
+Here,
+
+```text
+.com
+```
+
+is the TLD.
+
+---
+
+## 5. Port
+
+A port identifies which service on the server should receive the request.
+
+Example:
+
+```text
+https://example.com:443
+```
+
+Here,
+
+```text
+443
+```
+
+is the port number.
+
+Normally browsers automatically use:
+
+| Protocol | Default Port |
+|----------|--------------|
+| HTTP | 80 |
+| HTTPS | 443 |
+
+Therefore, these two URLs are identical:
+
+```text
+https://google.com
+
+https://google.com:443
+```
+
+---
+
+## 6. Path
+
+The path identifies the exact resource being requested from the server.
+
+Example:
+
+```text
+/admin/login
+```
+
+Examples:
+
+```text
+/profile
+
+/login
+
+/dashboard
+
+/images/logo.png
+```
+
+Think of the path like folders inside your computer.
+
+---
+
+## 7. Query Parameters
+
+Query parameters send additional information to the server.
+
+Example:
+
+```text
+/profile?id=25
+```
+
+Here,
+
+```text
+id = 25
+```
+
+means:
+
+> Show profile number **25**.
+
+Multiple parameters are separated using **&**
+
+Example:
+
+```text
+?id=15&sort=new&page=2
+```
+
+Parameter breakdown:
+
+| Parameter | Value |
+|-----------|-------|
+| id | 15 |
+| sort | new |
+| page | 2 |
+
+---
+
+## Why are Query Parameters Important?
+
+Query parameters are one of the first things penetration testers examine.
+
+Example:
+
+```text
+/profile?id=25
+```
+
+Questions a penetration tester asks:
+
+- What happens if I change **25** to **26**?
+- Can I access another user's profile?
+- Is the input properly validated?
+- Can this parameter be manipulated?
+
+Many real-world vulnerabilities begin with testing URL parameters.
+
+---
+
+## 8. Fragment
+
+A fragment begins with:
+
+```text
+#
+```
+
+Example:
+
+```text
+#comments
+```
+
+The fragment **never reaches the server**.
+
+It is used only by the browser to jump to a specific section of a webpage.
+
+Example:
+
+```text
+page.html#contact
+```
+
+The browser scrolls directly to the **Contact** section.
+
+---
+
+## Complete URL Breakdown
+
+Example:
+
+```text
+https://blog.example.com:443/articles/security?id=15&sort=new#comments
+```
+
+| Component | Value |
+|-----------|-------|
+| Protocol | HTTPS |
+| Subdomain | blog |
+| Domain | example.com |
+| Port | 443 |
+| Path | /articles/security |
+| Query Parameters | id=15&sort=new |
+| Fragment | comments |
+
+---
+
+## Real-World Analogy
+
+Imagine ordering food online.
+
+```text
+https://pizza.com/order?size=large&topping=cheese
+```
+
+The restaurant receives:
+
+| Parameter | Value |
+|-----------|-------|
+| Size | Large |
+| Topping | Cheese |
+
+Similarly, websites use query parameters to understand what information or resource the user is requesting.
+
+---
+
+## Pentester's Mindset
+
+When a penetration tester sees:
+
+```text
+https://bank.com/account?id=1001
+```
+
+Instead of simply opening the page, they ask:
+
+- Can I change the ID?
+- Does another user's data become visible?
+- Is authorization being checked?
+- Is the input validated?
+
+This way of thinking often leads to discovering vulnerabilities like **IDOR**.
+
+---
+
+## Key Points
+
+- A URL is the address of a resource on the Internet.
+- Every URL consists of multiple components.
+- Domains are converted into IP addresses using DNS.
+- The default port for HTTP is **80**.
+- The default port for HTTPS is **443**.
+- Query parameters send additional information to the server.
+- Fragments are processed only by the browser.
+- URL parameters are one of the most common attack surfaces in web security.
+
+---
+
+## Common Interview Questions
+
+### What is a URL?
+
+A URL (Uniform Resource Locator) is the address used to locate a resource on the Internet.
+
+---
+
+### What is the difference between a domain and a subdomain?
+
+A domain identifies the main website.
+
+A subdomain provides a separate service under the same domain.
+
+Example:
+
+```text
+mail.google.com
+```
+
+Domain:
+
+```text
+google.com
+```
+
+Subdomain:
+
+```text
+mail
+```
+
+---
+
+### What are query parameters?
+
+Query parameters send additional information to the server through the URL.
+
+---
+
+### What is the default port for HTTPS?
+
+443
+
+---
+
+### Does the fragment reach the server?
+
+No.
+
+Fragments are processed only by the browser.
+
+---
+
+## Hands-on Practice
+
+Open your browser and experiment with URLs.
+
+Try changing:
+
+- The path (`/login`, `/admin`, `/dashboard`)
+- Query parameters (`?id=1`, `?page=2`)
+- Fragments (`#about`, `#contact`)
+
+Observe how each part changes the browser's behavior.
+
+---
+
+## Quick Revision
+
+```text
+URL
+
+│
+
+├── Protocol (https://)
+
+├── Subdomain (blog)
+
+├── Domain (example.com)
+
+├── Port (443)
+
+├── Path (/articles)
+
+├── Query (?id=15)
+
+└── Fragment (#comments)
+```
