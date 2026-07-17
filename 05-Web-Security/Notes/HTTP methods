@@ -1,0 +1,586 @@
+# 🌐 HTTP Methods
+
+> **Module:** Web Security  
+> **Lesson:** Day 4
+
+---
+
+## Introduction
+
+An HTTP Method tells the server **what action the client wants to perform** on a resource.
+
+Think of it as a command or instruction.
+
+When a browser sends an HTTP request, the method tells the server whether it wants to:
+
+- Retrieve information
+- Submit data
+- Update data
+- Delete data
+- Check information
+
+Every HTTP request begins with a method.
+
+Example:
+
+```http
+GET /products HTTP/1.1
+```
+
+Here:
+
+- **GET** → Method
+- **/products** → Resource
+- **HTTP/1.1** → HTTP Version
+
+---
+
+# Why HTTP Methods Matter
+
+Different actions require different methods.
+
+Imagine an online shopping website.
+
+| User Action | HTTP Method |
+|-------------|-------------|
+| View products | GET |
+| Log in | POST |
+| Update profile | PUT or PATCH |
+| Delete account | DELETE |
+
+Using the correct method makes web applications more organized, secure, and predictable.
+
+---
+
+# GET Method
+
+The **GET** method is used to retrieve information from the server.
+
+It should only read data and must not modify anything.
+
+Example:
+
+```http
+GET /products HTTP/1.1
+Host: example.com
+```
+
+Possible uses:
+
+- Opening a webpage
+- Viewing products
+- Reading blog posts
+- Searching for items
+
+Example URL:
+
+```text
+/search?q=laptop
+```
+
+The query parameter is visible in the URL.
+
+---
+
+## Characteristics of GET
+
+- Retrieves data
+- Parameters are sent in the URL
+- Can be bookmarked
+- Can be cached
+- Should never modify server data
+
+---
+
+## Security Consideration
+
+Never send sensitive information using GET.
+
+Bad Example:
+
+```text
+/login?username=admin&password=123456
+```
+
+This information may appear in:
+
+- Browser history
+- Server logs
+- Shared URLs
+- Proxy logs
+
+---
+
+# POST Method
+
+POST is used to send data to the server.
+
+Unlike GET, POST usually places data inside the request body.
+
+Example:
+
+```http
+POST /login HTTP/1.1
+
+username=soham
+password=hello123
+```
+
+Common uses:
+
+- Login
+- Registration
+- Contact forms
+- Payments
+- File uploads
+
+---
+
+## Characteristics of POST
+
+- Sends data to the server
+- Uses the request body
+- Cannot be bookmarked
+- Commonly used for creating new resources
+
+---
+
+# PUT Method
+
+PUT replaces an existing resource completely.
+
+Imagine your profile currently contains:
+
+```text
+Name : Soham
+Age  : 20
+City : Mumbai
+```
+
+A PUT request sends the complete updated profile.
+
+```http
+PUT /profile HTTP/1.1
+
+Name=Soham
+Age=21
+City=Pune
+```
+
+The old profile is replaced entirely.
+
+---
+
+## Characteristics of PUT
+
+- Replaces the complete resource
+- Usually idempotent
+- Requires all updated data
+
+---
+
+# PATCH Method
+
+PATCH updates only part of an existing resource.
+
+Instead of sending the entire profile:
+
+```text
+Name : Soham
+Age  : 20
+City : Mumbai
+```
+
+You only send the field that needs updating.
+
+```http
+PATCH /profile HTTP/1.1
+
+Age=21
+```
+
+Everything else remains unchanged.
+
+---
+
+## PUT vs PATCH
+
+| PUT | PATCH |
+|------|--------|
+| Replaces entire resource | Updates only selected fields |
+| Sends complete data | Sends partial data |
+| Usually idempotent | Depends on implementation |
+
+---
+
+# DELETE Method
+
+DELETE removes a resource from the server.
+
+Example:
+
+```http
+DELETE /users/15 HTTP/1.1
+```
+
+Meaning:
+
+Delete user number 15.
+
+---
+
+## Security Consideration
+
+DELETE requests should always require proper authorization.
+
+Without proper access control, attackers may delete resources belonging to other users.
+
+---
+
+# HEAD Method
+
+HEAD works almost the same as GET.
+
+Difference:
+
+GET returns:
+
+- Headers
+- Body
+
+HEAD returns:
+
+- Headers only
+
+No response body is returned.
+
+Useful for:
+
+- Checking if a file exists
+- Checking file size
+- Checking content type
+
+without downloading the actual file.
+
+---
+
+# OPTIONS Method
+
+OPTIONS asks the server which HTTP methods are supported.
+
+Example:
+
+```http
+OPTIONS /api HTTP/1.1
+```
+
+Possible response:
+
+```text
+Allow:
+GET
+POST
+PUT
+DELETE
+```
+
+Useful during:
+
+- API testing
+- Security assessments
+- Understanding server capabilities
+
+---
+
+# Safe Methods
+
+Safe methods should **not modify server data**.
+
+| Method | Safe |
+|----------|------|
+| GET | ✅ |
+| HEAD | ✅ |
+| OPTIONS | ✅ |
+
+---
+
+# Unsafe Methods
+
+Unsafe methods may create, modify, or delete data.
+
+| Method | Unsafe |
+|----------|---------|
+| POST | ✅ |
+| PUT | ✅ |
+| PATCH | ✅ |
+| DELETE | ✅ |
+
+---
+
+# Idempotent Methods
+
+A method is **idempotent** if sending the same request multiple times results in the same final state.
+
+Example:
+
+```http
+DELETE /users/15
+```
+
+Sending it once deletes the user.
+
+Sending it again still leaves the user deleted.
+
+Final state remains the same.
+
+---
+
+## Idempotent Methods
+
+| Method | Idempotent |
+|----------|------------|
+| GET | ✅ |
+| HEAD | ✅ |
+| OPTIONS | ✅ |
+| PUT | ✅ |
+| DELETE | ✅ |
+| PATCH | Depends |
+| POST | ❌ |
+
+---
+
+# GET vs POST
+
+| GET | POST |
+|------|------|
+| Retrieves data | Sends data |
+| Parameters in URL | Data in Body |
+| Can be bookmarked | Cannot |
+| Cached | Usually not cached |
+| Suitable for reading | Suitable for submitting |
+
+---
+
+# HTTP Methods at a Glance
+
+| Method | Purpose |
+|----------|----------|
+| GET | Retrieve data |
+| POST | Create or submit data |
+| PUT | Replace an existing resource |
+| PATCH | Partially update a resource |
+| DELETE | Remove a resource |
+| HEAD | Retrieve headers only |
+| OPTIONS | Discover supported methods |
+
+---
+
+# Pentester's Perspective 🔍
+
+Whenever you intercept a request, your first question should be:
+
+> **"What action is this request performing?"**
+
+Examples:
+
+```http
+GET /profile
+```
+
+The application is reading data.
+
+Ask yourself:
+
+- Can I access another user's profile?
+- Can I change the URL?
+
+---
+
+```http
+POST /login
+```
+
+The application is submitting credentials.
+
+Ask yourself:
+
+- Can I modify the username?
+- Can I manipulate the password?
+- Is input properly validated?
+
+---
+
+```http
+PUT /profile
+```
+
+The application is replacing profile data.
+
+Ask yourself:
+
+- Can I edit fields that should not be editable?
+- Can I add hidden parameters?
+- Can I modify another user's profile?
+- Does the server validate my changes?
+
+---
+
+```http
+DELETE /users/15
+```
+
+The application is deleting data.
+
+Ask yourself:
+
+- Can I delete another user's account?
+- Is authorization enforced?
+- Can I bypass access controls?
+
+---
+
+# Real-World Examples
+
+| Action | HTTP Method |
+|----------|-------------|
+| Opening Google | GET |
+| Logging into Gmail | POST |
+| Updating your profile | PATCH |
+| Replacing profile details | PUT |
+| Deleting a social media post | DELETE |
+
+---
+
+# Key Points
+
+- Every HTTP request begins with a method.
+- The method tells the server what action to perform.
+- GET retrieves data.
+- POST submits data.
+- PUT replaces an entire resource.
+- PATCH updates only part of a resource.
+- DELETE removes a resource.
+- HEAD returns headers only.
+- OPTIONS lists supported methods.
+- Safe methods should not modify data.
+- Idempotent methods produce the same final result when repeated.
+
+---
+
+# Common Interview Questions
+
+### What is an HTTP Method?
+
+An HTTP Method tells the server what action the client wants to perform on a resource.
+
+---
+
+### What is the difference between GET and POST?
+
+GET retrieves data and sends parameters in the URL, whereas POST submits data using the request body.
+
+---
+
+### Difference between PUT and PATCH?
+
+PUT replaces the entire resource, while PATCH updates only selected fields.
+
+---
+
+### Which HTTP methods are considered safe?
+
+GET, HEAD, and OPTIONS.
+
+---
+
+### What is an idempotent method?
+
+An idempotent method produces the same final result even if the same request is sent multiple times.
+
+---
+
+### Why is POST preferred for login?
+
+Because credentials are sent in the request body instead of being exposed in the URL.
+
+---
+
+# Hands-on Practice
+
+1. Open Chrome.
+2. Press **F12**.
+3. Open the **Network** tab.
+4. Visit any website.
+5. Observe the **Method** column.
+
+Try to identify:
+
+- GET requests while browsing
+- POST requests when submitting forms
+- The URL being requested
+- The request body (for POST requests)
+
+---
+
+# Quick Revision
+
+```text
+HTTP Methods
+
+↓
+
+GET
+Retrieve data
+
+↓
+
+POST
+Submit data
+
+↓
+
+PUT
+Replace resource
+
+↓
+
+PATCH
+Update part of resource
+
+↓
+
+DELETE
+Remove resource
+
+↓
+
+HEAD
+Headers only
+
+↓
+
+OPTIONS
+Supported methods
+
+────────────────────────────
+
+Safe Methods
+
+GET
+HEAD
+OPTIONS
+
+────────────────────────────
+
+Idempotent
+
+GET
+HEAD
+OPTIONS
+PUT
+DELETE
+
+PATCH → Depends
+
+POST → Not Idempotent
+```
