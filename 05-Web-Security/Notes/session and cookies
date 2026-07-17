@@ -1,0 +1,803 @@
+# 🌐 Cookies & Sessions
+
+> **Module:** Web Security  
+> **Lesson:** Day 7
+
+---
+
+# Introduction
+
+HTTP is a **stateless protocol**, meaning that each request is treated as a completely new request.
+
+This creates a problem for websites.
+
+For example, after logging into a website like Instagram, Gmail, or Facebook, you can navigate through multiple pages without logging in again.
+
+This is possible because of **Cookies** and **Sessions**.
+
+Cookies and Sessions work together to help a web application remember a user across multiple HTTP requests.
+
+---
+
+# Why Cookies and Sessions are Needed
+
+Imagine the following sequence:
+
+```text
+GET /login
+
+↓
+
+Login Successful
+
+↓
+
+GET /profile
+
+↓
+
+GET /messages
+
+↓
+
+GET /settings
+```
+
+Without Cookies and Sessions, the server would treat every request as coming from a new visitor.
+
+The server would not remember that you had already logged in.
+
+Cookies and Sessions solve this problem.
+
+---
+
+# What is a Session?
+
+A **Session** is data stored on the **server** that contains information about a logged-in user.
+
+A session may contain:
+
+- User ID
+- Username
+- User Role
+- Authentication Status
+- Login Time
+- Expiration Time
+
+Example:
+
+```text
+Session
+
+Session ID: abc123
+
+↓
+
+User ID: 25
+
+Username: Soham
+
+Role: Admin
+
+Logged In: Yes
+
+Expires: 30 Minutes
+```
+
+The browser cannot directly access this information.
+
+---
+
+# What is a Cookie?
+
+A **Cookie** is a small piece of data stored inside the user's browser.
+
+The browser automatically sends cookies back to the server with future requests.
+
+A cookie usually **does not contain user information**.
+
+Instead, it contains a **Session ID**.
+
+Example:
+
+```http
+Cookie: session=abc123xyz
+```
+
+The Session ID acts like an identification card.
+
+---
+
+# Login Process
+
+## Step 1 – User Logs In
+
+Browser sends:
+
+```http
+POST /login
+
+username=soham
+password=password123
+```
+
+---
+
+## Step 2 – Server Verifies Credentials
+
+The server verifies:
+
+- Username
+- Password
+
+If correct:
+
+A new session is created.
+
+Example:
+
+```text
+Session ID
+
+abc123xyz
+```
+
+---
+
+## Step 3 – Session Stored on Server
+
+Server stores:
+
+```text
+Session ID
+
+abc123xyz
+
+↓
+
+User ID = 25
+
+↓
+
+Username = Soham
+
+↓
+
+Role = User
+
+↓
+
+Logged In = Yes
+```
+
+---
+
+## Step 4 – Server Sends Cookie
+
+Response:
+
+```http
+HTTP/1.1 200 OK
+
+Set-Cookie: session=abc123xyz
+```
+
+The **Set-Cookie** header creates the cookie inside the browser.
+
+---
+
+## Step 5 – Browser Stores Cookie
+
+The browser stores:
+
+```text
+session=abc123xyz
+```
+
+The user does not need to do anything manually.
+
+---
+
+## Step 6 – Future Requests
+
+Every future request automatically includes:
+
+```http
+GET /profile
+
+Cookie: session=abc123xyz
+```
+
+---
+
+## Step 7 – Server Identifies User
+
+The server receives:
+
+```text
+session=abc123xyz
+```
+
+It searches its session database:
+
+```text
+abc123xyz
+
+↓
+
+User ID = 25
+
+↓
+
+Username = Soham
+
+↓
+
+Role = User
+
+↓
+
+Logged In = Yes
+```
+
+The server now knows who the user is.
+
+The password does not need to be entered again.
+
+---
+
+# Complete Authentication Flow
+
+```text
+User
+
+↓
+
+Login Request
+
+↓
+
+Server
+
+↓
+
+Verify Credentials
+
+↓
+
+Create Session
+
+↓
+
+Store Session
+
+↓
+
+Set-Cookie
+
+↓
+
+Browser Stores Cookie
+
+↓
+
+Future Requests
+
+↓
+
+Cookie Header Sent
+
+↓
+
+Server Finds Session
+
+↓
+
+User Authenticated
+```
+
+---
+
+# Cookie vs Session
+
+| Cookie | Session |
+|---------|----------|
+| Stored in Browser | Stored on Server |
+| Contains Session ID | Contains User Information |
+| Sent with every request | Used by the server to identify the user |
+| Can be viewed in browser | Hidden from users |
+
+Remember:
+
+Cookies identify the session.
+
+Sessions identify the user.
+
+---
+
+# Cookie Flow
+
+```text
+Server
+
+↓
+
+Set-Cookie
+
+↓
+
+Browser Stores Cookie
+
+↓
+
+Future Request
+
+↓
+
+Cookie Header
+
+↓
+
+Server Finds Session
+
+↓
+
+User Recognized
+```
+
+---
+
+# Cookie Attributes
+
+Cookies can contain security attributes that help protect user sessions.
+
+Example:
+
+```http
+Set-Cookie:
+
+session=abc123;
+
+Secure;
+
+HttpOnly;
+
+SameSite=Lax
+```
+
+---
+
+# Secure Attribute
+
+Example:
+
+```http
+Secure
+```
+
+Purpose:
+
+The cookie is sent **only over HTTPS**.
+
+Benefits:
+
+- Prevents cookies from being transmitted over HTTP
+- Reduces the risk of network interception
+
+---
+
+# HttpOnly Attribute
+
+Example:
+
+```http
+HttpOnly
+```
+
+Purpose:
+
+Prevents JavaScript from accessing the cookie.
+
+Without HttpOnly:
+
+```javascript
+document.cookie
+```
+
+could expose session cookies.
+
+Benefits:
+
+- Helps protect against cookie theft through XSS attacks.
+
+---
+
+# SameSite Attribute
+
+Purpose:
+
+Controls when browsers send cookies during cross-site requests.
+
+Available values:
+
+```text
+Strict
+
+Lax
+
+None
+```
+
+---
+
+## SameSite=Strict
+
+Cookies are only sent when navigating within the same website.
+
+Highest level of protection.
+
+---
+
+## SameSite=Lax
+
+Cookies are sent during most normal navigation.
+
+Balances usability and security.
+
+Most browsers use this as the default.
+
+---
+
+## SameSite=None
+
+Cookies are sent with all requests, including cross-site requests.
+
+Requires the **Secure** attribute.
+
+Used when cross-site functionality is required.
+
+---
+
+# Session Expiration
+
+Sessions should expire after a certain amount of time.
+
+Example:
+
+```text
+Login
+
+↓
+
+30 Minutes
+
+↓
+
+Session Expires
+
+↓
+
+User Must Login Again
+```
+
+Expired sessions reduce the risk of unauthorized access if a session cookie is stolen.
+
+---
+
+# Session Hijacking
+
+Session Hijacking occurs when an attacker steals a valid session ID and uses it to impersonate the victim.
+
+Example:
+
+Victim:
+
+```http
+Cookie:
+
+session=abc123
+```
+
+Attacker steals the cookie.
+
+Attacker sends:
+
+```http
+Cookie:
+
+session=abc123
+```
+
+If the server accepts the session ID, the attacker gains access without knowing the password.
+
+---
+
+# Session Fixation
+
+Session Fixation is an attack in which the attacker forces the victim to use a session ID chosen by the attacker.
+
+If the application does not generate a new session ID after login, the attacker may later use the same session.
+
+Secure applications always generate a **new Session ID after successful authentication.**
+
+---
+
+# Why Attackers Target Cookies
+
+Attackers often try to steal session cookies because they can provide immediate access to an authenticated account.
+
+Instead of stealing a password, an attacker may simply steal the Session ID.
+
+This is why session cookies must be carefully protected.
+
+---
+
+# Common Security Risks
+
+| Missing Attribute | Possible Risk |
+|-------------------|---------------|
+| Secure | Cookie can be transmitted over HTTP |
+| HttpOnly | Cookie can be stolen using JavaScript during XSS |
+| SameSite | Increased risk of CSRF attacks |
+| Long Session Lifetime | Stolen session remains valid longer |
+
+---
+
+# Pentester's Perspective 🔍
+
+Whenever you see a session cookie, ask yourself:
+
+### Is the Session ID predictable?
+
+Bad Example:
+
+```text
+session=1
+
+session=2
+
+session=3
+```
+
+Predictable Session IDs are a serious security issue.
+
+---
+
+### Does the Session ID change after login?
+
+If not:
+
+Test for **Session Fixation**.
+
+---
+
+### Is HttpOnly enabled?
+
+If not:
+
+Test whether JavaScript can access the cookie through an XSS vulnerability.
+
+---
+
+### Is Secure enabled?
+
+If not:
+
+Check whether the cookie is transmitted over plain HTTP.
+
+---
+
+### Is SameSite configured?
+
+If missing:
+
+Test for Cross-Site Request Forgery (CSRF).
+
+---
+
+### Does the session expire?
+
+Questions to ask:
+
+- Can old session cookies still be used?
+- Does logout immediately invalidate the session?
+- Is the session regenerated after login?
+
+---
+
+# Real Burp Suite Example
+
+Request:
+
+```http
+GET /dashboard HTTP/1.1
+Host: example.com
+Cookie: session=abc123xyz
+```
+
+Things to test:
+
+- Remove the cookie.
+- Replace the Session ID.
+- Replay an old session.
+- Log out and reuse the cookie.
+- Log in again and compare Session IDs.
+
+---
+
+# Interview Questions
+
+### What is a Cookie?
+
+A Cookie is a small piece of data stored in the browser, usually containing a Session ID.
+
+---
+
+### What is a Session?
+
+A Session is server-side data that stores information about an authenticated user.
+
+---
+
+### Difference between Cookie and Session?
+
+Cookies are stored in the browser and usually contain a Session ID.
+
+Sessions are stored on the server and contain user-specific information.
+
+---
+
+### What does HttpOnly do?
+
+It prevents JavaScript from accessing cookies, reducing the risk of cookie theft through XSS.
+
+---
+
+### What does Secure do?
+
+It ensures cookies are only transmitted over HTTPS.
+
+---
+
+### What is Session Hijacking?
+
+Session Hijacking is an attack where an attacker steals a valid Session ID and uses it to impersonate the victim.
+
+---
+
+### What is Session Fixation?
+
+Session Fixation is an attack where an attacker forces a victim to use a known Session ID before authentication.
+
+---
+
+# Hands-on Practice
+
+1. Open Chrome.
+2. Press **F12**.
+3. Go to the **Application** tab.
+4. Open **Storage → Cookies**.
+5. Visit a website after logging in.
+6. Observe:
+   - Cookie Name
+   - Cookie Value
+   - Secure
+   - HttpOnly
+   - SameSite
+   - Expiration
+
+Try to identify which cookies are session cookies.
+
+---
+
+# Quick Revision
+
+```text
+HTTP
+
+↓
+
+Stateless
+
+↓
+
+Needs Memory
+
+↓
+
+Cookies + Sessions
+
+────────────────────────────
+
+Cookie
+
+↓
+
+Stored in Browser
+
+↓
+
+Contains Session ID
+
+────────────────────────────
+
+Session
+
+↓
+
+Stored on Server
+
+↓
+
+Contains User Information
+
+────────────────────────────
+
+Login
+
+↓
+
+Server Creates Session
+
+↓
+
+Set-Cookie
+
+↓
+
+Browser Stores Cookie
+
+↓
+
+Future Requests
+
+↓
+
+Cookie Sent
+
+↓
+
+Server Finds Session
+
+↓
+
+User Authenticated
+
+────────────────────────────
+
+Cookie Security
+
+Secure
+
+↓
+
+HTTPS Only
+
+HttpOnly
+
+↓
+
+Blocks JavaScript Access
+
+SameSite
+
+↓
+
+Helps Prevent CSRF
+
+────────────────────────────
+
+Common Attacks
+
+Session Hijacking
+
+↓
+
+Steal Session ID
+
+Session Fixation
+
+↓
+
+Force Known Session ID
+```
