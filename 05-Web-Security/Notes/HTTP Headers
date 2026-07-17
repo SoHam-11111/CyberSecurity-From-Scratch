@@ -1,0 +1,711 @@
+# 🌐 HTTP Headers
+
+> **Module:** Web Security  
+> **Lesson:** Day 5
+
+---
+
+# Introduction
+
+HTTP Headers are additional pieces of information sent along with an HTTP Request or HTTP Response.
+
+They provide extra information about the communication between the client and the server.
+
+Think of them as the **metadata** of an HTTP message.
+
+Without headers, the server would not know:
+
+- Which website the client wants
+- Which browser is making the request
+- Whether the user is logged in
+- What type of response the client expects
+- What language the user prefers
+
+Almost every web request contains multiple headers.
+
+---
+
+# HTTP Request Structure
+
+```text
+Request Line
+
+↓
+
+Request Headers
+
+↓
+
+Blank Line
+
+↓
+
+Body (Optional)
+```
+
+Headers appear between the Request Line and the Body.
+
+Example:
+
+```http
+GET /profile HTTP/1.1
+Host: example.com
+User-Agent: Mozilla/5.0
+Accept: text/html
+Cookie: session=abc123
+```
+
+---
+
+# HTTP Response Structure
+
+```text
+Status Line
+
+↓
+
+Response Headers
+
+↓
+
+Blank Line
+
+↓
+
+Body
+```
+
+Example:
+
+```http
+HTTP/1.1 200 OK
+Content-Type: text/html
+Server: nginx
+
+<html>...</html>
+```
+
+---
+
+# Why HTTP Headers Matter
+
+Headers allow the client and server to exchange important information without placing it inside the message body.
+
+They help answer questions like:
+
+- Who is making the request?
+- Which browser is being used?
+- Is the user authenticated?
+- What type of content should be returned?
+- Should the browser be redirected?
+
+Without headers, web applications would not function properly.
+
+---
+
+# Request Headers
+
+Request Headers are sent by the **client (browser)** to the **server**.
+
+Their purpose is to describe the request and provide additional information.
+
+---
+
+# Host Header
+
+Example:
+
+```http
+Host: example.com
+```
+
+Purpose:
+
+Identifies the website that the client wants to access.
+
+This is important because one physical server may host many different websites.
+
+Example:
+
+```text
+Server
+
+├── example.com
+
+├── shop.example.com
+
+└── blog.example.com
+```
+
+The Host header tells the server which website should respond.
+
+---
+
+# User-Agent Header
+
+Example:
+
+```http
+User-Agent: Mozilla/5.0 Chrome/138
+```
+
+Purpose:
+
+Identifies information about the client.
+
+It may include:
+
+- Browser
+- Operating System
+- Device
+
+Examples:
+
+- Chrome on Windows
+- Firefox on Linux
+- Safari on macOS
+
+Some websites display different content depending on the User-Agent.
+
+---
+
+# Accept Header
+
+Example:
+
+```http
+Accept: text/html
+```
+
+Purpose:
+
+Tells the server which content types the client can understand.
+
+Examples:
+
+```http
+Accept: text/html
+Accept: application/json
+Accept: image/png
+```
+
+This is especially important for APIs.
+
+---
+
+# Accept-Language Header
+
+Example:
+
+```http
+Accept-Language: en-US
+```
+
+Purpose:
+
+Specifies the client's preferred language.
+
+Examples:
+
+```http
+Accept-Language: hi-IN
+Accept-Language: en-US
+```
+
+The server may return the webpage in the requested language.
+
+---
+
+# Referer Header
+
+Example:
+
+```http
+Referer: https://google.com
+```
+
+Purpose:
+
+Indicates the webpage from which the user came.
+
+Often used for:
+
+- Analytics
+- Navigation
+- Basic security checks
+
+---
+
+# Origin Header
+
+Example:
+
+```http
+Origin: https://example.com
+```
+
+Purpose:
+
+Indicates where the request originated.
+
+This header becomes very important when studying:
+
+- CORS
+- CSRF
+
+---
+
+# Authorization Header
+
+Example:
+
+```http
+Authorization: Bearer eyJhbGciOi...
+```
+
+Purpose:
+
+Contains authentication credentials.
+
+Commonly used with:
+
+- REST APIs
+- JWT Tokens
+- OAuth
+
+Without a valid Authorization header, protected resources are usually inaccessible.
+
+---
+
+# Cookie Header
+
+Example:
+
+```http
+Cookie: session=abc123
+```
+
+Purpose:
+
+Sends stored cookies from the browser to the server.
+
+Cookies usually contain:
+
+- Session IDs
+- User Preferences
+- Login Information
+
+This is how websites recognize returning users.
+
+---
+
+# Response Headers
+
+Response Headers are sent by the **server** to the **client**.
+
+They provide information about the response.
+
+---
+
+# Content-Type Header
+
+Example:
+
+```http
+Content-Type: text/html
+```
+
+Purpose:
+
+Specifies the type of content being returned.
+
+Examples:
+
+```http
+text/html
+application/json
+image/png
+text/css
+```
+
+The browser uses this information to correctly display the response.
+
+---
+
+# Content-Length Header
+
+Example:
+
+```http
+Content-Length: 5120
+```
+
+Purpose:
+
+Indicates the size of the response body in bytes.
+
+---
+
+# Server Header
+
+Example:
+
+```http
+Server: Apache/2.4.49
+```
+
+Purpose:
+
+Identifies the web server software.
+
+Examples:
+
+- Apache
+- Nginx
+- IIS
+
+Some servers also reveal the exact software version.
+
+This information may help attackers identify known vulnerabilities.
+
+---
+
+# Set-Cookie Header
+
+Example:
+
+```http
+Set-Cookie: session=xyz987
+```
+
+Purpose:
+
+Creates or updates cookies in the user's browser.
+
+Flow:
+
+```text
+Server
+
+↓
+
+Set-Cookie
+
+↓
+
+Browser stores cookie
+
+↓
+
+Next Request
+
+↓
+
+Cookie header sent back
+```
+
+---
+
+# Location Header
+
+Example:
+
+```http
+HTTP/1.1 302 Found
+Location: /login
+```
+
+Purpose:
+
+Redirects the browser to another location.
+
+Commonly used after:
+
+- Login
+- Logout
+- Page relocation
+
+---
+
+# Cookie vs Set-Cookie
+
+| Cookie | Set-Cookie |
+|----------|------------|
+| Sent by Browser | Sent by Server |
+| Contains existing cookies | Creates or updates cookies |
+| Used in Requests | Used in Responses |
+
+Remember:
+
+```
+Server
+
+↓
+
+Set-Cookie
+
+↓
+
+Browser Stores Cookie
+
+↓
+
+Browser
+
+↓
+
+Cookie
+
+↓
+
+Server
+```
+
+---
+
+# Common Request Headers
+
+| Header | Purpose |
+|----------|----------|
+| Host | Target website |
+| User-Agent | Browser information |
+| Accept | Accepted content type |
+| Accept-Language | Preferred language |
+| Referer | Previous page |
+| Origin | Source of request |
+| Authorization | Authentication credentials |
+| Cookie | Session information |
+
+---
+
+# Common Response Headers
+
+| Header | Purpose |
+|----------|----------|
+| Content-Type | Response data type |
+| Content-Length | Response size |
+| Server | Web server software |
+| Set-Cookie | Creates browser cookies |
+| Location | Redirect destination |
+
+---
+
+# Why Headers Matter in Web Security
+
+Headers often contain valuable information.
+
+Examples include:
+
+- Authentication Tokens
+- Session IDs
+- Browser Information
+- Server Details
+- Content Types
+
+For a penetration tester, headers are one of the first things to inspect.
+
+---
+
+# Pentester's Perspective 🔍
+
+When you intercept an HTTP request, ask yourself:
+
+### Host
+
+- Can I modify it?
+- Does changing it affect routing?
+
+---
+
+### Cookie
+
+- Can I change the session ID?
+- Can I remove it?
+- Can I impersonate another user?
+
+---
+
+### Authorization
+
+- Can I replace the token?
+- Can I remove authentication?
+- Does the server validate it correctly?
+
+---
+
+### User-Agent
+
+- Does the application trust this value?
+- Can I impersonate another browser or bot?
+
+---
+
+### Referer / Origin
+
+- Are these headers actually validated?
+- Can I bypass security checks by modifying them?
+
+---
+
+### Server (Response Header)
+
+- Does it reveal unnecessary software information?
+- Is the version known to contain vulnerabilities?
+
+---
+
+# Real-World Example
+
+Request:
+
+```http
+GET /dashboard HTTP/1.1
+Host: example.com
+Cookie: session=abc123
+Authorization: Bearer xyz123
+User-Agent: Chrome
+```
+
+Possible questions for a penetration tester:
+
+- What happens if the Cookie is removed?
+- Can the Authorization token be replaced?
+- Can the Host header be modified?
+- Does changing the User-Agent affect the response?
+
+---
+
+# Key Points
+
+- Headers provide additional information about HTTP communication.
+- Request Headers are sent by the client.
+- Response Headers are sent by the server.
+- Host identifies the target website.
+- User-Agent identifies the client.
+- Cookie contains session information.
+- Authorization is used for authentication.
+- Content-Type identifies the response format.
+- Set-Cookie creates cookies.
+- Headers are one of the most important parts of web application testing.
+
+---
+
+# Common Interview Questions
+
+### What are HTTP Headers?
+
+HTTP Headers are additional pieces of information exchanged between the client and server to describe an HTTP request or response.
+
+---
+
+### What is the difference between Request Headers and Response Headers?
+
+Request Headers are sent by the client to the server, while Response Headers are sent by the server to the client.
+
+---
+
+### What is the purpose of the Host header?
+
+It identifies the website the client wants to access.
+
+---
+
+### What is the purpose of the Authorization header?
+
+It carries authentication credentials such as JWT tokens or API tokens.
+
+---
+
+### Difference between Cookie and Set-Cookie?
+
+Set-Cookie is sent by the server to create or update a cookie.
+
+Cookie is sent by the browser back to the server during future requests.
+
+---
+
+### Why is the Server header important in security?
+
+It may reveal the web server software and version, helping attackers identify known vulnerabilities.
+
+---
+
+# Hands-on Practice
+
+1. Open Chrome.
+2. Press **F12**.
+3. Open the **Network** tab.
+4. Visit any website.
+5. Select the first request.
+
+Try to identify:
+
+- Host
+- User-Agent
+- Accept
+- Cookie
+- Content-Type
+- Server
+- Set-Cookie
+- Location (if present)
+
+Also determine whether each header belongs to the request or the response.
+
+---
+
+# Quick Revision
+
+```text
+HTTP Headers
+
+↓
+
+Request Headers
+
+Host
+User-Agent
+Accept
+Accept-Language
+Referer
+Origin
+Authorization
+Cookie
+
+↓
+
+Response Headers
+
+Content-Type
+Content-Length
+Server
+Set-Cookie
+Location
+
+────────────────────────────
+
+Cookie
+
+Browser → Server
+
+────────────────────────────
+
+Set-Cookie
+
+Server → Browser
+
+────────────────────────────
+
+Headers
+
+↓
+
+Provide additional information
+
+↓
+
+Essential for communication
+
+↓
+
+Critical for Web Security
+```
