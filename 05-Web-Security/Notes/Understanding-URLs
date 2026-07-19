@@ -1,23 +1,23 @@
-# 🌐 Understanding URLs
+🌐 Understanding URLs
 
-> **Module:** Web Security  
-> **Lesson:** Day 2
+Module: Web Security
+Lesson: Day 2
 
 ---
 
-## Introduction
+Introduction
 
-Every website on the Internet is accessed using a **URL (Uniform Resource Locator)**.
+Every website on the Internet is accessed using a URL (Uniform Resource Locator).
 
-A URL is much more than just a website address. It contains valuable information about **where a resource is located** and **how the browser should access it**.
+A URL is much more than just a website address. It contains valuable information about where a resource is located and how the browser should access it.
 
 For a web developer, a URL helps navigate a website.
 
-For a penetration tester, a URL is often the **first place to look for vulnerabilities**.
+For a penetration tester, a URL is often the first place to look for vulnerabilities.
 
 ---
 
-## What is a URL?
+What is a URL?
 
 A URL (Uniform Resource Locator) is the address used to locate a resource on the Internet.
 
@@ -31,7 +31,7 @@ Every part of this URL has a specific purpose.
 
 ---
 
-## URL Structure
+URL Structure
 
 ```text
 https://blog.example.com:443/articles/security?id=15&sort=new#comments
@@ -47,9 +47,9 @@ https://blog.example.com:443/articles/security?id=15&sort=new#comments
 
 ---
 
-## 1. Protocol (Scheme)
+1. Protocol (Scheme)
 
-The protocol tells the browser **how communication should happen**.
+The protocol tells the browser how communication should happen.
 
 Example:
 
@@ -66,11 +66,11 @@ Common protocols:
 | FTP | File Transfer |
 | SSH | Secure remote login |
 
-> Today, almost every website uses **HTTPS**.
+Today, almost every website uses HTTPS.
 
 ---
 
-## 2. Domain Name
+2. Domain Name
 
 The domain is the human-readable name of a website.
 
@@ -98,7 +98,7 @@ tryhackme.com
 
 ---
 
-## 3. Subdomain
+3. Subdomain
 
 A subdomain is a subdivision of the main domain.
 
@@ -128,7 +128,7 @@ Each subdomain usually provides a different service while belonging to the same 
 
 ---
 
-## 4. Top-Level Domain (TLD)
+4. Top-Level Domain (TLD)
 
 The Top-Level Domain is the last part of the domain name.
 
@@ -164,7 +164,7 @@ is the TLD.
 
 ---
 
-## 5. Port
+5. Port
 
 A port identifies which service on the server should receive the request.
 
@@ -199,7 +199,7 @@ https://google.com:443
 
 ---
 
-## 6. Path
+6. Path
 
 The path identifies the exact resource being requested from the server.
 
@@ -225,7 +225,7 @@ Think of the path like folders inside your computer.
 
 ---
 
-## 7. Query Parameters
+7. Query Parameters
 
 Query parameters send additional information to the server.
 
@@ -243,9 +243,9 @@ id = 25
 
 means:
 
-> Show profile number **25**.
+Show profile number 25.
 
-Multiple parameters are separated using **&**
+Multiple parameters are separated using &amp;
 
 Example:
 
@@ -263,7 +263,7 @@ Parameter breakdown:
 
 ---
 
-## Why are Query Parameters Important?
+Why are Query Parameters Important?
 
 Query parameters are one of the first things penetration testers examine.
 
@@ -275,7 +275,7 @@ Example:
 
 Questions a penetration tester asks:
 
-- What happens if I change **25** to **26**?
+- What happens if I change 25 to 26?
 - Can I access another user's profile?
 - Is the input properly validated?
 - Can this parameter be manipulated?
@@ -284,7 +284,7 @@ Many real-world vulnerabilities begin with testing URL parameters.
 
 ---
 
-## 8. Fragment
+8. Fragment
 
 A fragment begins with:
 
@@ -298,7 +298,7 @@ Example:
 #comments
 ```
 
-The fragment **never reaches the server**.
+The fragment never reaches the server.
 
 It is used only by the browser to jump to a specific section of a webpage.
 
@@ -308,11 +308,11 @@ Example:
 page.html#contact
 ```
 
-The browser scrolls directly to the **Contact** section.
+The browser scrolls directly to the Contact section.
 
 ---
 
-## Complete URL Breakdown
+Complete URL Breakdown
 
 Example:
 
@@ -332,7 +332,7 @@ https://blog.example.com:443/articles/security?id=15&sort=new#comments
 
 ---
 
-## Real-World Analogy
+Real-World Analogy
 
 Imagine ordering food online.
 
@@ -351,7 +351,7 @@ Similarly, websites use query parameters to understand what information or resou
 
 ---
 
-## Pentester's Mindset
+Pentester's Mindset
 
 When a penetration tester sees:
 
@@ -366,32 +366,32 @@ Instead of simply opening the page, they ask:
 - Is authorization being checked?
 - Is the input validated?
 
-This way of thinking often leads to discovering vulnerabilities like **IDOR**.
+This way of thinking often leads to discovering vulnerabilities like IDOR.
 
 ---
 
-## Key Points
+Key Points
 
 - A URL is the address of a resource on the Internet.
 - Every URL consists of multiple components.
 - Domains are converted into IP addresses using DNS.
-- The default port for HTTP is **80**.
-- The default port for HTTPS is **443**.
+- The default port for HTTP is 80.
+- The default port for HTTPS is 443.
 - Query parameters send additional information to the server.
 - Fragments are processed only by the browser.
 - URL parameters are one of the most common attack surfaces in web security.
 
 ---
 
-## Common Interview Questions
+Common Interview Questions
 
-### What is a URL?
+What is a URL?
 
 A URL (Uniform Resource Locator) is the address used to locate a resource on the Internet.
 
 ---
 
-### What is the difference between a domain and a subdomain?
+What is the difference between a domain and a subdomain?
 
 A domain identifies the main website.
 
@@ -417,19 +417,19 @@ mail
 
 ---
 
-### What are query parameters?
+What are query parameters?
 
 Query parameters send additional information to the server through the URL.
 
 ---
 
-### What is the default port for HTTPS?
+What is the default port for HTTPS?
 
 443
 
 ---
 
-### Does the fragment reach the server?
+Does the fragment reach the server?
 
 No.
 
@@ -437,7 +437,7 @@ Fragments are processed only by the browser.
 
 ---
 
-## Hands-on Practice
+Hands-on Practice
 
 Open your browser and experiment with URLs.
 
@@ -451,7 +451,7 @@ Observe how each part changes the browser's behavior.
 
 ---
 
-## Quick Revision
+Quick Revision
 
 ```text
 URL
@@ -472,3 +472,5 @@ URL
 
 └── Fragment (#comments)
 ```
+
+
