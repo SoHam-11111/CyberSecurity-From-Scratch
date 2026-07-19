@@ -1,24 +1,17 @@
-# 🌐 HTTP Methods
-
-> **Module:** Web Security  
-> **Lesson:** Day 4
-
----
-
-## Introduction
-
-An HTTP Method tells the server **what action the client wants to perform** on a resource.
+🌐 HTTP Methods
+Module: Web Security
+Lesson: Day 4
+Introduction
+An HTTP Method tells the server what action the client wants to perform on a resource.
 
 Think of it as a command or instruction.
 
 When a browser sends an HTTP request, the method tells the server whether it wants to:
-
-- Retrieve information
-- Submit data
-- Update data
-- Delete data
-- Check information
-
+Retrieve information
+Submit data
+Update data
+Delete data
+Check information
 Every HTTP request begins with a method.
 
 Example:
@@ -29,32 +22,28 @@ GET /products HTTP/1.1
 
 Here:
 
-- **GET** → Method
+- GET → Method
 - **/products** → Resource
 - **HTTP/1.1** → HTTP Version
-
----
-
-# Why HTTP Methods Matter
-
+Why HTTP Methods Matter
 Different actions require different methods.
 
 Imagine an online shopping website.
-
-| User Action | HTTP Method |
-|-------------|-------------|
-| View products | GET |
-| Log in | POST |
-| Update profile | PUT or PATCH |
-| Delete account | DELETE |
-
 Using the correct method makes web applications more organized, secure, and predictable.
 
----
+User Action
+HTTP Method
+View products
+GET
+Log in
+POST
+Update profile
+PUT or PATCH
+Delete account
+DELETE
 
-# GET Method
-
-The **GET** method is used to retrieve information from the server.
+GET Method
+The GET method is used to retrieve information from the server.
 
 It should only read data and must not modify anything.
 
@@ -82,7 +71,7 @@ The query parameter is visible in the URL.
 
 ---
 
-## Characteristics of GET
+Characteristics of GET
 
 - Retrieves data
 - Parameters are sent in the URL
@@ -92,7 +81,7 @@ The query parameter is visible in the URL.
 
 ---
 
-## Security Consideration
+Security Consideration
 
 Never send sensitive information using GET.
 
@@ -111,7 +100,7 @@ This information may appear in:
 
 ---
 
-# POST Method
+POST Method
 
 POST is used to send data to the server.
 
@@ -145,7 +134,7 @@ Common uses:
 
 ---
 
-# PUT Method
+PUT Method
 
 PUT replaces an existing resource completely.
 
@@ -179,7 +168,7 @@ The old profile is replaced entirely.
 
 ---
 
-# PATCH Method
+PATCH Method
 
 PATCH updates only part of an existing resource.
 
@@ -203,7 +192,7 @@ Everything else remains unchanged.
 
 ---
 
-## PUT vs PATCH
+PUT vs PATCH
 
 | PUT | PATCH |
 |------|--------|
@@ -213,7 +202,7 @@ Everything else remains unchanged.
 
 ---
 
-# DELETE Method
+DELETE Method
 
 DELETE removes a resource from the server.
 
@@ -237,7 +226,7 @@ Without proper access control, attackers may delete resources belonging to other
 
 ---
 
-# HEAD Method
+HEAD Method
 
 HEAD works almost the same as GET.
 
@@ -264,7 +253,7 @@ without downloading the actual file.
 
 ---
 
-# OPTIONS Method
+OPTIONS Method
 
 OPTIONS asks the server which HTTP methods are supported.
 
@@ -292,7 +281,7 @@ Useful during:
 
 ---
 
-# Safe Methods
+Safe Methods
 
 Safe methods should **not modify server data**.
 
@@ -304,7 +293,7 @@ Safe methods should **not modify server data**.
 
 ---
 
-# Unsafe Methods
+Unsafe Methods
 
 Unsafe methods may create, modify, or delete data.
 
@@ -317,7 +306,7 @@ Unsafe methods may create, modify, or delete data.
 
 ---
 
-# Idempotent Methods
+Idempotent Methods
 
 A method is **idempotent** if sending the same request multiple times results in the same final state.
 
@@ -349,7 +338,7 @@ Final state remains the same.
 
 ---
 
-# GET vs POST
+GET vs POST
 
 | GET | POST |
 |------|------|
@@ -361,7 +350,7 @@ Final state remains the same.
 
 ---
 
-# HTTP Methods at a Glance
+HTTP Methods at a Glance
 
 | Method | Purpose |
 |----------|----------|
@@ -375,11 +364,10 @@ Final state remains the same.
 
 ---
 
-# Pentester's Perspective 🔍
+Pentester's Perspective 🔍
 
 Whenever you intercept a request, your first question should be:
-
-> **"What action is this request performing?"**
+What action is this request performing?
 
 Examples:
 
@@ -439,7 +427,7 @@ Ask yourself:
 
 ---
 
-# Real-World Examples
+Real-World Examples
 
 | Action | HTTP Method |
 |----------|-------------|
@@ -451,7 +439,7 @@ Ask yourself:
 
 ---
 
-# Key Points
+Key Points
 
 - Every HTTP request begins with a method.
 - The method tells the server what action to perform.
@@ -467,45 +455,45 @@ Ask yourself:
 
 ---
 
-# Common Interview Questions
+Common Interview Questions
 
-### What is an HTTP Method?
+What is an HTTP Method?
 
 An HTTP Method tells the server what action the client wants to perform on a resource.
 
 ---
 
-### What is the difference between GET and POST?
+What is the difference between GET and POST?
 
 GET retrieves data and sends parameters in the URL, whereas POST submits data using the request body.
 
 ---
 
-### Difference between PUT and PATCH?
+Difference between PUT and PATCH?
 
 PUT replaces the entire resource, while PATCH updates only selected fields.
 
 ---
 
-### Which HTTP methods are considered safe?
+Which HTTP methods are considered safe?
 
 GET, HEAD, and OPTIONS.
 
 ---
 
-### What is an idempotent method?
+What is an idempotent method?
 
 An idempotent method produces the same final result even if the same request is sent multiple times.
 
 ---
 
-### Why is POST preferred for login?
+Why is POST preferred for login?
 
 Because credentials are sent in the request body instead of being exposed in the URL.
 
 ---
 
-# Hands-on Practice
+Hands-on Practice
 
 1. Open Chrome.
 2. Press **F12**.
@@ -522,7 +510,7 @@ Try to identify:
 
 ---
 
-# Quick Revision
+Quick Revision
 
 ```text
 HTTP Methods
@@ -584,3 +572,6 @@ PATCH → Depends
 
 POST → Not Idempotent
 ```
+
+
+
