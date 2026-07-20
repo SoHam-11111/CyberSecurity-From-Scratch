@@ -1,0 +1,82 @@
+🧪 Lab 03 - User Role Controlled by Request Parameter
+Platform: PortSwigger Web Security Academy
+Category: Access Control
+Difficulty: Apprentice
+Status: ✅ Solved
+
+Objective
+Identify and exploit an application that controls user privileges using a client-side request parameter.
+
+Background
+The application stores the user's administrative status inside a cookie. Since cookies are fully controlled by the client, modifying this value may allow privilege escalation.
+
+Methodology
+Logged into the application as a normal user.
+Intercepted requests using Burp Suite.
+Observed the following cookie in multiple requests:
+Admin=false
+Sent the request to Burp Repeater.
+Modified the cookie:
+Admin=true
+Requested the administrator interface:
+GET /admin
+Successfully accessed the administrator panel.
+Located the delete endpoint for the user carlos.
+Sent the following request:
+GET /admin/delete?username=carlos
+Received a 302 Found redirect to /admin.
+Verified that the lab was solved.
+Vulnerability
+Broken Access Control
+The server trusted a client-controlled cookie to determine administrative privileges.
+
+Evidence
+Original cookie:
+
+Admin=false
+Modified cookie:
+
+Admin=true
+Administrative action performed:
+
+Deleted user: carlos
+Impact
+An attacker can modify the cookie to gain administrator privileges, resulting in:
+
+Unauthorized access to administrative interfaces
+User deletion
+Data modification
+Full application compromise
+Severity: Critical
+
+Root Cause
+Authorization decisions were based on client-supplied data instead of server-side session validation.
+
+Remediation
+Developers should:
+
+Store user roles on the server.
+Associate roles with authenticated sessions.
+Ignore client-supplied privilege values.
+Perform authorization checks for every privileged request.
+Burp Suite Skills Practiced
+Proxy
+HTTP History
+Repeater
+Cookie Manipulation
+Manual Request Editing
+Response Analysis
+Pentester's Notes
+The application exposed an Admin cookie that directly controlled authorization.
+
+By modifying the cookie from false to true, administrator access was obtained without exploiting authentication.
+
+This demonstrates why authorization must never rely on client-controlled data.
+
+Lessons Learned
+Never trust client-side cookies for authorization.
+Cookies are easily modified using Burp Suite.
+Authorization must always be enforced on the server.
+Successful exploitation often requires both modifying the request and targeting the appropriate endpoint.
+Status
+✅ Lab Solved
