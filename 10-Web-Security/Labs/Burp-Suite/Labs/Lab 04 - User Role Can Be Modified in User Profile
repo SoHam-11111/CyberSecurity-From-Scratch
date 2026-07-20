@@ -1,0 +1,92 @@
+Lab 04 - User Role Can Be Modified in User Profile
+Platform: PortSwigger Web Security Academy
+Category: Access Control
+Difficulty: Apprentice
+Status: ✅ Solved
+
+Objective
+Exploit a Mass Assignment vulnerability to modify the authenticated user's role and gain administrator privileges.
+
+Background
+The application allows users to update their email address through a JSON request. The backend automatically maps incoming JSON properties to the user object without restricting which properties may be modified.
+
+Methodology
+Logged in as a normal user.
+Navigated to My Account.
+Updated the email address.
+Intercepted the request using Burp Suite.
+Sent the request to Repeater.
+Observed the normal JSON body:
+{
+  "email":"test@example.com"
+}
+Modified the request:
+{
+  "email":"test@example.com",
+  "roleid":2
+}
+Sent the modified request.
+Successfully changed the user's role to Administrator.
+Accessed the /admin endpoint.
+Deleted the user carlos.
+Verified successful completion of the lab.
+Vulnerability
+Mass Assignment (Auto-Binding)
+The server automatically accepted additional JSON properties supplied by the client and updated security-sensitive fields.
+
+Evidence
+Original request:
+
+{
+  "email":"test@example.com"
+}
+Modified request:
+
+{
+  "email":"test@example.com",
+  "roleid":2
+}
+Administrative action performed:
+
+Deleted user: carlos
+Impact
+An attacker can:
+
+Escalate privileges
+Gain administrator access
+Access restricted functionality
+Modify or delete sensitive data
+Fully compromise the application
+Severity: Critical
+
+Root Cause
+The application trusted client-supplied JSON and automatically mapped all fields to the backend user object.
+
+Security-sensitive attributes such as roleid should never be modifiable by users.
+
+Remediation
+Developers should:
+
+Use allow-lists for accepted input fields.
+Reject unexpected properties.
+Store user roles on the server.
+Validate authorization separately from profile updates.
+Burp Suite Skills Practiced
+Proxy
+HTTP History
+Repeater
+JSON Manipulation
+Parameter Tampering
+Response Analysis
+Pentester's Notes
+The profile update request initially exposed only the email field.
+
+By manually adding the hidden roleid property to the JSON request, administrator privileges were obtained through a Mass Assignment vulnerability.
+
+Lessons Learned
+Never trust client-supplied JSON.
+Hidden fields can often be added manually.
+Security-sensitive attributes must never be user-controllable.
+Auto-binding frameworks can introduce severe privilege escalation vulnerabilities.
+Status
+✅ Lab Solved
