@@ -1,0 +1,268 @@
+🌐 Burp Suite - Proxy & Repeater
+Module: Burp Suite
+Lesson: Day 12
+
+Objective
+Learn how to:
+
+Configure Burp Proxy
+Intercept HTTP/HTTPS requests
+Inspect requests
+Modify requests
+Use Repeater
+Burp Proxy
+Burp Proxy acts as a man-in-the-middle between the browser and the web server.
+
+Normal communication:
+
+Browser
+
+↓
+
+Server
+
+Using Burp:
+
+Browser
+
+↓
+
+Burp Proxy
+
+↓
+
+Server
+
+Proxy Listener
+Default Listener:
+
+127.0.0.1:8080
+
+127.0.0.1 represents localhost (your own computer).
+
+Intercept
+When Intercept is ON:
+
+Browser
+
+↓
+
+Burp
+
+↓
+
+Request Stops
+
+↓
+
+Inspect
+
+↓
+
+Modify
+
+↓
+
+Forward
+
+↓
+
+Server
+
+Request Anatomy
+Example:
+
+GET / HTTP/1.1
+
+Host: example.com
+
+User-Agent: Mozilla/5.0
+
+Accept: text/html
+
+Accept-Language: en-US
+
+Accept-Encoding: gzip
+
+Every request contains:
+
+Method
+Path
+Protocol
+Headers
+Body (if applicable)
+HTTP History
+Stores every intercepted request and response.
+
+Useful for:
+
+Reviewing traffic
+Finding endpoints
+Investigating requests
+Repeater
+Repeater allows sending the same request multiple times after modifying it.
+
+Workflow:
+
+Intercept
+
+↓
+
+Send to Repeater
+
+↓
+
+Modify Request
+
+↓
+
+Send
+
+↓
+
+Observe Response
+
+Repeat as many times as needed.
+
+Why Repeater is Important
+Instead of refreshing the browser every time,
+
+Burp communicates directly with the server.
+
+This speeds up manual penetration testing.
+
+Common Things to Modify
+URL
+Query Parameters
+Cookies
+Headers
+Authorization Tokens
+Request Body
+HTTP Method
+HTTPS Interception
+Burp decrypts HTTPS traffic using its own trusted Certificate Authority (CA) certificate.
+
+The built-in Chromium browser already trusts Burp's certificate, making HTTPS interception work without additional configuration.
+
+Pentester's Perspective 🔍
+For every intercepted request, ask:
+
+Can I modify parameters?
+Can I change HTTP methods?
+Can I change cookies?
+Can I modify JWTs?
+Can I access hidden endpoints?
+Can I change request headers?
+Interview Questions
+What is Burp Proxy?
+Burp Proxy intercepts HTTP/HTTPS traffic between the browser and the server.
+
+What is Repeater?
+Repeater allows testers to resend modified requests multiple times without using the browser.
+
+Why use Repeater?
+To manually test application behavior by changing requests and observing responses.
+
+Quick Revision
+Browser
+
+↓
+
+Burp Proxy
+
+↓
+
+Inspect
+
+↓
+
+Modify
+
+↓
+
+Forward
+
+↓
+
+Server
+
+↓
+
+Response
+
+↓
+
+Repeater
+
+↓
+
+Modify Again
+
+🧪 Lab 01 - First HTTPS Intercept
+Objective
+Successfully intercept and modify an HTTPS request using Burp Suite.
+
+Environment
+Burp Suite Community Edition v2026.6
+Burp Built-in Chromium Browser
+Target: https://example.com
+Procedure
+Started Burp Suite.
+Created a Temporary Project.
+Used Burp Default Configuration.
+Opened the built-in Chromium browser.
+Enabled Intercept.
+Visited:
+https://example.com
+
+Burp intercepted the request.
+Captured Request
+GET / HTTP/1.1
+
+Host: example.com
+Request Headers Observed
+Host
+User-Agent
+Accept
+Accept-Language
+Accept-Encoding
+Connection
+Modification Performed
+Original Request:
+
+GET /
+Modified Request:
+
+GET /test
+Server Response
+404 Not Found
+Observation
+The server returned a 404 Not Found response because the requested endpoint /test did not exist.
+
+This confirmed that:
+
+Burp successfully intercepted the request.
+The modified request reached the server.
+The server processed the modified request.
+Skills Practiced
+HTTPS Interception
+Request Inspection
+Request Modification
+Burp Proxy
+HTTP Headers
+HTTP Methods
+Pentester Notes
+Changing URLs and parameters is one of the first manual tests performed during web application penetration testing.
+
+Possible future tests include:
+
+Hidden directories
+IDOR
+Access control issues
+Debug endpoints
+Administrative pages
+Lessons Learned
+Burp Proxy successfully intercepted HTTPS traffic.
+The built-in Chromium browser automatically trusted Burp's CA certificate.
+Replacing the request path resulted in a different server response.
+HTTP requests can be manually modified before reaching the server.
