@@ -1,0 +1,328 @@
+🌐 How the Web Works
+
+Module: Web Security
+Lesson: Day 1
+
+Introduction
+
+Every time you visit a website, your browser performs several operations behind the scenes in just a few milliseconds.
+
+Although it seems as simple as typing a URL and pressing Enter, your browser has to:
+
+Find the website's server
+Establish a connection
+Secure the communication
+Request the webpage
+Receive the response
+Display the website
+
+Understanding this process is the first step toward learning Web Security.
+
+The Complete Journey
+
+When you type:
+
+https://www.google.com
+
+this is what happens:
+
+You
+ │
+ ▼
+Enter URL
+ │
+ ▼
+Browser
+ │
+ ▼
+DNS Lookup
+ │
+ ▼
+IP Address
+ │
+ ▼
+TCP Connection
+ │
+ ▼
+TLS Handshake
+ │
+ ▼
+HTTP Request
+ │
+ ▼
+Web Server
+ │
+ ▼
+HTTP Response
+ │
+ ▼
+Browser Rendering
+ │
+ ▼
+Website Displayed
+1. URL (Uniform Resource Locator)
+
+A URL is the address of a resource on the Internet.
+
+Example:
+
+https://www.google.com
+
+The browser reads this address to determine which website you want to visit.
+
+2. Browser
+
+A browser is software used to access websites.
+
+Examples:
+
+Google Chrome
+Mozilla Firefox
+Microsoft Edge
+Brave
+Safari
+
+The browser acts as the client because it requests information from a server.
+
+3. DNS Lookup
+
+Humans remember names like:
+
+google.com
+
+Computers communicate using IP addresses like:
+
+142.250.xxx.xxx
+
+DNS (Domain Name System) converts a domain name into an IP address.
+
+Example:
+
+google.com
+        │
+        ▼
+142.250.xxx.xxx
+
+Real-life analogy
+
+DNS is like your phone's contact list.
+
+You search for Mom, but your phone actually dials a phone number.
+
+4. TCP Connection
+
+Once the browser knows the server's IP address, it creates a TCP connection.
+
+This starts with the Three-Way Handshake.
+
+SYN
+ │
+ ▼
+SYN-ACK
+ │
+ ▼
+ACK
+
+Only after this handshake can reliable communication begin.
+
+5. HTTPS & TLS
+
+Most websites today use HTTPS.
+
+HTTPS is simply HTTP secured using TLS encryption.
+
+TLS protects sensitive information while it travels across the Internet.
+
+Examples:
+
+Passwords
+Cookies
+Credit Card Details
+Personal Information
+
+Without HTTPS, attackers could read or modify transmitted data.
+
+6. HTTP Request
+
+After the connection is established, the browser sends an HTTP Request.
+
+Example:
+
+GET / HTTP/1.1
+Host: google.com
+User-Agent: Chrome
+
+Think of it as saying:
+
+"Hello Google, please send me your homepage."
+
+7. Server Processing
+
+The server receives the request and processes it.
+
+Depending on the request, it may:
+
+Retrieve files
+Query a database
+Verify authentication
+Check user permissions
+Execute application logic
+
+Finally, it prepares a response.
+
+8. HTTP Response
+
+The server replies with an HTTP Response.
+
+Example:
+
+HTTP/1.1 200 OK
+Content-Type: text/html
+
+The response may contain:
+
+HTML
+CSS
+JavaScript
+Images
+Fonts
+Status Code
+Headers
+9. Browser Rendering
+
+After receiving the response, the browser starts building the webpage.
+
+It downloads and processes:
+
+HTML
+CSS
+JavaScript
+Images
+Fonts
+
+Finally, it displays the complete website on your screen.
+
+Complete Flow
+User
+ │
+ ▼
+URL
+ │
+ ▼
+Browser
+ │
+ ▼
+DNS Lookup
+ │
+ ▼
+IP Address
+ │
+ ▼
+TCP Handshake
+ │
+ ▼
+TLS Handshake
+ │
+ ▼
+HTTP Request
+ │
+ ▼
+Server
+ │
+ ▼
+HTTP Response
+ │
+ ▼
+Browser Rendering
+ │
+ ▼
+Website
+Real-World Analogy
+
+Imagine ordering food at a restaurant.
+
+Web Concept	Restaurant Analogy
+Browser	Customer
+URL	Restaurant Address
+DNS	Google Maps
+Server	Kitchen
+HTTP Request	Food Order
+HTTP Response	Prepared Food
+Browser Rendering	Eating the Meal
+Key Points
+A URL identifies the website you want to visit.
+The browser acts as the client.
+DNS converts domain names into IP addresses.
+TCP establishes a reliable connection.
+HTTPS secures communication using TLS.
+The browser sends an HTTP request.
+The server processes the request.
+The server returns an HTTP response.
+The browser renders and displays the webpage.
+Common Interview Questions
+What is DNS?
+
+DNS converts a domain name into an IP address so computers can locate the correct server.
+
+What is the difference between HTTP and HTTPS?
+
+HTTP transfers data without encryption.
+
+HTTPS encrypts communication using TLS, making it secure.
+
+Who sends the HTTP Request?
+
+The client (browser).
+
+Who sends the HTTP Response?
+
+The server.
+
+Why do we need DNS?
+
+Humans remember names more easily than IP addresses.
+
+DNS translates those names into IP addresses that computers understand.
+
+Hands-on Practice
+Open Google Chrome.
+Press F12 to open Developer Tools.
+Select the Network tab.
+Visit https://example.com.
+Refresh the page.
+
+Observe:
+
+The first request made by the browser.
+The HTTP method (GET).
+The status code.
+The different resources loaded (HTML, CSS, JavaScript, images).
+
+Don't worry if everything doesn't make sense yet—we'll learn to analyze these requests throughout this module.
+
+Quick Revision
+URL
+ │
+ ▼
+Browser
+ │
+ ▼
+DNS
+ │
+ ▼
+TCP
+ │
+ ▼
+TLS
+ │
+ ▼
+HTTP Request
+ │
+ ▼
+Server
+ │
+ ▼
+HTTP Response
+ │
+ ▼
+Website

@@ -1,0 +1,593 @@
+🌐 Same-Origin Policy (SOP), CORS & CSRF
+Module: Web Security
+Lesson: Day 9
+
+Introduction
+Modern web browsers are responsible for protecting users from malicious websites.
+
+Imagine you are logged into:
+
+https://bank.com
+If you later visit:
+
+https://evil.com
+Without browser security, evil.com could read your bank account details, messages, and personal information.
+
+To prevent this, browsers implement several security mechanisms:
+
+Same-Origin Policy (SOP)
+Cross-Origin Resource Sharing (CORS)
+CSRF Protection
+Although these concepts are related, they solve different security problems.
+
+What is an Origin?
+An Origin is made up of three components:
+
+Protocol
+Domain (Hostname)
+Port
+Example:
+
+https://example.com:443
+Origin consists of:
+
+Protocol → https
+Domain → example.com
+Port → 443
+All three together uniquely identify an origin.
+
+Same Origin Examples
+URL 1	URL 2	Same Origin?	Reason
+https://example.com	https://example.com	✅ Yes	Everything matches
+https://example.com	http://example.com	❌ No	Protocol changed
+https://example.com	https://admin.example.com	❌ No	Domain changed
+https://example.com	https://example.com:8080	❌ No	Port changed
+Remember:
+
+If Protocol, Domain, or Port changes, the origin changes.
+
+What is Same-Origin Policy (SOP)?
+Same-Origin Policy (SOP) is a browser security policy.
+
+It prevents JavaScript running on one origin from reading data belonging to another origin.
+
+Its purpose is to protect users from malicious websites trying to steal sensitive information.
+
+Example
+Suppose you are logged into:
+
+https://bank.com
+You then visit:
+
+https://evil.com
+evil.com tries to read:
+
+https://bank.com/account
+Browser:
+
+❌ Access Denied
+The browser blocks JavaScript from reading the response.
+
+Important Point
+SOP does not always stop requests from being sent.
+
+It mainly prevents JavaScript from reading the response returned by another origin.
+
+This is one of the most misunderstood concepts in web security.
+
+SOP Flow
+User
+
+↓
+
+Visits bank.com
+
+↓
+
+Logs In
+
+↓
+
+Visits evil.com
+
+↓
+
+evil.com Attempts to Read bank.com
+
+↓
+
+Browser Blocks Response
+
+↓
+
+Sensitive Data Protected
+Same-Origin Access
+Requests within the same origin are allowed.
+
+Example:
+
+https://example.com
+
+↓
+
+Reads
+
+↓
+
+https://example.com/profile
+
+↓
+
+Allowed
+Cross-Origin Access
+Different origins are restricted.
+
+Example:
+
+https://evil.com
+
+↓
+
+Reads
+
+↓
+
+https://bank.com/account
+
+↓
+
+Blocked
+Why Do We Need CORS?
+Many modern websites separate the frontend and backend.
+
+Example:
+
+Frontend:
+
+https://app.example.com
+Backend API:
+
+https://api.example.com
+Different subdomains mean different origins.
+
+Without CORS, the frontend would not be able to access its own backend API.
+
+What is CORS?
+CORS stands for:
+
+Cross-Origin Resource Sharing
+
+It is a mechanism that allows the server to tell the browser:
+
+"This origin is allowed to access my resources."
+
+CORS does not disable SOP.
+
+Instead, it provides controlled exceptions.
+
+CORS Flow
+Frontend
+
+↓
+
+Cross-Origin Request
+
+↓
+
+Browser Checks CORS
+
+↓
+
+Server Sends Permission
+
+↓
+
+Browser Allows Response
+Important CORS Header
+Access-Control-Allow-Origin:
+https://app.example.com
+This tells the browser:
+
+Only https://app.example.com may read the response.
+
+Other Common CORS Headers
+Allowed Methods
+Access-Control-Allow-Methods:
+GET, POST, PUT
+Specifies which HTTP methods are allowed.
+
+Allowed Headers
+Access-Control-Allow-Headers:
+Authorization, Content-Type
+Specifies which request headers are permitted.
+
+Allow Credentials
+Access-Control-Allow-Credentials:
+true
+Allows cookies or authentication credentials to be included in cross-origin requests.
+
+Preflight Request
+Some cross-origin requests are considered "non-simple."
+
+Before sending the actual request, the browser first sends an OPTIONS request.
+
+Purpose:
+
+Ask the server:
+
+"Is this request allowed?"
+
+Preflight Flow
+Browser
+
+↓
+
+OPTIONS Request
+
+↓
+
+Server
+
+↓
+
+Allowed?
+
+↓
+
+200 OK
+
+↓
+
+Real Request Sent
+Example
+Browser:
+
+OPTIONS /users HTTP/1.1
+
+Origin: https://app.example.com
+
+Access-Control-Request-Method: PUT
+Server:
+
+HTTP/1.1 200 OK
+
+Access-Control-Allow-Origin:
+https://app.example.com
+
+Access-Control-Allow-Methods:
+PUT
+The browser then sends the actual PUT request.
+
+Common CORS Misconfigurations
+Wildcard Origin
+Access-Control-Allow-Origin: *
+Means:
+
+Every origin is allowed.
+
+This is acceptable for public resources, but dangerous for authenticated or sensitive APIs.
+
+Credentials with Arbitrary Origins
+Access-Control-Allow-Credentials: true
+If combined with a server that trusts arbitrary origins (for example, by reflecting the Origin header), sensitive authenticated data may become accessible to attacker-controlled websites.
+
+Browsers intentionally reject the combination of:
+
+Access-Control-Allow-Origin: *
+Access-Control-Allow-Credentials: true
+because it would be unsafe.
+
+What is CSRF?
+CSRF stands for:
+
+Cross-Site Request Forgery
+
+It is an attack that tricks a logged-in user's browser into sending unwanted requests.
+
+Unlike SOP or CORS, CSRF is an attack, not a browser security policy.
+
+Example
+Victim logs into:
+
+https://bank.com
+Browser stores:
+
+session=abc123
+Victim later visits:
+
+https://evil.com
+The attacker secretly submits:
+
+<form action="https://bank.com/transfer" method="POST">
+
+<input type="hidden" name="amount" value="1000">
+
+<input type="hidden" name="to" value="attacker">
+
+</form>
+
+<script>
+
+document.forms[0].submit();
+
+</script>
+The browser automatically sends:
+
+Cookie:
+session=abc123
+The bank believes the request came from the legitimate user.
+
+Why Does CSRF Work?
+Browsers automatically include:
+
+Session Cookies
+Authentication Cookies
+The server sees:
+
+Valid Session
+Authenticated User
+If no additional protection exists, the action succeeds.
+
+CSRF Token
+The most common defense against CSRF.
+
+The server generates a unique, random token.
+
+Example:
+
+<input
+
+type="hidden"
+
+name="csrf_token"
+
+value="XyZ98AB12">
+When the form is submitted:
+
+Server checks:
+
+Does the token exist?
+Does it match the user's session?
+If not:
+
+403 Forbidden
+The request is rejected.
+
+SameSite Cookies
+SameSite is another defense against CSRF.
+
+Example:
+
+Set-Cookie:
+
+session=abc123;
+
+SameSite=Lax
+Available values:
+
+Strict
+Cookies are sent only during same-site navigation.
+
+Highest protection.
+
+Lax
+Cookies are sent for most normal navigation.
+
+Balances usability and security.
+
+Most browsers use this by default.
+
+None
+Cookies are always sent.
+
+Must be combined with:
+
+Secure
+SOP vs CORS vs CSRF
+Feature	Purpose
+SOP	Prevents JavaScript from reading cross-origin responses
+CORS	Allows selected origins to bypass SOP
+CSRF	Tricks authenticated users into sending unwanted requests
+Real Burp Suite Example
+Request:
+
+GET /api/profile HTTP/1.1
+
+Origin: https://evil.com
+
+Cookie: session=abc123
+Response:
+
+HTTP/1.1 200 OK
+
+Access-Control-Allow-Origin:
+https://evil.com
+
+Access-Control-Allow-Credentials:
+true
+Questions:
+
+Why is evil.com trusted?
+Is the server reflecting arbitrary origins?
+Can authenticated data now be read by an attacker-controlled site?
+Pentester's Perspective 🔍
+Whenever you test a web application, ask yourself:
+
+SOP
+Can browser protections be bypassed?
+Is sensitive data accidentally exposed?
+CORS
+Is Access-Control-Allow-Origin set to *?
+Does the server reflect the Origin header?
+Are credentials allowed?
+Can authenticated data be read by another origin?
+CSRF
+Is a CSRF token required?
+Is the token random and validated?
+Are Origin or Referer headers checked?
+Is SameSite configured?
+Can state-changing actions be performed without additional verification?
+Interview Questions
+What is an Origin?
+An Origin consists of:
+
+Protocol
+Domain
+Port
+What is Same-Origin Policy?
+SOP is a browser security policy that prevents JavaScript from reading responses from different origins.
+
+What is CORS?
+CORS is a server-controlled mechanism that allows specific origins to access cross-origin resources.
+
+What is a Preflight Request?
+A Preflight Request is an OPTIONS request sent by the browser before certain cross-origin requests to check whether the server permits the request.
+
+What is CSRF?
+CSRF is an attack that tricks an authenticated user's browser into sending unwanted requests to another website.
+
+How do CSRF Tokens work?
+The server generates a unique token and includes it in requests. When the request is submitted, the server verifies the token. If it is missing or incorrect, the request is rejected.
+
+How does SameSite help?
+SameSite controls when cookies are sent during cross-site requests, reducing the risk of CSRF attacks.
+
+Hands-on Practice
+Open Chrome.
+Press F12.
+Open the Network tab.
+Visit a website that makes API requests.
+Look for:
+Origin
+Access-Control-Allow-Origin
+Access-Control-Allow-Methods
+Access-Control-Allow-Headers
+Access-Control-Allow-Credentials
+Observe whether an OPTIONS request is sent before certain API requests.
+Identify whether cookies include the SameSite attribute.
+Quick Revision
+Origin
+
+↓
+
+Protocol
+
++
+
+Domain
+
++
+
+Port
+
+────────────────────────────
+
+SOP
+
+↓
+
+Browser Security Policy
+
+↓
+
+Blocks JavaScript
+
+From Reading
+
+Cross-Origin Responses
+
+────────────────────────────
+
+CORS
+
+↓
+
+Server Gives Permission
+
+↓
+
+Access-Control-Allow-Origin
+
+↓
+
+Selected Origins Can Read
+
+────────────────────────────
+
+Preflight
+
+↓
+
+OPTIONS
+
+↓
+
+Permission Check
+
+↓
+
+Real Request
+
+────────────────────────────
+
+CSRF
+
+↓
+
+Attack
+
+↓
+
+Victim Browser
+
+↓
+
+Automatically Sends Cookies
+
+↓
+
+Unwanted Action
+
+────────────────────────────
+
+CSRF Protection
+
+↓
+
+CSRF Token
+
+↓
+
+SameSite Cookies
+
+↓
+
+Origin / Referer Validation
+
+────────────────────────────
+
+Pentester Checklist
+
+↓
+
+CORS Misconfiguration?
+
+↓
+
+Wildcard Origin?
+
+↓
+
+Origin Reflection?
+
+↓
+
+Credentials Allowed?
+
+↓
+
+CSRF Token Present?
+
+↓
+
+SameSite Configured?

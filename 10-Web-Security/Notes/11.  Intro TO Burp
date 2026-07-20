@@ -1,0 +1,523 @@
+🌐 Burp Suite – Introduction & Setup
+Module: Web Security
+Lesson: Day 11
+
+Introduction
+Burp Suite is one of the most widely used tools for Web Application Penetration Testing.
+
+It acts as an intercepting proxy, allowing you to view, modify, and replay HTTP/HTTPS traffic between your browser and a web server.
+
+Almost every professional penetration tester uses Burp Suite during web security assessments.
+
+Why Burp Suite?
+Normally, when you visit a website:
+
+Browser
+   │
+   ▼
+Website
+   │
+   ▼
+Response
+You never see the HTTP request.
+
+Burp places itself between the browser and the server.
+
+Browser
+   │
+   ▼
+Burp Suite
+   │
+   ▼
+Website
+   │
+   ▼
+Burp Suite
+   │
+   ▼
+Browser
+Now every request can be:
+
+Viewed
+Modified
+Forwarded
+Repeated
+Saved
+Compared
+Burp Suite Workflow
+Browser
+
+↓
+
+Burp Proxy
+
+↓
+
+Inspect Request
+
+↓
+
+Modify Request
+
+↓
+
+Forward
+
+↓
+
+Server
+
+↓
+
+Response
+
+↓
+
+Burp
+
+↓
+
+Browser
+Main Components
+1. Proxy ⭐⭐⭐⭐⭐
+Purpose:
+
+Intercept requests before they reach the server.
+
+Functions:
+
+Capture Requests
+Modify Requests
+Drop Requests
+Forward Requests
+2. HTTP History (Logger)
+Records every request and response.
+
+Example:
+
+GET /login
+
+POST /login
+
+GET /dashboard
+
+GET /profile
+Useful for reviewing previous traffic.
+
+3. Repeater ⭐⭐⭐⭐⭐
+Allows sending the same request repeatedly after making changes.
+
+Example:
+
+Original:
+
+GET /profile?id=5
+Modified:
+
+GET /profile?id=6
+Perfect for manual testing.
+
+4. Intruder
+Automates sending many requests.
+
+Used for:
+
+Brute Force
+Fuzzing
+Parameter Testing
+Example payloads:
+
+admin
+
+administrator
+
+root
+
+guest
+5. Decoder
+Used for encoding and decoding data.
+
+Supports:
+
+Base64
+URL Encoding
+HTML Encoding
+Hex
+Example:
+
+c29oYW0=
+↓
+
+soham
+6. Comparer
+Compares two requests or responses.
+
+Useful for identifying small differences.
+
+7. Target
+Shows the structure of a web application.
+
+Example:
+
+/
+
+/login
+
+/profile
+
+/admin
+
+/api
+
+/settings
+Proxy Intercept
+When Intercept is OFF:
+
+Browser
+
+↓
+
+Server
+Requests pass through normally.
+
+When Intercept is ON:
+
+Browser
+
+↓
+
+Burp Stops Request
+
+↓
+
+Inspect
+
+↓
+
+Modify
+
+↓
+
+Forward
+
+↓
+
+Server
+Every request pauses until you click Forward.
+
+Anatomy of an HTTP Request
+Example intercepted request:
+
+POST /login HTTP/1.1
+
+Host: example.com
+
+User-Agent: Chrome
+
+Cookie: session=abc123
+
+Content-Type: application/x-www-form-urlencoded
+
+username=soham
+
+password=Password123
+Everything you've already learned appears here:
+
+Method
+URL
+Headers
+Cookies
+Body
+Things You Can Modify
+URL
+/profile
+↓
+
+/admin
+Parameters
+id=10
+↓
+
+id=11
+Cookies
+session=abc123
+↓
+
+session=xyz789
+Authorization
+Authorization: Bearer abc123
+↓
+
+Replace the JWT.
+
+Request Body
+role=user
+↓
+
+role=admin
+Observe how the application responds.
+
+Request Lifecycle
+Browser
+
+↓
+
+HTTP Request
+
+↓
+
+Burp Proxy
+
+↓
+
+Intercept
+
+↓
+
+Modify
+
+↓
+
+Forward
+
+↓
+
+Server
+
+↓
+
+Response
+
+↓
+
+Burp
+
+↓
+
+Browser
+Burp and Previous Topics
+Topic Learned	How Burp Helps
+HTTP Methods	View and modify GET, POST, PUT, DELETE
+Headers	Edit or remove headers
+Cookies	Modify session cookies
+JWT	Replace tokens
+Authentication	Observe login requests
+Sessions	View session cookies
+CORS	Inspect CORS headers
+CSRF	View CSRF tokens
+Burp connects everything you've learned so far.
+
+Common Beginner Mistakes
+Intercept Left ON
+Symptoms:
+
+Browser appears stuck.
+
+Solution:
+
+Click Forward or turn Intercept OFF.
+
+Editing Random Headers
+Focus on:
+
+Cookies
+Authorization
+Parameters
+Request Body
+Forgetting to Forward
+The request never reaches the server until you click Forward.
+
+Pentester's Perspective 🔍
+Whenever you intercept a request, ask yourself:
+
+URL
+Can I access hidden endpoints?
+
+Parameters
+Can I change:
+
+id=5
+↓
+
+id=6
+Cookies
+Can another user's cookie be reused?
+
+JWT
+Can I replace or tamper with the token?
+
+Headers
+Can I spoof:
+
+User-Agent
+Referer
+Origin
+Authorization
+HTTP Methods
+Can I change:
+
+GET
+↓
+
+POST
+or
+
+PUT
+Body
+Can I change:
+
+role=user
+↓
+
+role=admin
+Real Example
+Original Request:
+
+GET /profile?id=5
+
+Cookie: session=abc123
+Modified:
+
+GET /profile?id=6
+
+Cookie: session=abc123
+Question:
+
+Does the application return another user's profile?
+
+If yes:
+
+Possible IDOR (Insecure Direct Object Reference) vulnerability.
+
+Interview Questions
+What is Burp Suite?
+Burp Suite is a web application security testing tool that intercepts, modifies, and analyzes HTTP/HTTPS traffic between a browser and a web server.
+
+What is Burp Proxy?
+Burp Proxy intercepts traffic, allowing testers to inspect and modify requests before they reach the server.
+
+What is Repeater?
+Repeater resends modified requests multiple times for manual testing.
+
+What is Intruder?
+Intruder automates sending multiple requests with different payloads for brute force and fuzzing.
+
+Why is Burp Suite important?
+It provides visibility into web traffic and enables security testing of authentication, sessions, parameters, headers, and application logic.
+
+Hands-on Practice
+Launch Burp Suite.
+Create a Temporary Project.
+Use Burp Defaults.
+Open the Proxy tab.
+Toggle Intercept ON/OFF.
+Explore:
+Target
+Proxy
+HTTP History
+Repeater
+Intruder
+Decoder
+Do not modify requests yet—simply become familiar with the interface.
+Quick Revision
+Burp Suite
+
+↓
+
+Intercepting Proxy
+
+↓
+
+Browser
+
+↓
+
+Burp
+
+↓
+
+Server
+
+──────────────────────────
+
+Main Tools
+
+↓
+
+Proxy
+
+↓
+
+HTTP History
+
+↓
+
+Repeater
+
+↓
+
+Intruder
+
+↓
+
+Decoder
+
+↓
+
+Comparer
+
+↓
+
+Target
+
+──────────────────────────
+
+Intercept ON
+
+↓
+
+Stop Request
+
+↓
+
+Inspect
+
+↓
+
+Modify
+
+↓
+
+Forward
+
+──────────────────────────
+
+Pentester Checklist
+
+↓
+
+URL
+
+↓
+
+Parameters
+
+↓
+
+Headers
+
+↓
+
+Cookies
+
+↓
+
+JWT
+
+↓
+
+HTTP Methods
+
+↓
+
+Body

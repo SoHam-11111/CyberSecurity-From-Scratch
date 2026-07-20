@@ -1,0 +1,842 @@
+# 🌐 Authentication & Authorization
+
+> **Module:** Web Security  
+> **Lesson:** Day 8
+
+---
+
+# Introduction
+
+Every secure web application must answer two important questions:
+
+1. **Who is the user?**
+2. **What is the user allowed to do?**
+
+These two questions are answered through:
+
+- Authentication
+- Authorization
+
+Although they sound similar, they perform completely different tasks.
+
+Understanding the difference is essential for web security and penetration testing.
+
+---
+
+# Authentication
+
+Authentication is the process of verifying the identity of a user.
+
+It answers the question:
+
+> **"Who are you?"**
+
+The server checks whether the user is really who they claim to be.
+
+Common authentication methods include:
+
+- Username and Password
+- Fingerprint
+- Face Recognition
+- One-Time Password (OTP)
+- JWT Tokens
+- Session Cookies
+
+Example:
+
+```text
+Username: soham
+
+Password: ********
+```
+
+Server:
+
+```text
+Identity Verified
+
+↓
+
+Authentication Successful
+```
+
+Only after successful authentication does the user become logged in.
+
+---
+
+# Authorization
+
+Authorization determines what an authenticated user is allowed to do.
+
+It answers the question:
+
+> **"What are you allowed to access?"**
+
+Examples:
+
+A normal user may:
+
+- View Profile
+- Change Password
+- Upload Files
+
+An administrator may additionally:
+
+- Delete Users
+- Manage Roles
+- Modify Website Settings
+
+Authorization always happens **after** authentication.
+
+---
+
+# Authentication vs Authorization
+
+| Authentication | Authorization |
+|----------------|---------------|
+| Verifies identity | Verifies permissions |
+| Answers "Who are you?" | Answers "What can you do?" |
+| Happens first | Happens after authentication |
+| Login process | Access control process |
+
+---
+
+# Real-World Analogy
+
+Imagine entering a company office.
+
+### Authentication
+
+A security guard checks your ID card.
+
+Question:
+
+> "Who are you?"
+
+If your identity is verified, you may enter the building.
+
+---
+
+### Authorization
+
+Your access card determines which rooms you can enter.
+
+Example:
+
+Employee:
+
+- Office
+- Cafeteria
+
+Manager:
+
+- Office
+- Meeting Rooms
+- Server Room
+
+Your identity remains the same, but your permissions differ.
+
+---
+
+# Authentication Flow
+
+```text
+User
+
+↓
+
+Enter Credentials
+
+↓
+
+Server Verifies Identity
+
+↓
+
+Authentication Successful
+
+↓
+
+Session or Token Created
+
+↓
+
+Future Requests
+
+↓
+
+Authorization Check
+
+↓
+
+Access Granted / Denied
+```
+
+---
+
+# Username & Password Authentication
+
+The most common authentication method.
+
+Example:
+
+```http
+POST /login
+
+username=soham
+
+password=Password123
+```
+
+Server:
+
+- Verifies username
+- Verifies password
+
+If valid:
+
+- Creates Session
+- Sends Session Cookie
+
+---
+
+# Basic Authentication
+
+Basic Authentication sends the username and password inside the Authorization header.
+
+Example:
+
+```http
+Authorization: Basic c29oYW06cGFzc3dvcmQ=
+```
+
+The credentials are encoded using **Base64**.
+
+Example:
+
+```text
+soham:password123
+
+↓
+
+Base64 Encoding
+
+↓
+
+c29oYW06cGFzc3dvcmQxMjM=
+```
+
+Important:
+
+Base64 is **encoding**, not encryption.
+
+Anyone can decode it.
+
+Therefore Basic Authentication should always be used over **HTTPS**.
+
+---
+
+# API Key Authentication
+
+Many APIs identify clients using API Keys.
+
+Example:
+
+```http
+X-API-Key: abc123xyz
+```
+
+or
+
+```http
+Authorization: ApiKey abc123xyz
+```
+
+Examples:
+
+- Google Maps API
+- Weather APIs
+- Payment APIs
+
+API Keys identify the application making the request.
+
+---
+
+# Token Authentication
+
+Instead of sending the username and password repeatedly, the server generates a token after successful login.
+
+Example:
+
+```http
+Authorization: Bearer abc123xyz
+```
+
+The client sends the token with every request.
+
+The server verifies the token before granting access.
+
+---
+
+# JWT (JSON Web Token)
+
+JWT is one of the most popular authentication methods for modern web applications.
+
+Example:
+
+```text
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.
+eyJ1c2VyIjoiU29oYW0iLCJyb2xlIjoidXNlciJ9.
+SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
+```
+
+A JWT consists of three parts:
+
+```text
+Header
+
+↓
+
+Payload
+
+↓
+
+Signature
+```
+
+Written together as:
+
+```text
+Header.Payload.Signature
+```
+
+---
+
+# JWT Header
+
+Contains metadata about the token.
+
+Example:
+
+```json
+{
+  "alg": "HS256",
+  "typ": "JWT"
+}
+```
+
+It specifies:
+
+- Signing Algorithm
+- Token Type
+
+---
+
+# JWT Payload
+
+Contains user-related information.
+
+Example:
+
+```json
+{
+  "username": "Soham",
+  "role": "user",
+  "exp": 1750000000
+}
+```
+
+The payload is **Base64 encoded**, not encrypted.
+
+Anyone can decode and read it.
+
+Never store:
+
+- Passwords
+- Credit Card Numbers
+- Sensitive Personal Information
+
+inside a JWT payload.
+
+---
+
+# JWT Signature
+
+The Signature protects the integrity of the token.
+
+The server signs the Header and Payload using a secret key.
+
+When the client sends the JWT back, the server verifies the signature.
+
+If someone modifies the payload:
+
+```json
+{
+  "role":"admin"
+}
+```
+
+The signature becomes invalid.
+
+The server should reject the token.
+
+---
+
+# OAuth
+
+OAuth is an **authorization framework**, not an authentication protocol.
+
+It allows one service to grant limited access to another service without sharing passwords.
+
+Example:
+
+```text
+Login with Google
+
+↓
+
+Google Verifies User
+
+↓
+
+Google Grants Permission
+
+↓
+
+Website Receives Authorization
+```
+
+Other examples:
+
+- Continue with GitHub
+- Continue with Facebook
+- Continue with Microsoft
+
+The website never receives your Google password.
+
+---
+
+# Multi-Factor Authentication (MFA)
+
+MFA requires two or more authentication factors.
+
+The three authentication factors are:
+
+### Something You Know
+
+Examples:
+
+- Password
+- PIN
+
+---
+
+### Something You Have
+
+Examples:
+
+- Mobile Phone
+- Hardware Token
+- Smart Card
+
+---
+
+### Something You Are
+
+Examples:
+
+- Fingerprint
+- Face Recognition
+- Iris Scan
+
+Example Login:
+
+```text
+Username
+
+↓
+
+Password
+
+↓
+
+OTP
+
+↓
+
+Login Successful
+```
+
+Even if the password is stolen, the attacker still needs the second factor.
+
+---
+
+# Common Authentication Attacks
+
+---
+
+## Brute Force Attack
+
+Trying many passwords against one account.
+
+Example:
+
+```text
+admin
+
+↓
+
+123456
+
+↓
+
+password
+
+↓
+
+admin123
+
+↓
+
+qwerty
+```
+
+---
+
+## Credential Stuffing
+
+Using leaked usernames and passwords from previous data breaches.
+
+Attackers assume users reuse passwords.
+
+---
+
+## Password Spraying
+
+Trying one common password against many users.
+
+Example:
+
+```text
+Password123
+
+↓
+
+Alice
+
+Bob
+
+Charlie
+
+David
+```
+
+---
+
+## Session Hijacking
+
+Stealing a valid session cookie to impersonate a logged-in user.
+
+---
+
+## Token Theft
+
+Stealing JWTs or API Tokens.
+
+---
+
+## Weak Password Policy
+
+Examples:
+
+```text
+123456
+
+password
+
+qwerty
+
+admin
+```
+
+Weak passwords are easy to guess.
+
+---
+
+# Authentication vs Authorization Examples
+
+| Action | Authentication | Authorization |
+|----------|----------------|---------------|
+| Login | ✅ | ❌ |
+| Enter Password | ✅ | ❌ |
+| Access Dashboard | ❌ | ✅ |
+| Delete User | ❌ | ✅ |
+| View Own Profile | ❌ | ✅ |
+| Change Website Settings | ❌ | ✅ |
+
+---
+
+# Pentester's Perspective 🔍
+
+When testing authentication, ask yourself:
+
+### Authentication
+
+- Can I brute force passwords?
+- Is rate limiting enabled?
+- Does MFA exist?
+- Can passwords be reused?
+- Is account lockout implemented?
+
+---
+
+### Sessions
+
+- Does logout invalidate the session?
+- Does login generate a new Session ID?
+- Can old sessions still be used?
+
+---
+
+### JWT
+
+- Can I modify the payload?
+- Does the server verify the signature?
+- Is sensitive information stored in the payload?
+- Can expired tokens still be used?
+
+---
+
+### Authorization
+
+- Can a normal user access admin pages?
+- Can user IDs be modified?
+- Can role changes bypass authorization?
+- Is there an IDOR vulnerability?
+
+---
+
+### OAuth
+
+- Is OAuth implemented securely?
+- Are tokens validated?
+- Can authorization codes be reused?
+
+---
+
+# Real Burp Suite Example
+
+Login Request:
+
+```http
+POST /login HTTP/1.1
+
+username=soham
+
+password=Password123
+```
+
+Response:
+
+```http
+HTTP/1.1 200 OK
+
+Set-Cookie: session=abc123
+```
+
+Future Request:
+
+```http
+GET /dashboard HTTP/1.1
+
+Cookie: session=abc123
+```
+
+Possible Pentest Questions:
+
+- Can I modify the cookie?
+- Can I replay the session?
+- Does logout invalidate the session?
+- Does the session expire?
+- Can I replace another user's session ID?
+
+---
+
+# Interview Questions
+
+### What is Authentication?
+
+Authentication verifies the identity of a user.
+
+---
+
+### What is Authorization?
+
+Authorization determines what an authenticated user is allowed to do.
+
+---
+
+### Difference between Authentication and Authorization?
+
+Authentication verifies identity.
+
+Authorization verifies permissions.
+
+Authentication always happens before Authorization.
+
+---
+
+### Is Base64 Encryption?
+
+No.
+
+Base64 is an encoding technique.
+
+It is easily decoded and should not be considered secure.
+
+---
+
+### What are the three parts of a JWT?
+
+- Header
+- Payload
+- Signature
+
+---
+
+### What is OAuth?
+
+OAuth is an authorization framework that allows one service to grant limited access to another without sharing passwords.
+
+---
+
+### What are the three authentication factors?
+
+- Something You Know
+- Something You Have
+- Something You Are
+
+---
+
+# Hands-on Practice
+
+1. Open Chrome.
+2. Press **F12**.
+3. Open the **Network** tab.
+4. Log into a website or practice lab.
+5. Inspect the login request.
+6. Look for:
+   - `Authorization`
+   - `Set-Cookie`
+   - `Cookie`
+   - `Bearer Token`
+7. If using a practice environment, inspect any JWT and identify:
+   - Header
+   - Payload
+   - Signature
+
+---
+
+# Quick Revision
+
+```text
+Authentication
+
+↓
+
+Who Are You?
+
+↓
+
+Verify Identity
+
+────────────────────────────
+
+Authorization
+
+↓
+
+What Can You Do?
+
+↓
+
+Verify Permissions
+
+────────────────────────────
+
+Authentication
+
+↓
+
+Username & Password
+
+Basic Auth
+
+API Key
+
+Session
+
+JWT
+
+OAuth
+
+MFA
+
+────────────────────────────
+
+JWT
+
+↓
+
+Header
+
+↓
+
+Payload
+
+↓
+
+Signature
+
+────────────────────────────
+
+Authentication Attacks
+
+↓
+
+Brute Force
+
+Credential Stuffing
+
+Password Spraying
+
+Session Hijacking
+
+Token Theft
+
+────────────────────────────
+
+Pentester Checklist
+
+Can I Brute Force?
+
+↓
+
+Rate Limiting?
+
+↓
+
+MFA Enabled?
+
+↓
+
+JWT Signature Verified?
+
+↓
+
+Authorization Bypass?
+
+↓
+
+Session Secure?
+```

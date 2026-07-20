@@ -1,0 +1,825 @@
+# 🌐 HTTP Status Codes
+
+> **Module:** Web Security  
+> **Lesson:** Day 6
+
+---
+
+# Introduction
+
+Every HTTP request sent by a client receives an HTTP response from the server.
+
+One of the first things included in the response is the **HTTP Status Code**.
+
+A status code is a three-digit number that tells the client whether the request was successful, failed, redirected, or encountered an error.
+
+Example:
+
+```http
+HTTP/1.1 200 OK
+```
+
+In this example:
+
+- **200** is the status code.
+- **OK** is the reason phrase.
+
+Status codes help browsers, APIs, developers, and penetration testers understand what happened after a request was processed.
+
+---
+
+# Why HTTP Status Codes Matter
+
+HTTP Status Codes quickly indicate the outcome of a request.
+
+Instead of reading an entire response, you can often understand what happened just by looking at the status code.
+
+Examples:
+
+- Was the request successful?
+- Does the requested page exist?
+- Is authentication required?
+- Does the user lack permission?
+- Did the server encounter an error?
+
+These codes are extremely important when debugging applications, testing APIs, and performing web security assessments.
+
+---
+
+# Structure of an HTTP Response
+
+```text
+HTTP/1.1 200 OK
+
+↓
+
+Status Code
+
+↓
+
+Response Headers
+
+↓
+
+Blank Line
+
+↓
+
+Response Body
+```
+
+The status code is always the first thing returned in an HTTP response.
+
+---
+
+# Status Code Categories
+
+Every HTTP status code belongs to one of five categories.
+
+| Category | Meaning |
+|----------|---------|
+| 1xx | Informational |
+| 2xx | Success |
+| 3xx | Redirection |
+| 4xx | Client Errors |
+| 5xx | Server Errors |
+
+The first digit tells you the general category.
+
+---
+
+# 1xx – Informational Responses
+
+These responses indicate that the server has received the request and is continuing to process it.
+
+These codes are rarely seen during normal web browsing.
+
+---
+
+## 100 Continue
+
+Example:
+
+```http
+HTTP/1.1 100 Continue
+```
+
+Meaning:
+
+The server has received the initial request and the client may continue sending the remaining data.
+
+Typically used for large uploads.
+
+---
+
+# 2xx – Success Responses
+
+These indicate that the request was processed successfully.
+
+---
+
+## 200 OK
+
+Example:
+
+```http
+GET /profile
+
+↓
+
+HTTP/1.1 200 OK
+```
+
+Meaning:
+
+The request was successfully processed.
+
+This is the most common status code.
+
+---
+
+## 201 Created
+
+Example:
+
+```http
+POST /users
+
+↓
+
+HTTP/1.1 201 Created
+```
+
+Meaning:
+
+A new resource has been successfully created.
+
+Commonly returned after:
+
+- User registration
+- Creating posts
+- Creating products
+- API resource creation
+
+---
+
+## 204 No Content
+
+Example:
+
+```http
+DELETE /users/15
+
+↓
+
+HTTP/1.1 204 No Content
+```
+
+Meaning:
+
+The request succeeded but there is no content to return.
+
+Often used after successful DELETE operations.
+
+---
+
+# 3xx – Redirection Responses
+
+These indicate that the requested resource has moved or the client should access another location.
+
+---
+
+## 301 Moved Permanently
+
+Example:
+
+```text
+oldsite.com
+
+↓
+
+301
+
+↓
+
+newsite.com
+```
+
+Meaning:
+
+The requested resource has permanently moved.
+
+Browsers usually remember this redirect.
+
+Commonly used after website migrations.
+
+---
+
+## 302 Found (Temporary Redirect)
+
+Example:
+
+```http
+GET /profile
+
+↓
+
+302 Found
+
+Location: /login
+```
+
+Meaning:
+
+The client should temporarily visit another location.
+
+Unlike 301, browsers should not permanently cache this redirect.
+
+Commonly used after:
+
+- Login checks
+- Logout
+- Temporary maintenance
+
+---
+
+## 304 Not Modified
+
+Meaning:
+
+The requested file has not changed.
+
+The browser should use its cached copy instead of downloading it again.
+
+This improves website performance.
+
+---
+
+# 4xx – Client Errors
+
+These indicate that the problem is caused by the client's request.
+
+---
+
+## 400 Bad Request
+
+Meaning:
+
+The request is invalid or malformed.
+
+Examples:
+
+- Invalid JSON
+- Missing required parameters
+- Incorrect request syntax
+
+---
+
+## 401 Unauthorized
+
+Meaning:
+
+Authentication is required.
+
+The client is not logged in or has not provided valid credentials.
+
+Think:
+
+> "Please log in first."
+
+---
+
+## 403 Forbidden
+
+Meaning:
+
+The client is authenticated but does not have permission to access the requested resource.
+
+Think:
+
+> "I know who you are, but you are not allowed."
+
+Example:
+
+```text
+Normal User
+
+↓
+
+GET /admin
+
+↓
+
+403 Forbidden
+```
+
+---
+
+## 404 Not Found
+
+Meaning:
+
+The requested resource does not exist.
+
+Example:
+
+```text
+GET /unknownpage
+
+↓
+
+404 Not Found
+```
+
+This is one of the most common HTTP status codes.
+
+---
+
+## 405 Method Not Allowed
+
+Meaning:
+
+The requested HTTP method is not supported for the resource.
+
+Example:
+
+Application expects:
+
+```http
+POST /login
+```
+
+Attacker sends:
+
+```http
+DELETE /login
+```
+
+Response:
+
+```http
+405 Method Not Allowed
+```
+
+The endpoint exists, but the HTTP method is not allowed.
+
+---
+
+# 5xx – Server Errors
+
+These indicate that the problem occurred on the server rather than the client.
+
+---
+
+## 500 Internal Server Error
+
+Meaning:
+
+The server encountered an unexpected condition while processing the request.
+
+Possible causes:
+
+- Application bugs
+- Exceptions
+- Database failures
+- Coding errors
+
+---
+
+## 502 Bad Gateway
+
+Meaning:
+
+A server acting as a gateway or proxy received an invalid response from another server.
+
+Common in systems using reverse proxies like Nginx.
+
+---
+
+## 503 Service Unavailable
+
+Meaning:
+
+The server is temporarily unavailable.
+
+Common reasons include:
+
+- Maintenance
+- Heavy traffic
+- Server overload
+
+---
+
+# Common Status Codes
+
+| Code | Meaning |
+|------|---------|
+| 100 | Continue |
+| 200 | OK |
+| 201 | Created |
+| 204 | No Content |
+| 301 | Moved Permanently |
+| 302 | Temporary Redirect |
+| 304 | Not Modified |
+| 400 | Bad Request |
+| 401 | Unauthorized |
+| 403 | Forbidden |
+| 404 | Not Found |
+| 405 | Method Not Allowed |
+| 500 | Internal Server Error |
+| 502 | Bad Gateway |
+| 503 | Service Unavailable |
+
+---
+
+# Important Comparisons
+
+## 200 vs 201
+
+### 200 OK
+
+An existing resource was successfully returned.
+
+### 201 Created
+
+A new resource was successfully created.
+
+---
+
+## 301 vs 302
+
+### 301
+
+Permanent redirect.
+
+Browsers usually remember it.
+
+### 302
+
+Temporary redirect.
+
+Used when the redirect is only temporary.
+
+---
+
+## 401 vs 403
+
+### 401 Unauthorized
+
+The user has **not authenticated**.
+
+Authentication is required.
+
+### 403 Forbidden
+
+The user **is authenticated** but does not have permission.
+
+Authorization has failed.
+
+Remember:
+
+```text
+401
+
+↓
+
+Login First
+
+---------------------
+
+403
+
+↓
+
+Logged In
+
+↓
+
+Access Denied
+```
+
+---
+
+## 403 vs 404
+
+### 403
+
+The resource exists.
+
+Access is denied.
+
+### 404
+
+The resource does not exist (or is intentionally hidden).
+
+---
+
+# Why HTTP Status Codes Matter in Web Security
+
+Status codes reveal useful information about how an application behaves.
+
+Attackers and penetration testers carefully observe these responses during testing.
+
+Examples:
+
+- Does authentication exist?
+- Does authorization exist?
+- Does the endpoint exist?
+- Can the application be forced into an error state?
+- Can different HTTP methods be used?
+
+Understanding status codes helps identify potential vulnerabilities.
+
+---
+
+# Pentester's Perspective 🔍
+
+Whenever you receive a response, ask yourself:
+
+---
+
+## 200 OK
+
+- The request succeeded.
+- Inspect the returned data.
+- Does it expose sensitive information?
+
+---
+
+## 401 Unauthorized
+
+Questions to ask:
+
+- Can authentication be bypassed?
+- Is there another authentication method?
+- Can a token be forged?
+
+---
+
+## 403 Forbidden
+
+This is often more interesting than 404.
+
+The resource exists.
+
+Questions to ask:
+
+- Can I bypass authorization?
+- Can I modify my session cookie?
+- Can I replace my Authorization token?
+- Can another user access this resource?
+- Is there an IDOR vulnerability?
+
+---
+
+## 404 Not Found
+
+Questions to ask:
+
+- Does the page truly not exist?
+- Is the application intentionally hiding it?
+
+---
+
+## 405 Method Not Allowed
+
+Questions to ask:
+
+- Which methods are allowed?
+- Does the OPTIONS method reveal supported methods?
+- Can another HTTP method bypass restrictions?
+
+---
+
+## 500 Internal Server Error
+
+Very interesting for security testing.
+
+Questions to ask:
+
+- Did my input trigger the error?
+- Can I repeatedly reproduce it?
+- Does the response reveal stack traces?
+- Does it leak SQL errors?
+- Does it expose file paths or debug information?
+
+---
+
+# Real-World Example
+
+Request:
+
+```http
+GET /admin HTTP/1.1
+Cookie: session=abc123
+```
+
+Possible Responses:
+
+```http
+200 OK
+```
+
+Admin page successfully loaded.
+
+---
+
+```http
+401 Unauthorized
+```
+
+Authentication required.
+
+---
+
+```http
+403 Forbidden
+```
+
+The page exists.
+
+The current user is not allowed.
+
+---
+
+```http
+404 Not Found
+```
+
+The page does not exist or is intentionally hidden.
+
+---
+
+```http
+500 Internal Server Error
+```
+
+The application encountered an unexpected error.
+
+---
+
+# Interview Questions
+
+### What is an HTTP Status Code?
+
+An HTTP Status Code is a three-digit number returned by the server indicating the outcome of an HTTP request.
+
+---
+
+### Difference between 401 and 403?
+
+401 indicates authentication is required.
+
+403 indicates authentication succeeded but authorization failed.
+
+---
+
+### Difference between 301 and 302?
+
+301 is a permanent redirect.
+
+302 is a temporary redirect.
+
+---
+
+### What does 405 Method Not Allowed mean?
+
+The requested HTTP method is not supported for the requested resource.
+
+---
+
+### Why is a 500 Internal Server Error important for security testing?
+
+It may indicate server-side vulnerabilities and sometimes exposes sensitive information such as stack traces, SQL errors, file paths, or debug messages.
+
+---
+
+# Hands-on Practice
+
+1. Open Chrome.
+2. Press **F12**.
+3. Open the **Network** tab.
+4. Visit a website.
+5. Click different requests.
+6. Observe the **Status** column.
+
+Try to identify:
+
+- 200
+- 301
+- 302
+- 304
+- 404
+- 500 (if available)
+
+Notice how the browser behaves differently for each response.
+
+---
+
+# Quick Revision
+
+```text
+HTTP Status Codes
+
+↓
+
+1xx
+
+Information
+
+↓
+
+2xx
+
+Success
+
+↓
+
+3xx
+
+Redirect
+
+↓
+
+4xx
+
+Client Error
+
+↓
+
+5xx
+
+Server Error
+
+────────────────────────────
+
+200
+
+Success
+
+201
+
+Created
+
+204
+
+Success, No Content
+
+────────────────────────────
+
+301
+
+Permanent Redirect
+
+302
+
+Temporary Redirect
+
+────────────────────────────
+
+401
+
+Login Required
+
+403
+
+Permission Denied
+
+404
+
+Resource Not Found
+
+405
+
+Wrong HTTP Method
+
+────────────────────────────
+
+500
+
+Server Error
+
+502
+
+Bad Gateway
+
+503
+
+Service Unavailable
+
+────────────────────────────
+
+Pentester Checklist
+
+200 → Inspect Response
+
+401 → Test Authentication
+
+403 → Test Authorization
+
+404 → Resource Missing?
+
+405 → Test Other Methods
+
+500 → Investigate Server Error
+```

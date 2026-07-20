@@ -1,0 +1,571 @@
+# 🌐 HTTP Protocol
+
+> **Module:** Web Security  
+> **Lesson:** Day 3
+
+---
+
+## Introduction
+
+Whenever you interact with a website, your browser and the web server communicate using **HTTP (HyperText Transfer Protocol)**.
+
+HTTP defines a set of rules that allow clients and servers to exchange information over the web.
+
+Every time you:
+
+- Open a webpage
+- Log into a website
+- Search for a product
+- Submit a form
+
+your browser sends an **HTTP Request**, and the server returns an **HTTP Response**.
+
+Understanding HTTP is one of the most important foundations in Web Security because almost every web attack involves modifying or analyzing HTTP traffic.
+
+---
+
+## What is HTTP?
+
+**HTTP (HyperText Transfer Protocol)** is the communication protocol used between a client (browser) and a web server.
+
+It follows a simple request-response model.
+
+```text
+Browser
+     │
+     ▼
+HTTP Request
+     │
+     ▼
+Web Server
+     │
+     ▼
+HTTP Response
+     │
+     ▼
+Browser
+```
+
+---
+
+## Request-Response Model
+
+Every interaction follows the same pattern.
+
+1. The browser sends a request.
+2. The server processes the request.
+3. The server sends back a response.
+4. The browser displays the result.
+
+Example:
+
+```text
+Open https://example.com
+
+↓
+
+Browser sends HTTP Request
+
+↓
+
+Server processes request
+
+↓
+
+Server sends HTTP Response
+
+↓
+
+Browser displays webpage
+```
+
+---
+
+## HTTP is Stateless
+
+One of the most important properties of HTTP is that it is **stateless**.
+
+This means:
+
+> Every HTTP request is treated as a completely new request.
+
+The server does **not** automatically remember:
+
+- Previous requests
+- Logged-in users
+- Shopping carts
+- Browsing history
+
+Example:
+
+```text
+Request 1
+
+GET /
+
+↓
+
+Server responds
+
+---------------------
+
+Request 2
+
+GET /profile
+
+↓
+
+Server treats it as a new request
+```
+
+Because HTTP is stateless, websites use **Cookies** and **Sessions** to remember users.
+
+We'll study them later.
+
+---
+
+# HTTP Request
+
+An HTTP Request is sent by the **client** to the **server**.
+
+Example:
+
+```http
+GET /login HTTP/1.1
+Host: example.com
+User-Agent: Chrome
+
+```
+
+---
+
+## Structure of an HTTP Request
+
+Every request consists of four parts.
+
+```text
+┌──────────────────────────────┐
+│ Request Line                 │
+├──────────────────────────────┤
+│ Request Headers              │
+├──────────────────────────────┤
+│ Blank Line                   │
+├──────────────────────────────┤
+│ Body (Optional)              │
+└──────────────────────────────┘
+```
+
+---
+
+## 1. Request Line
+
+The first line of every request.
+
+Example:
+
+```http
+GET /login HTTP/1.1
+```
+
+It consists of three components.
+
+| Component | Description |
+|-----------|-------------|
+| Method | Action to perform |
+| Path | Requested resource |
+| HTTP Version | Version of HTTP being used |
+
+Example:
+
+```text
+GET
+
+/login
+
+HTTP/1.1
+```
+
+---
+
+## 2. Request Headers
+
+Headers provide additional information about the request.
+
+Example:
+
+```http
+Host: example.com
+User-Agent: Chrome
+Accept: text/html
+```
+
+Some common request headers are:
+
+| Header | Purpose |
+|---------|----------|
+| Host | Target website |
+| User-Agent | Browser information |
+| Accept | Data formats accepted |
+| Cookie | Session information |
+| Content-Type | Type of data being sent |
+
+---
+
+## 3. Blank Line
+
+A blank line separates the headers from the body.
+
+It tells the server:
+
+> "Headers are finished. The request body starts below."
+
+---
+
+## 4. Request Body
+
+The body contains data sent by the client.
+
+Example:
+
+```http
+username=soham&password=hello123
+```
+
+The body is commonly used when:
+
+- Logging in
+- Registering
+- Submitting forms
+- Uploading files
+
+---
+
+## Complete HTTP Request
+
+```http
+POST /login HTTP/1.1
+Host: example.com
+Content-Type: application/x-www-form-urlencoded
+
+username=soham&password=hello123
+```
+
+---
+
+# HTTP Response
+
+After processing the request, the server sends an HTTP Response.
+
+Example:
+
+```http
+HTTP/1.1 200 OK
+Content-Type: text/html
+
+<html>
+...
+</html>
+```
+
+---
+
+## Structure of an HTTP Response
+
+Every response also consists of four parts.
+
+```text
+┌──────────────────────────────┐
+│ Status Line                  │
+├──────────────────────────────┤
+│ Response Headers             │
+├──────────────────────────────┤
+│ Blank Line                   │
+├──────────────────────────────┤
+│ Body                         │
+└──────────────────────────────┘
+```
+
+---
+
+## 1. Status Line
+
+Example:
+
+```http
+HTTP/1.1 200 OK
+```
+
+It contains:
+
+| Component | Description |
+|-----------|-------------|
+| HTTP Version | Protocol version |
+| Status Code | Result of the request |
+| Status Message | Description of the status |
+
+Example:
+
+```text
+HTTP/1.1
+
+↓
+
+200
+
+↓
+
+OK
+```
+
+---
+
+## 2. Response Headers
+
+Headers describe the response being sent.
+
+Example:
+
+```http
+Content-Type: text/html
+Content-Length: 5420
+Server: nginx
+```
+
+Some common response headers are:
+
+| Header | Purpose |
+|---------|----------|
+| Content-Type | Type of content |
+| Content-Length | Size of response |
+| Server | Web server software |
+| Set-Cookie | Creates cookies |
+
+---
+
+## 3. Blank Line
+
+Separates response headers from the response body.
+
+---
+
+## 4. Response Body
+
+The response body contains the actual data returned by the server.
+
+It may include:
+
+- HTML
+- CSS
+- JavaScript
+- Images
+- JSON
+- XML
+
+Example:
+
+```html
+<html>
+
+<h1>Welcome</h1>
+
+</html>
+```
+
+The browser reads this content and renders the webpage.
+
+---
+
+# Request vs Response
+
+| HTTP Request | HTTP Response |
+|--------------|---------------|
+| Sent by Client | Sent by Server |
+| Requests data | Returns data |
+| Contains Request Line | Contains Status Line |
+| May contain user input | Contains requested resource |
+
+---
+
+# Common HTTP Methods
+
+| Method | Purpose |
+|----------|----------|
+| GET | Retrieve data |
+| POST | Submit data |
+| PUT | Replace existing data |
+| PATCH | Update part of existing data |
+| DELETE | Delete data |
+
+We'll study these methods in detail in the next lesson.
+
+---
+
+# Common Status Codes
+
+| Code | Meaning |
+|------|---------|
+| 200 | OK |
+| 301 | Moved Permanently |
+| 302 | Temporary Redirect |
+| 403 | Forbidden |
+| 404 | Not Found |
+| 500 | Internal Server Error |
+
+We'll explore status codes in depth later.
+
+---
+
+# Why HTTP Matters in Web Security
+
+Almost every web attack involves HTTP.
+
+Examples:
+
+| Attack | Manipulates |
+|---------|-------------|
+| SQL Injection | HTTP Request |
+| Cross-Site Scripting (XSS) | HTTP Response |
+| CSRF | HTTP Request |
+| IDOR | HTTP Request |
+| Burp Suite | HTTP Requests & Responses |
+
+Understanding HTTP means understanding how web applications communicate.
+
+---
+
+# Key Points
+
+- HTTP stands for HyperText Transfer Protocol.
+- It follows the Request-Response model.
+- HTTP is stateless.
+- Every HTTP request has four parts.
+- Every HTTP response has four parts.
+- The browser sends requests.
+- The server sends responses.
+- Login data is usually sent in the request body.
+- HTTP is the foundation of Web Security.
+
+---
+
+# Common Interview Questions
+
+### What is HTTP?
+
+HTTP (HyperText Transfer Protocol) is the communication protocol used between a client and a web server.
+
+---
+
+### What does "stateless" mean?
+
+The server treats every request as an independent request and does not automatically remember previous requests.
+
+---
+
+### Who sends an HTTP Request?
+
+The client (browser).
+
+---
+
+### Who sends an HTTP Response?
+
+The server.
+
+---
+
+### What are the four parts of an HTTP Request?
+
+- Request Line
+- Request Headers
+- Blank Line
+- Body (Optional)
+
+---
+
+### What are the four parts of an HTTP Response?
+
+- Status Line
+- Response Headers
+- Blank Line
+- Body
+
+---
+
+# Hands-on Practice
+
+1. Open Chrome.
+2. Press **F12**.
+3. Go to the **Network** tab.
+4. Visit `https://example.com`.
+5. Select the first request.
+
+Try to identify:
+
+- Request Line
+- Request Headers
+- Response Headers
+- Status Code
+- Request Method
+- Response Body
+
+Observe how the browser and server communicate using HTTP.
+
+---
+
+# Quick Revision
+
+```text
+HTTP
+
+↓
+
+Browser sends Request
+
+↓
+
+Server processes Request
+
+↓
+
+Server sends Response
+
+↓
+
+Browser displays Webpage
+
+────────────────────────────
+
+HTTP Request
+
+Request Line
+
+↓
+
+Headers
+
+↓
+
+Blank Line
+
+↓
+
+Body
+
+────────────────────────────
+
+HTTP Response
+
+Status Line
+
+↓
+
+Headers
+
+↓
+
+Blank Line
+
+↓
+
+Body
+```
