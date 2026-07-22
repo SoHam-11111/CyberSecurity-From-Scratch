@@ -1,0 +1,116 @@
+Lab 09 - User ID Controlled by Request Parameter with Data Leakage in Redirect
+Objective
+Exploit an access control vulnerability where sensitive information is leaked inside the body of a redirect response to obtain Carlos's API key.
+
+Background
+Some applications attempt to prevent unauthorized access by redirecting users away from protected resources.
+
+However, if sensitive information is generated before the redirect is issued, that information may still be included in the HTTP response body.
+
+Browsers automatically follow redirects, hiding the intermediate response from users.
+
+Intercepting proxies like Burp Suite reveal the complete response before the redirect is processed.
+
+Vulnerability
+Information Disclosure through Redirect (IDOR + Data Leakage)
+
+The application attempted to enforce authorization using a redirect.
+
+Although the browser displayed only the redirected page, the server included Carlos's account information in the body of the 302 response.
+
+Initial Observation
+Logged in using:
+
+Username: wiener
+Password: peter
+Observed the account URL:
+
+/my-account?id=wiener
+Methodology
+Step 1 – Capture the Request
+Visited My Account.
+
+Sent the request to Burp Repeater.
+
+Step 2 – Modify the Identifier
+Changed:
+
+id=wiener
+to:
+
+id=carlos
+Step 3 – Analyze the Response
+The server returned:
+
+HTTP/1.1 302 Found
+along with a Location header redirecting the browser.
+
+Instead of stopping at the status code, inspected the response body.
+
+Step 4 – Discover Information Leakage
+Although the response was a redirect, the HTML body contained Carlos's:
+
+Username
+Email
+API Key
+The browser automatically followed the redirect, hiding this intermediate response.
+
+Burp Suite exposed the leaked information.
+
+Step 5 – Submit Solution
+Copied Carlos's API key from the response body.
+
+Submitted the key to complete the lab.
+
+Why the Attack Worked
+The application generated Carlos's account page before performing the authorization check.
+
+Only after generating the response did it issue a redirect.
+
+Sensitive data was therefore transmitted inside the HTTP response body.
+
+Root Cause
+Authorization was enforced too late in the request lifecycle.
+
+The application should verify permissions before retrieving or rendering protected data.
+
+Impact
+An attacker can obtain sensitive information despite being redirected, including:
+
+API keys
+User profiles
+Personal information
+Internal data
+Authentication tokens
+Prevention
+Perform authorization checks before generating any sensitive content.
+Avoid including confidential data in redirect responses.
+Return only the minimum required information in unauthorized responses.
+Test raw HTTP responses during security reviews.
+Burp Suite Skills Practiced
+Repeater
+HTTP Response Analysis
+Redirect Inspection
+Raw HTTP Analysis
+Key Learning Points
+Redirects do not guarantee security.
+Browsers hide intermediate responses.
+Burp Suite reveals everything transmitted over HTTP.
+Always inspect response bodies, even for 3xx status codes.
+Pentester's Perspective
+Never assume a redirect means the request failed securely.
+
+Always inspect the complete raw response. Sensitive information can be leaked before the browser follows the redirect, making this a common source of information disclosure during penetration tests.
+
+MITRE ATT&CK Mapping
+Tactic
+
+Collection
+Privilege Escalation
+Technique
+
+Exploitation of Broken Access Control
+OWASP Top 10 Mapping
+A01:2021 – Broken Access Control
+Lab Status
+✅ Solved
