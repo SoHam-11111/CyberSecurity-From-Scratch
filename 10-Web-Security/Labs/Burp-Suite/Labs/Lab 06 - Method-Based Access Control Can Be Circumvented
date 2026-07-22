@@ -1,0 +1,184 @@
+Lab 06 - Method-Based Access Control Can Be Circumvented
+Objective
+Exploit flawed method-based access controls to promote the user wiener to an administrator.
+
+Background
+Web applications use HTTP methods (also called HTTP verbs) to indicate the action a client wants to perform.
+
+Common HTTP methods include:
+
+Method	Purpose
+GET	Retrieve data
+POST	Submit/Create data
+PUT	Replace existing data
+PATCH	Modify existing data
+DELETE	Delete data
+HEAD	Retrieve headers only
+OPTIONS	Discover supported methods
+Access control should never depend on the HTTP method used to access a resource.
+
+Authorization should be enforced regardless of whether the request is sent using GET, POST, PUT, PATCH, or DELETE.
+
+If authorization is only checked for certain HTTP methods, attackers may bypass access controls simply by changing the request method.
+
+Vulnerability
+Method-Based Access Control Bypass
+
+The application only enforced administrator authorization for POST requests.
+
+When the same functionality was accessed using a GET request, the authorization check was skipped, allowing a normal user to perform an administrator-only action.
+
+Initial Reconnaissance
+The lab provided two accounts:
+
+Administrator:
+
+administrator
+admin
+Normal User:
+
+wiener
+peter
+The administrator account was used to observe how the application normally performs user promotion.
+
+Administrator Request
+While logged in as the administrator, promoting a user generated the following request:
+
+POST /admin-roles HTTP/2
+
+username=carlos&action=upgrade
+Request analysis:
+
+Component	Value
+Method	POST
+Endpoint	/admin-roles
+Parameter	username
+Action	upgrade
+This request upgrades the specified user to an administrator.
+
+Testing as a Normal User
+The same request was replayed using Wiener's session cookie.
+
+POST /admin-roles HTTP/2
+
+username=wiener&action=upgrade
+Response:
+
+401 Unauthorized
+This confirmed that the application blocked unauthorized POST requests.
+
+Investigating the HTTP Method
+Since the lab title suggested a method-based vulnerability, the HTTP method was changed.
+
+Original request:
+
+POST /admin-roles
+Modified request:
+
+GET /admin-roles?username=wiener&action=upgrade HTTP/2
+The POST body parameters were moved into the URL query string because GET requests do not normally contain a request body.
+
+Successful Exploitation
+The modified request was accepted.
+
+The user wiener was successfully promoted to an administrator.
+
+The lab was solved.
+
+Why the Attack Worked
+The application enforced authorization only for POST requests.
+
+Simplified vulnerable logic:
+
+if(request.method == "POST"){
+    if(!currentUser.isAdmin()){
+        return 401;
+    }
+}
+
+upgradeUser(username);
+When the attacker changed the request to GET, the authorization check was skipped while the role upgrade functionality was still executed.
+
+Attack Flow
+Normal User
+      │
+      ▼
+POST /admin-roles
+      │
+Authorization Check
+      │
+401 Unauthorized
+↓
+
+Attacker changes only the HTTP method
+
+↓
+
+Normal User
+      │
+      ▼
+GET /admin-roles
+      │
+No Authorization Check
+      │
+User Upgraded
+Root Cause
+The application incorrectly tied authorization checks to a specific HTTP method instead of protecting the functionality itself.
+
+Authorization should protect the resource regardless of how it is accessed.
+
+Impact
+If exploited in a real-world application, an attacker could:
+
+Promote themselves to administrator
+Modify user roles
+Delete users
+Access administrator functionality
+Perform privileged administrative actions
+This vulnerability can result in complete privilege escalation.
+
+Prevention
+Perform authorization checks for every request.
+Never depend on the HTTP method for security.
+Protect resources, not request methods.
+Ensure all supported HTTP methods enforce identical authorization logic.
+Disable unsupported HTTP methods where possible.
+Burp Suite Skills Practiced
+Proxy
+HTTP History
+Repeater
+HTTP Method Manipulation
+Parameter Manipulation
+Response Analysis
+Key Learning Points
+Authorization should never depend on the HTTP method.
+Changing GET to POST (or vice versa) should never bypass security.
+Always inspect administrator requests before attempting exploitation.
+Test whether an endpoint behaves differently when using different HTTP methods.
+A single change to the request method can expose serious authorization flaws.
+Pentester's Perspective
+Whenever you encounter an endpoint returning:
+
+401 Unauthorized
+or
+
+403 Forbidden
+ask yourself:
+
+Does the application behave differently with another HTTP method?
+Are authorization checks consistent across GET, POST, PUT, PATCH, DELETE, and HEAD?
+Can POST parameters be moved into the URL as GET parameters?
+Does the server process the request differently depending on the method?
+Changing the HTTP method is a simple but effective test during web application penetration testing. Although not as common as IDOR vulnerabilities, method-based authorization flaws can lead to critical privilege escalation when developers incorrectly associate security checks with specific HTTP methods.
+
+MITRE ATT&CK Mapping
+Tactic
+
+Privilege Escalation
+Technique
+
+Exploitation of Misconfigured Access Controls
+OWASP Top 10 Mapping
+A01:2021 – Broken Access Control
+Lab Status
+✅ Solved
