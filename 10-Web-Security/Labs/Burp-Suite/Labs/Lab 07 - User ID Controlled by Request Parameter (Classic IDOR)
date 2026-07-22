@@ -1,4 +1,4 @@
-Lab 06 - User ID Controlled by Request Parameter (Classic IDOR)
+Lab 07 - User ID Controlled by Request Parameter (Classic IDOR)
 Objective
 Exploit a horizontal privilege escalation vulnerability to obtain the API key of the user carlos.
 
