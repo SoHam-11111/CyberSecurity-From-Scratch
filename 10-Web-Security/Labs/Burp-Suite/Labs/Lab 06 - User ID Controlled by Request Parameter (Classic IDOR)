@@ -1,0 +1,189 @@
+Lab 06 - User ID Controlled by Request Parameter (Classic IDOR)
+Objective
+Exploit a horizontal privilege escalation vulnerability to obtain the API key of the user carlos.
+
+Background
+Many web applications use user-supplied identifiers to determine which resource should be displayed.
+
+For example:
+
+/my-account?id=wiener
+or
+
+/my-account?username=wiener
+The application reads the identifier from the request and displays the corresponding user's information.
+
+If the application does not verify that the requested resource belongs to the currently authenticated user, an attacker can simply modify the identifier and access another user's data.
+
+This vulnerability is known as an Insecure Direct Object Reference (IDOR).
+
+IDOR is a subtype of Broken Access Control and usually results in Horizontal Privilege Escalation.
+
+Vulnerability
+Horizontal Privilege Escalation (IDOR)
+
+The application trusted a user-controlled request parameter (id / username) to determine which account to display.
+
+No authorization check was performed to verify that the requested account belonged to the authenticated user.
+
+Initial Observation
+Logged in using:
+
+Username: wiener
+Password: peter
+Navigated to:
+
+My Account
+The page displayed:
+
+Username
+Email
+API Key
+The URL contained a user-controlled identifier similar to:
+
+/my-account?id=wiener
+or
+
+/my-account?username=wiener
+Methodology
+Step 1 – Identify the User Identifier
+Observed that the application used a request parameter to determine which user's profile should be displayed.
+
+Example:
+
+/my-account?id=wiener
+Step 2 – Test Parameter Manipulation
+Modified the request parameter from:
+
+wiener
+to
+
+carlos
+Example:
+
+/my-account?id=carlos
+Step 3 – Observe the Response
+Instead of returning:
+
+403 Forbidden
+or
+
+401 Unauthorized
+the application displayed Carlos's account.
+
+The response contained Carlos's:
+
+Username
+Email
+API Key
+This confirmed that authorization was missing.
+
+Step 4 – Submit the Solution
+Copied Carlos's API key.
+
+Submitted it to the lab solution page.
+
+The lab was successfully solved.
+
+Why the Attack Worked
+The application trusted user-controlled input to determine which account should be displayed.
+
+Simplified vulnerable logic:
+
+requested_user = request.GET["id"]
+
+show_profile(requested_user)
+No ownership verification was performed.
+
+The secure implementation should verify that the requested account belongs to the authenticated user.
+
+Example:
+
+requested_user = request.GET["id"]
+
+if requested_user != session.user:
+    return 403
+
+show_profile(requested_user)
+Attack Flow
+Attacker
+    │
+GET /my-account?id=carlos
+    │
+Application trusts parameter
+    │
+No ownership verification
+    │
+Displays Carlos's Account
+Root Cause
+The application directly trusted a user-controlled object reference without validating ownership.
+
+Authorization checks were missing.
+
+Impact
+If exploited in a real-world application, attackers may access:
+
+User profiles
+Personal information
+API Keys
+Bank accounts
+Medical records
+Customer invoices
+Private messages
+Internal documents
+Depending on the application, an IDOR vulnerability may expose highly sensitive information.
+
+Prevention
+Never trust user-supplied identifiers.
+Verify ownership before returning any resource.
+Use server-side authorization checks for every request.
+Retrieve resources using the authenticated session whenever possible.
+Implement role-based access control (RBAC) or attribute-based access control (ABAC).
+Log and monitor unauthorized access attempts.
+Burp Suite Skills Practiced
+Proxy
+HTTP History
+URL Parameter Manipulation
+Response Analysis
+Key Learning Points
+IDOR is one of the most common Broken Access Control vulnerabilities.
+Changing a user identifier should never grant access to another user's resources.
+Authentication alone is not enough; authorization must also be enforced.
+Every request that accesses a resource must verify ownership.
+Horizontal privilege escalation occurs when a user accesses another user's data.
+Pentester's Perspective
+Whenever you encounter parameters such as:
+
+id=
+user=
+userid=
+username=
+account=
+customer=
+profile=
+order=
+invoice=
+document=
+file=
+download=
+api=
+always ask:
+
+Can I modify this value?
+Does the server verify ownership?
+Do I receive another user's data?
+Can I access resources that belong to someone else?
+IDOR vulnerabilities are among the easiest to test and one of the most valuable findings in bug bounty programs and penetration tests.
+
+MITRE ATT&CK Mapping
+Tactic
+
+Collection
+Privilege Escalation
+Technique
+
+Exploitation of Broken Access Control
+OWASP Top 10 Mapping
+A01:2021 – Broken Access Control
+Lab Status
+✅ Solved
