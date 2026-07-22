@@ -1,0 +1,312 @@
+Web Security - Access Control
+Access Control
+What is Access Control?
+Access control is a security mechanism that determines who is allowed to access specific resources and what actions they are permitted to perform within an application.
+
+Access control works together with two other important security mechanisms:
+
+Authentication – verifies the identity of a user.
+Session Management – keeps track of authenticated users across multiple requests.
+Access Control – decides what authenticated users are allowed to do.
+For example:
+
+Authentication
+      │
+      ▼
+User is Soham
+      │
+      ▼
+Session Created
+      │
+      ▼
+Access Control
+      │
+      ▼
+Can Soham access /admin?
+Without proper access control, any authenticated user might be able to access resources belonging to other users or administrative functionality.
+
+Broken Access Control is one of the most critical vulnerabilities in modern web applications and consistently ranks among the top security risks in the OWASP Top 10. PortSwigger also highlights that broken access controls are common because access control rules are complex and easy to implement incorrectly.
+
+Why is Access Control Important?
+Imagine an online banking application.
+
+Different users have different permissions.
+
+User	Permissions
+Customer	View own account
+Manager	Approve loans
+Administrator	Manage users
+If the bank only verifies that a person is logged in, but never checks what they are allowed to do, every customer could potentially approve loans or delete accounts.
+
+Authentication alone is not enough.
+
+Authorization (Access Control) must also be enforced.
+
+Types of Access Control
+There are three primary types of access control vulnerabilities.
+
+1. Vertical Access Control
+Vertical access control restricts functionality based on user roles.
+
+Example:
+
+Administrator
+│
+├── Delete Users
+├── Manage Products
+├── View Reports
+└── Configure Website
+
+Regular User
+│
+├── Buy Products
+├── Edit Profile
+└── View Orders
+Only administrators should access:
+
+/admin
+If a normal user gains access to administrator functionality, it is called:
+
+Vertical Privilege Escalation
+Example:
+
+Normal User
+
+↓
+
+Accesses
+
+/admin
+
+↓
+
+Deletes Users
+
+↓
+
+Vertical Privilege Escalation
+Common Causes
+1. Unprotected Admin URLs
+Example:
+
+/admin
+The application simply forgets to check whether the current user is an administrator.
+
+Anyone can visit:
+
+/admin
+This was our Lab 1.
+
+2. Security Through Obscurity
+Developers hide the admin page:
+
+/administrator-panel-x91k4
+instead of protecting it.
+
+The URL leaks inside:
+
+JavaScript
+robots.txt
+HTML source
+API responses
+Attackers discover it.
+
+This was Lab 2.
+
+3. Parameter-Based Access Control
+Applications store the user's role in client-controlled data such as:
+
+Cookie
+Hidden Field
+Query Parameter
+JSON
+Example:
+
+Cookie:
+
+Admin=false
+Attacker changes it to
+
+Admin=true
+Now the application believes the attacker is an administrator.
+
+This was Lab 3.
+
+4. Mass Assignment (Role Modification)
+Some applications expose sensitive fields in API requests.
+
+Example:
+
+{
+    "email":"abc@test.com",
+    "roleid":1
+}
+Attacker changes:
+
+roleid:2
+The application automatically updates the user's role.
+
+This was Lab 4.
+
+5. URL-Based Access Control Bypass
+This was today's lab and one of the most interesting examples of broken access control due to platform misconfiguration. PortSwigger explains that some frameworks support non-standard headers like X-Original-URL and X-Rewrite-URL, which can override the requested URL if the backend trusts them.
+
+The Architecture
+Many applications sit behind a reverse proxy.
+
+Browser
+    │
+    ▼
+Reverse Proxy
+(Nginx / Apache / IIS)
+    │
+Checks URL
+    │
+    ▼
+Backend Application
+The reverse proxy acts like a security guard.
+
+Normal Request
+GET /admin
+The proxy checks the URL.
+
+/admin
+
+↓
+
+Blocked
+
+↓
+
+403 Forbidden
+The request never reaches the backend.
+
+The Vulnerability
+Some backend frameworks trust special headers such as:
+
+X-Original-URL
+X-Rewrite-URL
+Originally, these headers were designed for URL rewriting.
+
+If the backend trusts these headers but the reverse proxy only checks the request path, the attacker can make both systems interpret the request differently.
+
+Exploitation
+Instead of requesting
+
+GET /admin
+the attacker sends
+
+GET /
+
+X-Original-URL: /admin
+Now the systems disagree.
+
+Reverse Proxy sees
+
+/
+Backend sees
+
+/admin
+The request reaches the admin panel even though the proxy attempted to block it.
+
+Visual Flow
+Client
+   │
+GET /
+X-Original-URL: /admin
+   │
+   ▼
+Reverse Proxy
+
+Sees "/"
+
+↓
+
+Allows
+
+↓
+
+Backend
+
+Reads
+
+X-Original-URL: /admin
+
+↓
+
+Returns Admin Panel
+Why It Happens
+The application trusts client-controlled rewrite headers.
+
+Access control exists only in the reverse proxy.
+
+The backend performs no authorization check.
+
+This creates an Access Control Bypass.
+
+Real-World Impact
+Successful exploitation may allow attackers to:
+
+Access hidden administrator pages
+Delete users
+Modify administrator settings
+Access confidential information
+Execute privileged functionality
+Prevention
+Never trust X-Original-URL or X-Rewrite-URL from external users.
+Strip rewrite headers before forwarding requests.
+Enforce authorization in the backend application.
+Never rely solely on reverse proxy URL filtering.
+2. Horizontal Access Control
+Horizontal access control restricts users from accessing resources belonging to other users.
+
+Example:
+
+User A
+
+↓
+
+/my-account?id=101
+Attacker changes:
+
+/my-account?id=102
+Now the attacker accesses another user's account.
+
+This is called:
+
+Horizontal Privilege Escalation
+PortSwigger also notes that this is a classic example of an Insecure Direct Object Reference (IDOR) vulnerability.
+
+3. Context-Dependent Access Control
+Sometimes access depends on the application's current state rather than user roles.
+
+Example:
+
+Shopping Cart
+
+↓
+
+Checkout
+
+↓
+
+Payment Completed
+After payment:
+
+Modify Cart
+should not be allowed.
+
+If the application allows users to return and modify the cart after payment, context-dependent access control is broken.
+
+Common Causes of Broken Access Control
+Missing authorization checks
+Predictable URLs
+Security through obscurity
+Client-side role storage
+IDOR vulnerabilities
+Platform misconfiguration
+Trusting HTTP headers
+Multi-step workflow flaws
+Referer-based authorization
+URL matching discrepancies
+Method-based access control issues
