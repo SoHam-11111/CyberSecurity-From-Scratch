@@ -1,0 +1,189 @@
+Lab 08 - User ID Controlled by Request Parameter with Unpredictable User IDs
+Objective
+Exploit a horizontal privilege escalation vulnerability by discovering Carlos's GUID (Globally Unique Identifier), accessing his account, and retrieving his API key.
+
+Background
+Many applications replace predictable identifiers (such as usernames or numeric IDs) with randomly generated values like UUIDs or GUIDs.
+
+Example:
+
+/my-account?id=5d8fae32-b6fc-41f5-9d8d-6ef2b5ef3f65
+Developers often assume that because these identifiers cannot be guessed, users cannot access other accounts.
+
+However, unpredictable identifiers are not an access control mechanism. If the application exposes these identifiers elsewhere, an attacker can still obtain them and exploit missing authorization checks.
+
+Vulnerability
+Horizontal Privilege Escalation (IDOR)
+
+The application relied solely on a user-controlled GUID to determine which account should be displayed.
+
+Although the identifier was difficult to guess, it was publicly exposed through another part of the application.
+
+The server failed to verify whether the authenticated user was authorized to access the requested account.
+
+Initial Observation
+Logged in using:
+
+Username: wiener
+Password: peter
+Visited:
+
+My Account
+Observed a URL similar to:
+
+/my-account?id=invj04bfn...
+Unlike the previous lab, usernames were replaced with random-looking identifiers.
+
+Direct guessing was no longer practical.
+
+Reconnaissance
+The first objective was to discover whether the application exposed user identifiers elsewhere.
+
+Browsed the public blog.
+
+Opened several blog posts.
+
+Observed that posts displayed the author's name.
+
+Clicked on the author Carlos.
+
+The application opened Carlos's public profile page.
+
+The URL contained Carlos's GUID.
+
+This demonstrated that the supposedly "secret" identifier was publicly accessible.
+
+Methodology
+Step 1 – Obtain Your Own GUID
+Logged into the account page and observed the GUID in the URL.
+
+Example:
+
+/my-account?id=<your-guid>
+Step 2 – Search for Carlos
+Browsed public blog posts.
+
+Located a post written by Carlos.
+
+Clicked Carlos's username.
+
+Step 3 – Discover Carlos's GUID
+Carlos's public profile page exposed his GUID.
+
+This GUID was copied for further testing.
+
+Step 4 – Modify the Request
+Changed the account URL from:
+
+/my-account?id=<your-guid>
+to
+
+/my-account?id=<carlos-guid>
+Step 5 – Observe the Response
+The server returned Carlos's account information, including:
+
+Username
+Email
+API Key
+No authorization checks were performed.
+
+Step 6 – Submit Solution
+Copied Carlos's API key.
+
+Submitted it to complete the lab.
+
+Why the Attack Worked
+The application believed that using unpredictable identifiers was sufficient protection.
+
+Internally, the logic resembled:
+
+user = database.find(request.GET["id"])
+show_account(user)
+The server never verified whether the authenticated user actually owned the requested account.
+
+A secure implementation would include an authorization check such as:
+
+user = database.find(request.GET["id"])
+
+if user != session.user:
+    return 403
+
+show_account(user)
+Attack Flow
+Attacker
+      │
+Discovers Carlos's GUID
+      │
+Changes URL
+      │
+GET /my-account?id=<Carlos_GUID>
+      │
+Server trusts GUID
+      │
+No ownership verification
+      │
+Carlos's account displayed
+Root Cause
+The application treated an unpredictable identifier as if it were an authorization mechanism.
+
+The GUID only made guessing more difficult.
+
+It did not verify ownership of the requested resource.
+
+Impact
+Successful exploitation may expose:
+
+API Keys
+Personal information
+Customer accounts
+Financial records
+Medical data
+Private documents
+Internal resources
+If sensitive operations are available, attackers may also modify or delete another user's data.
+
+Prevention
+Never rely on unpredictable IDs for security.
+Perform server-side authorization checks on every request.
+Verify resource ownership before returning data.
+Use authenticated session information whenever possible.
+Treat GUIDs only as identifiers, not as access control.
+Burp Suite Skills Practiced
+Reconnaissance
+URL Analysis
+Parameter Manipulation
+Access Control Testing
+Key Learning Points
+Random identifiers are not security controls.
+Hidden identifiers are frequently leaked elsewhere in an application.
+Authorization must be enforced regardless of how unpredictable an identifier appears.
+IDOR vulnerabilities remain exploitable even when GUIDs are used.
+Pentester's Perspective
+When testing applications that use UUIDs or GUIDs, never assume they cannot be exploited.
+
+Always search for identifier leakage in:
+
+Public profiles
+Blog authors
+Comments
+API responses
+JavaScript files
+HTML source
+Network traffic
+Search functionality
+If another user's identifier can be discovered anywhere, immediately test whether it can be used to access protected resources.
+
+This is one of the most common real-world IDOR scenarios.
+
+MITRE ATT&CK Mapping
+Tactic
+
+Collection
+Privilege Escalation
+Technique
+
+Exploitation of Broken Access Control
+OWASP Top 10 Mapping
+A01:2021 – Broken Access Control
+Lab Status
+✅ Solved
