@@ -1,0 +1,216 @@
+Lab 05 - URL-Based Access Control Can Be Circumvented
+Objective
+Access the administrator panel by bypassing URL-based access control and delete the user carlos.
+
+Background
+Many web applications place a Reverse Proxy (such as Nginx, Apache, IIS, or a Load Balancer) in front of the backend application.
+
+The reverse proxy often performs access control by checking the requested URL before forwarding the request to the backend server.
+
+Example:
+
+Browser
+    │
+    ▼
+Reverse Proxy
+    │
+Checks URL
+    │
+    ▼
+Backend Application
+Normally, if a user requests:
+
+GET /admin
+the reverse proxy blocks the request and returns:
+
+403 Forbidden
+without forwarding the request to the backend.
+
+However, some backend frameworks support special HTTP headers such as:
+
+X-Original-URL
+X-Rewrite-URL
+These headers were originally designed for URL rewriting between reverse proxies and backend servers.
+
+If the reverse proxy checks only the requested URL while the backend trusts these headers, both components interpret the request differently, leading to an Access Control Bypass.
+
+Vulnerability
+Broken Access Control due to Platform Misconfiguration
+
+The reverse proxy enforced access control based only on the requested URL.
+
+The backend application trusted the user-controlled X-Original-URL header.
+
+An attacker could manipulate this header to access protected administrator functionality.
+
+Initial Observation
+Direct access to:
+
+/admin
+returned
+
+403 Forbidden
+indicating that access control was implemented at the front-end proxy.
+
+Methodology
+Step 1 – Test Direct Access
+Requested:
+
+GET /admin HTTP/2
+Response:
+
+403 Forbidden
+This confirmed that the administrator endpoint existed but was protected.
+
+Step 2 – Investigate Platform Behaviour
+Since the lab title mentioned URL-based access control, the possibility of URL rewriting was investigated.
+
+Common rewrite headers include:
+
+X-Original-URL
+X-Rewrite-URL
+Step 3 – Modify the Request
+Instead of requesting:
+
+GET /admin HTTP/2
+the following request was sent:
+
+GET / HTTP/2
+Host: vulnerable-site
+Cookie: session=...
+
+X-Original-URL: /admin
+The reverse proxy examined only:
+
+GET /
+and therefore allowed the request.
+
+The backend trusted:
+
+X-Original-URL: /admin
+and returned the administrator panel.
+
+Step 4 – Delete Carlos
+The delete endpoint was identified from the administrator panel.
+
+The following request was modified:
+
+GET / HTTP/2
+
+X-Original-URL:
+/admin/delete?username=carlos
+The backend executed the administrator action and deleted the user.
+
+The lab was successfully solved.
+
+Why the Attack Worked
+The reverse proxy and backend interpreted the request differently.
+
+Reverse Proxy:
+
+GET /
+↓
+
+Allowed request.
+
+Backend:
+
+X-Original-URL:
+/admin
+↓
+
+Returned administrator functionality.
+
+This disagreement created an Access Control Bypass.
+
+Attack Flow
+Client
+    │
+GET /
+X-Original-URL: /admin
+    │
+    ▼
+Reverse Proxy
+
+Checks only:
+
+/
+
+↓
+
+Allows
+
+↓
+
+Backend
+
+Reads:
+
+X-Original-URL: /admin
+
+↓
+
+Returns Admin Panel
+Root Cause
+Access control enforced only at the reverse proxy.
+Backend trusted client-controlled rewrite headers.
+Missing authorization checks inside the application.
+Impact
+If exploited in a real application, an attacker may:
+
+Access hidden administrator panels
+Delete users
+Modify administrator settings
+View confidential information
+Perform privileged administrative actions
+This could result in a complete compromise of administrative functionality.
+
+Prevention
+Never trust user-controlled rewrite headers.
+Remove X-Original-URL and X-Rewrite-URL before forwarding requests.
+Enforce authorization checks in the backend application.
+Never rely solely on reverse proxy URL filtering.
+Validate permissions for every sensitive request.
+Burp Suite Skills Practiced
+Proxy
+HTTP History
+Repeater
+Header Manipulation
+Response Analysis
+Key Learning Points
+Access control should never rely only on reverse proxies.
+Backend applications should never trust client-controlled rewrite headers.
+Different application components may interpret the same request differently.
+Always investigate how access control is implemented instead of assuming it is secure.
+A single access control bypass can often be chained into full administrative compromise.
+Pentester's Perspective
+Whenever a protected endpoint returns:
+
+401 Unauthorized
+or
+
+403 Forbidden
+ask the following questions:
+
+Is the restriction implemented by the application or by a reverse proxy?
+Does the backend trust any rewrite headers?
+Can the request be interpreted differently by different components?
+Can URL rewriting bypass access control?
+Headers worth testing include:
+
+X-Original-URL
+X-Rewrite-URL
+The objective is not to memorize specific headers, but to determine whether different parts of the infrastructure interpret the request differently.
+
+MITRE ATT&CK Mapping
+Tactic
+
+Privilege Escalation
+Defense Evasion
+Technique
+
+Exploitation of Misconfigured Access Controls
+OWASP Top 10 Mapping
+A01:2021 – Broken Access Control
+Lab Status
+✅ Solved
