@@ -1,0 +1,131 @@
+Lab 12 - Multi-Step Process with No Access Control on One Step
+Objective
+Exploit a flawed multi-step role upgrade process to promote the low-privileged user (wiener) to an administrator.
+
+Background
+The application allows administrators to promote users through a multi-step workflow.
+
+The process includes:
+
+Initiating a role upgrade.
+Confirming the action.
+Updating the user's role.
+The vulnerability exists because one step in the workflow lacks proper authorization checks.
+
+Vulnerability
+Broken Access Control – Multi-Step Process
+
+The application enforced authorization on one step of the workflow but failed to enforce it on another.
+
+An attacker could bypass the intended confirmation process and directly invoke the vulnerable step.
+
+Reconnaissance
+Logged in as:
+
+administrator : admin
+Observed the promotion workflow.
+
+The role upgrade consisted of:
+
+GET /admin
+↓
+
+POST /admin-roles
+The POST request contained:
+
+action=upgrade
+confirmed=true
+username=carlos
+Initial Testing
+Replayed the complete POST request as Wiener.
+
+Response:
+
+401 Unauthorized
+This confirmed that the fully confirmed request was protected.
+
+Exploitation
+The request was modified by removing the confirmation parameter:
+
+action=upgrade
+username=wiener
+The application processed the request successfully and promoted the low-privileged account to administrator.
+
+Why the Attack Worked
+The application trusted the client-side workflow.
+
+Although the confirmation step enforced authorization, the earlier stage failed to verify whether the requester was an administrator.
+
+The server accepted the role upgrade request without performing a proper authorization check.
+
+Attack Flow
+Administrator Workflow
+
+GET /admin
+      │
+      ▼
+POST /admin-roles
+action=upgrade
+confirmed=true
+username=carlos
+
+──────────────────────────
+
+Attacker
+
+POST /admin-roles
+action=upgrade
+username=wiener
+
+↓
+
+Application updates role
+without verifying privileges.
+Root Cause
+Authorization was enforced inconsistently across a multi-step workflow.
+
+Each endpoint relied on assumptions about previous steps instead of validating permissions independently.
+
+Impact
+An attacker can:
+
+Escalate privileges.
+Gain administrator access.
+Bypass business logic.
+Perform privileged administrative actions.
+Prevention
+Perform authorization checks on every request.
+Never rely on client-side workflow enforcement.
+Do not trust hidden form fields or confirmation parameters.
+Validate user permissions immediately before executing privileged actions.
+Burp Suite Skills Practiced
+HTTP History
+Repeater
+Workflow Analysis
+Request Modification
+Business Logic Testing
+Key Learning Points
+Multi-step workflows require authorization at every step.
+Attackers interact directly with endpoints instead of using the UI.
+Hidden parameters should never determine authorization.
+Business logic flaws are often caused by incorrect trust assumptions.
+Pentester's Perspective
+Whenever you encounter a multi-step workflow, ask:
+
+Can I skip a step?
+Can I replay only the final request?
+Can I remove confirmation parameters?
+Does every endpoint verify authorization independently?
+Many privilege escalation vulnerabilities arise because developers secure the interface rather than the underlying API.
+
+MITRE ATT&CK Mapping
+Tactic
+
+Privilege Escalation
+Technique
+
+Exploitation of Broken Access Control
+OWASP Top 10 Mapping
+A01:2021 – Broken Access Control
+Lab Status
+✅ Solved
