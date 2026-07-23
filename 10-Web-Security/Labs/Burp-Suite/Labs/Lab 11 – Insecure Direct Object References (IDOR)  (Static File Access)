@@ -1,0 +1,150 @@
+Lab 11 - Insecure Direct Object References (Static File Access)
+Objective
+Exploit an Insecure Direct Object Reference (IDOR) vulnerability to retrieve Carlos's password from a chat transcript and log in as Carlos.
+
+Background
+The application provides a live chat feature.
+
+When a chat session ends, the transcript is saved directly on the server's file system and made available for download.
+
+Instead of using secure authorization checks, the application retrieves transcripts using predictable static filenames.
+
+Vulnerability
+Insecure Direct Object Reference (IDOR) – Static File Access
+
+The application exposed chat transcripts using sequential filenames such as:
+
+/download-transcript/1.txt
+The server did not verify whether the authenticated user owned the requested transcript.
+
+Initial Observation
+Started a live chat session.
+
+After ending the conversation, selected:
+
+View transcript
+Burp Suite captured a request similar to:
+
+GET /download-transcript/5.txt
+The transcript was downloaded as a plain text file.
+
+Methodology
+Step 1 – Capture Transcript Request
+Observed the request:
+
+GET /download-transcript/5.txt
+The filename appeared predictable.
+
+Step 2 – Test File Enumeration
+Modified the filename in Burp Repeater:
+
+5.txt
+↓
+
+4.txt
+3.txt
+2.txt
+1.txt
+Existing files returned:
+
+HTTP/1.1 200 OK
+Non-existent files returned:
+
+HTTP/1.1 404 Not Found
+This confirmed that transcript filenames were sequential and accessible.
+
+Step 3 – Inspect Other Users' Transcripts
+Reviewed the contents of the accessible transcript files.
+
+Transcript 1.txt contained a conversation involving Carlos.
+
+The conversation revealed Carlos's password.
+
+Step 4 – Authenticate as Carlos
+Logged into the application using:
+
+Username: carlos
+Password: Retrieved from 1.txt
+The lab was successfully solved.
+
+Why the Attack Worked
+The application directly trusted the filename supplied in the request.
+
+It only verified whether the requested file existed.
+
+It never verified whether the authenticated user was authorized to access that transcript.
+
+Attack Flow
+Attacker
+     │
+Downloads own transcript
+     │
+Observes filename
+     │
+Enumerates:
+1.txt
+2.txt
+3.txt
+4.txt
+     │
+Server returns files
+without ownership checks
+     │
+Reads Carlos's transcript
+     │
+Obtains password
+Root Cause
+The application used predictable object references (filenames) without enforcing authorization.
+
+Authorization should be based on resource ownership, not merely file existence.
+
+Impact
+Successful exploitation may expose:
+
+Customer support conversations
+Passwords
+Personal information
+Internal discussions
+API keys
+Financial information
+Medical records
+If sensitive information is disclosed, attackers may gain unauthorized access to user accounts.
+
+Prevention
+Verify ownership before serving any file.
+Avoid predictable sequential filenames.
+Use random, unguessable identifiers where appropriate.
+Store metadata linking each file to its owner.
+Perform server-side authorization checks for every file request.
+Burp Suite Skills Practiced
+HTTP History
+Repeater
+URL Manipulation
+File Enumeration
+Response Analysis
+Key Learning Points
+IDOR vulnerabilities are not limited to URL parameters.
+Files on a server are also objects.
+Predictable filenames combined with missing authorization checks lead to information disclosure.
+Always inspect downloadable resources for enumeration opportunities.
+Pentester's Perspective
+Whenever an application allows file downloads, ask:
+
+Are filenames predictable?
+Can I change the filename?
+Does the server verify ownership?
+Can I enumerate other users' files?
+Many real-world vulnerabilities arise from direct access to documents, images, chat logs, invoices, or reports stored on disk without proper authorization.
+
+MITRE ATT&CK Mapping
+Tactic
+
+Collection
+Credential Access
+Technique
+
+Exploitation of Broken Access Control
+OWASP Top 10 Mapping
+A01:2021 – Broken Access Control
+Lab Status
+✅ Solved
