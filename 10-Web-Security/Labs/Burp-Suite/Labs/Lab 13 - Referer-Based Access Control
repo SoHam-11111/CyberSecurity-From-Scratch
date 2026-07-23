@@ -1,0 +1,120 @@
+Lab 13 - Referer-Based Access Control
+Objective
+Exploit a broken access control vulnerability that relies on the HTTP Referer header to promote the low-privileged user (wiener) to administrator.
+
+Background
+The application provides an administrative function for upgrading user roles.
+
+Instead of verifying whether the authenticated user has administrative privileges, the application incorrectly relies on the HTTP Referer header to determine whether the request originated from the admin panel.
+
+Vulnerability
+Broken Access Control – Referer-Based Authorization
+
+The server granted access to privileged functionality based on the client-controlled Referer header.
+
+Because HTTP headers can be modified by an attacker, this authorization mechanism is insecure.
+
+Reconnaissance
+Logged in as:
+
+administrator : admin
+Observed the role upgrade request:
+
+GET /admin-roles?username=carlos&action=upgrade
+The request contained:
+
+Referer: https://<lab-id>.web-security-academy.net/admin
+This suggested that the application might be validating the Referer header instead of verifying the user's privileges.
+
+Exploitation
+Logged in as:
+
+wiener : peter
+Captured the administrator's request and modified:
+
+Cookie:
+↓
+
+Wiener's session
+Changed:
+
+username=carlos
+↓
+
+username=wiener
+Preserved:
+
+Referer: https://<lab-id>.web-security-academy.net/admin
+The server accepted the request and upgraded Wiener's account to administrator.
+
+Why the Attack Worked
+The application trusted the Referer header to determine whether the request originated from the administrative interface.
+
+Since Referer is entirely controlled by the client, an attacker could forge the header using Burp Suite and bypass authorization.
+
+Attack Flow
+Attacker
+
+Crafts request
+
+↓
+
+Referer: /admin
+
+↓
+
+Server trusts header
+
+↓
+
+Role upgraded
+
+↓
+
+Privilege Escalation
+Root Cause
+Authorization decisions were based on a client-controlled HTTP header instead of authenticated user permissions.
+
+Impact
+Successful exploitation allows attackers to:
+
+Escalate privileges
+Gain administrator access
+Execute privileged administrative actions
+Completely compromise the application
+Prevention
+Never use Referer for authorization.
+Perform server-side authorization checks on every request.
+Validate the authenticated user's role before executing privileged actions.
+Treat all client-supplied headers as untrusted input.
+Burp Suite Skills Practiced
+HTTP History
+Repeater
+Header Manipulation
+Authorization Testing
+Privilege Escalation
+Key Learning Points
+HTTP Referer is controlled by the client.
+Client-controlled headers should never determine authorization.
+Every privileged endpoint must verify the user's permissions on the server.
+Burp Suite allows easy manipulation of HTTP headers for security testing.
+Pentester's Perspective
+Whenever an application behaves differently based on HTTP headers, ask:
+
+Can I modify the Referer?
+Can I spoof the Origin?
+Can I manipulate X-Forwarded-* headers?
+Is the server trusting client-controlled metadata?
+These checks often reveal authorization bypass vulnerabilities.
+
+MITRE ATT&CK Mapping
+Tactic
+
+Privilege Escalation
+Technique
+
+Exploitation of Broken Access Control
+OWASP Top 10 Mapping
+A01:2021 – Broken Access Control
+Lab Status
+✅ Solved
